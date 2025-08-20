@@ -15,11 +15,18 @@
 - Mark tasks complete immediately after finishing, don't batch
 - Only have ONE task in_progress at a time
 
-## Git Commits
-- Commit with explicit file names, avoid blind `git add .`
-- Use single command for commit (don't stage separately)
-- Use descriptive commit messages
-- Include "Committed by Claude" instead of promotional text
+## Git Commit Protocol
+1. Don't use `git diff` unnecessarily
+2. Always use explicit file names - never `git add directory/` or `git add .`
+3. Single command workflow - use `git add file1 file2 && git rm file3 && git commit -m "message"`
+4. Instead of promotional text, use "Committed by Claude" in commit messages
+
+## Chezmoi Dotfiles Protocol
+1. Edit source files in ~/.local/share/chezmoi/
+2. Check changes with `git diff`
+3. Commit source changes first: `git add file && git commit -m "message"`
+4. Apply to targets: `chezmoi apply -v`
+5. Verify targets updated correctly
 
 ## Compilation
 - User will check for compiler errors and report them

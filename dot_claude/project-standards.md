@@ -26,11 +26,10 @@
 2. Check `git status` and `chezmoi status` - confirm if unexpected uncommitted or unapplied changes found
 3. Commit source changes first: `git add file && git commit -m "message"`
 4. Apply to targets: `chezmoi apply -v`
-5. Verify targets updated correctly
+5. Verify targets updated correctly with `chezmoi diff` - should show no differences
 
 ## User Communication
 - When presenting multiple options, use numbers or letters for easy selection
-- User can reply with just the number/letter instead of typing full responses
 
 ## Compilation
 - User will check for compiler errors and report them

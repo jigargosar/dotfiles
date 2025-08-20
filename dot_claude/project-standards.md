@@ -23,9 +23,9 @@
 
 ## Chezmoi Dotfiles Protocol
 1. Edit source files in ~/.local/share/chezmoi/
-2. Check `git status` and `chezmoi status` - confirm if unexpected uncommitted or unapplied changes found
+2. Run `git status && chezmoi status` - confirm if unexpected uncommitted or unapplied changes found
 3. Commit source changes first: `git add file && git commit -m "message"`
-4. Apply to targets: `chezmoi apply -v`
+4. Apply to targets: `chezmoi apply -v --force`
 5. Verify targets updated correctly with `chezmoi diff` - should show no differences
 
 ## User Communication

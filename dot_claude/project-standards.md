@@ -28,6 +28,10 @@
 4. Apply to targets: `chezmoi apply -v`
 5. Verify targets updated correctly
 
+## User Communication
+- When presenting multiple options, use numbers or letters for easy selection
+- User can reply with just the number/letter instead of typing full responses
+
 ## Compilation
 - User will check for compiler errors and report them
 - Don't create unnecessary files during compilation checks

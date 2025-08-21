@@ -32,6 +32,7 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 4. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
 5. Apply to targets: `chezmoi apply --force`
 6. Run `chezmoi git status && chezmoi status` - should show clean working tree and no unapplied changes
+7. Push changes: `chezmoi git -- push`
 
 ### User Communication
 - When presenting multiple options, use numbers or letters for easy selection

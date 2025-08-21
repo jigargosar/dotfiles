@@ -30,7 +30,7 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 2. Run `chezmoi git status && chezmoi status` - if no changes found, protocol complete
 3. List changes as expected (from step 1 edits) or unexpected - halt iff unexpected changes found
 4. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
-5. Apply to targets: `chezmoi apply -v --force`
+5. Apply to targets: `chezmoi apply --force`
 6. Run `chezmoi git status && chezmoi status` - should show clean working tree and no unapplied changes
 
 ### User Communication

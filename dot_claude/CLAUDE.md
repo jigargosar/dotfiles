@@ -27,7 +27,7 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 
 ### Chezmoi Dotfiles Protocol
 1. Edit source files in `chezmoi source-path` directory
-2. Run `chezmoi git status && chezmoi status`
+2. Run `chezmoi git status && chezmoi status` - if no changes found, protocol complete
 3. Categorize changes as expected (from step 1 edits) or unexpected
 4. If unexpected changes found, confirm before proceeding
 5. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`

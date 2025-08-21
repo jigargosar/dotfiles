@@ -26,9 +26,9 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 4. Instead of promotional text, use "Committed by Claude" in commit messages
 
 ### Chezmoi Dotfiles Protocol
-1. Edit source files in ~/.local/share/chezmoi/
-2. Run `git status && chezmoi status` - confirm if unexpected uncommitted or unapplied changes found
-3. Commit source changes first: `git add file && git commit -m "message"`
+1. Edit source files in `chezmoi source-path` directory
+2. Run `chezmoi git status && chezmoi status` - confirm if unexpected uncommitted or unapplied changes found
+3. Commit source changes first: `chezmoi git add file && chezmoi git commit -m "message"`
 4. Apply to targets: `chezmoi apply -v --force`
 5. Verify targets updated correctly with `chezmoi diff` - should show no differences
 
@@ -162,3 +162,5 @@ const ModuleName = (() => {
 - ALWAYS prefer editing an existing file to creating a new one
 - NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
 
+# Temp comment for testing chezmoi
+center

@@ -19,10 +19,11 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 - Mark tasks complete immediately after finishing, don't batch
 - Only have ONE task in_progress at a time
 
-### Git Commit Protocol
-1. Don't use `git diff` unnecessarily
-2. Always use explicit file names - never `git add directory/` or `git add .`
-3. Single command workflow - use `git add file1 file2 && git rm file3 && git commit -m "message"`
+### Extended Git Commit Protocol
+These extensions enhance the default git commit workflow:
+1. Don't use `git diff` unnecessarily when changes are obvious
+2. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
+3. Single command workflow - use `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message"`
 4. Instead of promotional text, use "Committed by Claude" in commit messages
 
 ### Chezmoi Dotfiles Protocol

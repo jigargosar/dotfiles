@@ -14,11 +14,9 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 - Make impossible states impossible (ISI) in data models
 
 ### TODO Tracking
-- Use TodoWrite tool frequently for complex multistep tasks
 - Track ALL work upfront when breaking down tasks, even for one-shot implementations
-- Keep TODO state in sync with code state (for easy revert)
-- Mark tasks complete immediately after finishing, don't batch
-- Only have ONE task in_progress at a time
+- Always include numbers in content field: "1. Task description"
+- Only display TODOs via TodoWrite tool output - never create separate manual lists
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:

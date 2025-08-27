@@ -5,18 +5,18 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 ## Project Standards
 
 ### Code Development
-- Take baby steps for complex changes by breaking planning into multiple steps/TODO items
-- Execute tiny single-step changes (like simple refactoring, single-line edits, or multiple tiny TODO items) in one shot without baby steps
-- Always prefer editing existing files over creating new ones
-- Never create documentation files unless explicitly requested
-- Follow existing code conventions and patterns
-- Always present implementation plan for approval before implementing
-- Make impossible states impossible (ISI) in data models
+1. Take baby steps for complex changes by breaking planning into multiple steps/TODO items
+2. Execute tiny single-step changes (like simple refactoring, single-line edits, or multiple tiny TODO items) in one shot without baby steps
+3. Always prefer editing existing files over creating new ones
+4. Never create documentation files unless explicitly requested
+5. Follow existing code conventions and patterns
+6. Always present implementation plan for approval before implementing
+7. Make impossible states impossible (ISI) in data models
 
 ### TODO Tracking
-- Track ALL work upfront when breaking down tasks, even for one-shot implementations
-- Always include numbers in content field: "1. Task description"
-- Only display TODOs via TodoWrite tool output - never create separate manual lists
+1. Track ALL work upfront when breaking down tasks, even for one-shot implementations
+2. Always include numbers in content field: "1. Task description"
+3. Only display TODOs via TodoWrite tool output - never create separate manual lists
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:
@@ -35,39 +35,39 @@ These extensions enhance the default git commit workflow:
 7. Push changes: `chezmoi git -- push`
 
 ### User Communication
-- When presenting multiple options, use numbers or letters for easy selection
+1. When presenting multiple options, use numbers or letters for easy selection
 
 ### Compilation
-- User will check for compiler errors and report them
-- Don't create unnecessary files during compilation checks
+1. User will check for compiler errors and report them
+2. Don't create unnecessary files during compilation checks
 
 ## Claude Behavioral Fixes
 
 ### Reasoning & Analysis
-- Re-read responses before sending
-- Say "I don't know" instead of fabricating problems or solutions
-- No completion claims without tracing full user flow and verification
-- Think step-by-step, don't rush to conclusions
-- Be reasonable and honest, including respectfully challenging ideas when they don't make sense
-- Act like a reasonable AI, not just agreeable
+1. Re-read responses before sending
+2. Say "I don't know" instead of fabricating problems or solutions
+3. No completion claims without tracing full user flow and verification
+4. Think step-by-step, don't rush to conclusions
+5. Be reasonable and honest, including respectfully challenging ideas when they don't make sense
+6. Act like a reasonable AI, not just agreeable
 
 ### Action Discipline
-- Don't implement/edit when asked to "show" something - "show" means present, not execute
-- Don't commit unless explicitly asked - only commit when user says "commit"
-- Read questions carefully - understand what's actually being asked vs what I assume
+1. Don't implement/edit when asked to "show" something - "show" means present, not execute
+2. Don't commit unless explicitly asked - only commit when user says "commit"
+3. Read questions carefully - understand what's actually being asked vs what I assume
 
 ### Design & Planning Discipline
-- Don't over-engineer or add unnecessary complexity during planning phase
-- Stick to minimal viable solutions that solve the core problem
-- Avoid "what if" feature questions that add scope creep
-- Follow "build it and see" philosophy rather than theoretical optimization
-- When user says something is "irrelevant" - stop that line of thinking immediately
+1. Don't over-engineer or add unnecessary complexity during planning phase
+2. Stick to minimal viable solutions that solve the core problem
+3. Avoid "what if" feature questions that add scope creep
+4. Follow "build it and see" philosophy rather than theoretical optimization
+5. When user says something is "irrelevant" - stop that line of thinking immediately
 
 ### Mandate Compliance
-- When violating a mandate, explicitly state the violation and justify why
-- Once user confirms a mandate applies to a specific feature/usecase, don't suggest violating it again for that same feature
-- Don't claim decisions were made when they weren't - only reference actual confirmed decisions
-- Don't assume user approval without explicit confirmation - wait for clear "yes" or approval
+1. When violating a mandate, explicitly state the violation and justify why
+2. Once user confirms a mandate applies to a specific feature/usecase, don't suggest violating it again for that same feature
+3. Don't claim decisions were made when they weren't - only reference actual confirmed decisions
+4. Don't assume user approval without explicit confirmation - wait for clear "yes" or approval
 
 ## Design Philosophy
 
@@ -79,22 +79,22 @@ These extensions enhance the default git commit workflow:
 Refactoring must provide genuine value, not just theoretical cleanliness. Every abstraction carries cognitive overhead - only create it when the pain of duplication exceeds the cost of indirection.
 
 #### Bang for Buck Focus
-- Target the most duplicated/painful code only
-- 1-2 focused improvements vs comprehensive refactoring  
-- Ignore minor inefficiencies if fixing them adds complexity
-- Cost-benefit analysis: if the "fix" requires more mental overhead than the original problem → don't do it
+1. Target the most duplicated/painful code only
+2. 1-2 focused improvements vs comprehensive refactoring  
+3. Ignore minor inefficiencies if fixing them adds complexity
+4. Cost-benefit analysis: if the "fix" requires more mental overhead than the original problem → don't do it
 
 #### Local Reasoning Priority
-- Code should be readable where you are, without jumping around
-- Prefer inline duplication over abstract helpers if the abstraction obscures logic
-- Avoid "smart" abstractions that require mental overhead to understand
-- Keep main logic flow visible and traceable
+1. Code should be readable where you are, without jumping around
+2. Prefer inline duplication over abstract helpers if the abstraction obscures logic
+3. Avoid "smart" abstractions that require mental overhead to understand
+4. Keep main logic flow visible and traceable
 
 #### Anti-Indirection Philosophy
-- Don't create helper functions unless duplication is genuinely painful
-- Avoid callback/wrapper patterns that make debugging harder
-- If abstractions make simple things complex → don't do it
-- Only refactor if the result is genuinely simpler to work with
+1. Don't create helper functions unless duplication is genuinely painful
+2. Avoid callback/wrapper patterns that make debugging harder
+3. If abstractions make simple things complex → don't do it
+4. Only refactor if the result is genuinely simpler to work with
 
 ### IIFE Module Extraction Guidelines
 
@@ -123,10 +123,10 @@ const ModuleName = (() => {
 ```
 
 #### When NOT to Extract
-- **No data to encapsulate** - Just scattered utility functions
-- **No cohesive responsibility** - Unrelated operations grouped artificially  
-- **Simple/short operations** - Abstraction overhead exceeds benefit
-- **Wait for opportunity** - Don't force abstractions where data/operations aren't naturally cohesive
+1. **No data to encapsulate** - Just scattered utility functions
+2. **No cohesive responsibility** - Unrelated operations grouped artificially  
+3. **Simple/short operations** - Abstraction overhead exceeds benefit
+4. **Wait for opportunity** - Don't force abstractions where data/operations aren't naturally cohesive
 
 ### Refactoring Decision Framework
 
@@ -138,31 +138,31 @@ const ModuleName = (() => {
 5. **Length justification?** - Are the operations substantial enough to warrant extraction?
 
 #### Red Flags:
-- Creating helpers just to reduce line count
-- Abstractions that require documentation to understand
-- Breaking up code that naturally reads together
-- Solving theoretical problems vs actual pain points
-- Adding indirection without clear benefit
+1. Creating helpers just to reduce line count
+2. Abstractions that require documentation to understand
+3. Breaking up code that naturally reads together
+4. Solving theoretical problems vs actual pain points
+5. Adding indirection without clear benefit
 
 ### Implementation Philosophy
 
 #### "Build It and See" Approach
-- Focus on making it work first, optimize later
-- Don't solve problems you don't have yet
-- Real usage patterns reveal actual abstraction needs
-- Premature abstraction is often worse than duplication
+1. Focus on making it work first, optimize later
+2. Don't solve problems you don't have yet
+3. Real usage patterns reveal actual abstraction needs
+4. Premature abstraction is often worse than duplication
 
 #### Practical Over Perfect
-- Readable duplication > clever abstraction
-- Local reasoning > DRY principles
-- Working code > architecturally pure code
-- Developer ergonomics matter more than theoretical elegance
+1. Readable duplication > clever abstraction
+2. Local reasoning > DRY principles
+3. Working code > architecturally pure code
+4. Developer ergonomics matter more than theoretical elegance
 
 ## Important Final Reminders
-- Do what has been asked; nothing more, nothing less
-- NEVER create files unless they're absolutely necessary for achieving your goal
-- ALWAYS prefer editing an existing file to creating a new one
-- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
+1. Do what has been asked; nothing more, nothing less
+2. NEVER create files unless they're absolutely necessary for achieving your goal
+3. ALWAYS prefer editing an existing file to creating a new one
+4. NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User
 
 # Temp comment for testing chezmoi
 center

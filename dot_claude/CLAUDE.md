@@ -5,7 +5,8 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 ## Project Standards
 
 ### Code Development
-- Take baby steps with testing at each stage for complex changes
+- Take baby steps for complex changes by breaking planning into multiple steps/TODO items
+- Execute tiny single-step changes (like simple refactoring, single-line edits, or multiple tiny TODO items) in one shot without baby steps
 - Always prefer editing existing files over creating new ones
 - Never create documentation files unless explicitly requested
 - Follow existing code conventions and patterns

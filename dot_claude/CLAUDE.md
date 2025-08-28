@@ -16,7 +16,7 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 ### TODO Tracking
 1. Track ALL work upfront when breaking down tasks, even for one-shot implementations
 2. Always include numbers in content field: "1. Task description"
-3. Only display TODOs via TodoWrite tool output - never create separate manual lists
+3. When displaying TODOs (user requests, status updates, etc.) - use only TodoWrite tool output
 4. Never mark todo done, unless its tested and approved by user.
 
 ### Extended Git Commit Protocol

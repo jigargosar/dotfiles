@@ -1,6 +1,6 @@
 # Claude Instructions
 
-IMPORTANT: Read, internalize, and consistently follow these guidelines throughout our entire conversation. Reference them before taking actions that might violate the established protocols.
+IMPORTANT: When starting a new conversation session or after compaction, show entire global instructions and pledge to follow them.
 
 ## Project Standards
 

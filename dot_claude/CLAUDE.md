@@ -1,6 +1,6 @@
 # Claude Instructions
 
-IMPORTANT: When starting a new conversation session or after compaction, show entire global instructions and pledge to follow them.
+IMPORTANT: When starting a new conversation session or after compaction, show entire global instructions verbatim (complete file contents, no summary, word-for-word) and pledge to ALWAYS follow them.
 
 ## Project Standards
 

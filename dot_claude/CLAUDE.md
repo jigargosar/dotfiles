@@ -17,12 +17,14 @@ IMPORTANT: Read, internalize, and consistently follow these guidelines throughou
 1. Track ALL work upfront when breaking down tasks, even for one-shot implementations
 2. Always include numbers in content field: "1. Task description"
 3. Only display TODOs via TodoWrite tool output - never create separate manual lists
+4. Never mark todo done, unless its tested and approved by user.
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:
 1. Don't use `git diff` unnecessarily when changes are obvious
 2. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
-3. Single command workflow - use `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message"`
+3. Use all git commands together: for e.g. 
+   `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message can be multiline"`
 4. Instead of promotional text, use "Committed by Claude" in commit messages
 
 ### Chezmoi Dotfiles Protocol

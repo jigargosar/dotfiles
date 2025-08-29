@@ -18,6 +18,13 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
 2. Always include numbers in content field: "1. Task description"
 3. When displaying TODOs (user requests, status updates, etc.) - use only TodoWrite tool output
 4. Never mark todo done, unless its tested and approved by user.
+5. Always display formatted todo list after each TodoWrite tool use, showing:
+   - Total count: "**X todos:**"
+   - Completed items: "☒ [item]" (strikethrough formatting)
+   - In-progress items: "☐ **[item]**" (bold formatting)  
+   - Pending items: "☐ [item]"
+   - Each item on separate line for readability
+   - Highlight todos that were modified in the last TodoWrite operation using code formatting: "`☐ [item]`"
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:

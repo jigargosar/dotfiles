@@ -35,13 +35,14 @@ These extensions enhance the default git commit workflow:
 4. Instead of promotional text, use "Committed by Claude" in commit messages
 
 ### Chezmoi Dotfiles Protocol
-1. Edit source files in `chezmoi source-path` directory
-2. Run `chezmoi git status && chezmoi status` - if no changes found, protocol complete
-3. List changes as expected (from step 1 edits) or unexpected - halt iff unexpected changes found
-4. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
-5. Apply to targets: `chezmoi apply --force`
-6. Run `chezmoi git status && chezmoi status` - should show clean working tree and no unapplied changes
-7. Push changes: `chezmoi git -- push`
+1. Run `chezmoi git status && chezmoi status` - verify clean starting state before any edits, halt iff not clean
+2. Edit source files in `chezmoi source-path` directory
+3. Run `chezmoi git status && chezmoi status` - if no changes found, protocol complete
+4. List changes as expected (from step 2 edits) or unexpected - halt iff unexpected changes found
+5. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
+6. Apply to targets: `chezmoi apply --force`
+7. Run `chezmoi git status && chezmoi status` - should show clean working tree and no unapplied changes
+8. Push changes: `chezmoi git -- push`
 
 ### User Communication
 1. When presenting multiple options, use numbers or letters for easy selection

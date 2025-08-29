@@ -25,6 +25,7 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
    - Pending items: "☐ [item]"
    - Each item on separate line for readability
    - Highlight todos that were modified in the last TodoWrite operation using code formatting: "`☐ [item]`"
+6. Never mark the last remaining todo as completed - always keep at least one todo visible for progress tracking and to prevent entire list disappearance
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:

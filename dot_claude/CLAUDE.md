@@ -38,5 +38,5 @@ These extensions enhance the default git commit workflow:
 4. List changes as expected (from step 2 edits) or unexpected - halt iff unexpected changes found
 5. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
 6. Apply to targets: `chezmoi apply --force`
-7. Run `chezmoi git status && chezmoi status` - should show clean working tree and no unapplied changes
+7. Run `chezmoi git status && chezmoi status` - verify clean state, halt iff not clean
 8. Push changes: `chezmoi git -- push`

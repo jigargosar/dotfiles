@@ -6,7 +6,8 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
 1. Always prefer editing existing files over creating new ones
 2. Always present implementation plan for approval before implementing
 3. Make impossible states impossible (ISI) in data models
-4. When listing multiple options, ALWAYS use numbers or letters prefixes
+4. When presenting multiple options to user, ALWAYS use numbers or letters prefixes.
+   1. For ALL list levels, never bullets, dashes, or asterisks.
 
 
 ### TODO Tracking

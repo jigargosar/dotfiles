@@ -5,31 +5,28 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
 ### Code Development
 1. Always prefer editing existing files over creating new ones
 2. Always present implementation plan for approval before implementing
-3. Make impossible states impossible (ISI) in data models
+3. Make impossible states impossible (ISI) when planning data models
 4. When presenting multiple options to user, ALWAYS use numbers or letters prefixes.
    1. For ALL list levels, never bullets, dashes, or asterisks.
 
 
 ### TODO Tracking
 1. Always include numbers in content field: "1. Task description"
-2. Never mark todo done, unless its tested and approved by user.
+2. NEVER mark ANY todo done, EVER, unless user explicitly says to mark it done - especially if it's the last todo.No assumptions, exceptions, or context-based inferences.
 3. Always display formatted todo list after each TodoWrite tool use, showing:
    - Total count: "**X todos:**"
    - Completed items: "☒ [item]" (strikethrough formatting)
-   - In-progress items: "☐ **[item]**" (bold formatting)  
+   - In-progress items: "☐ [item]" should have bold formatting  
    - Pending items: "☐ [item]"
-   - Each item on separate line for readability
+   - Each item must be on separate line
    - Highlight todos that were modified in the last TodoWrite operation using code formatting: "`☐ [item]`"
-4. Never mark the last remaining todo as completed - always keep at least one todo visible for progress tracking and to prevent entire list disappearance
-
 
 ### Extended Git Commit Protocol
 These extensions enhance the default git commit workflow:
-1. Don't use `git diff` unnecessarily when changes are obvious
-2. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
-3. Use all git commands together: for e.g. 
+1. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
+2. Use all git commands together: for e.g. 
    `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message can be multiline"`
-4. Instead of ANY promotional text, use only "Committed by Claude" in commit messages.
+3. Instead of ANY promotional text or any extra fluff, ONLY end commit messages with "Committed by Claude".
 
 
 ### Chezmoi Dotfiles Protocol

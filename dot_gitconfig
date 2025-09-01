@@ -1,0 +1,24 @@
+[user]
+	name = Jigar Gosar
+	email = jigar.gosar@gmail.com
+[credential "helperselector"]
+	selected = manager
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[init]
+	defaultBranch = main
+[credential "https://huggingface.co"]
+	provider = generic
+[core]
+	autocrlf = false
+	editor = \"C:\\Users\\jigar\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin\\code-insiders\" --wait
+	eol = lf
+[difftool "sourcetree"]
+	cmd = "'' "
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = false
+	keepBackup = false

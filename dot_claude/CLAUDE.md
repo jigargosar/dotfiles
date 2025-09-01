@@ -25,7 +25,7 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
    - Highlight todos that were modified in the last TodoWrite operation using code formatting: "`☐ [item]`"
 
 ### Extended Git Commit Protocol
-These extensions enhance the default git commit workflow:
+These extensions modify the default git commit workflow:
 1. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
 2. Use all git commands together: for e.g. 
    `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message can be multiline"`

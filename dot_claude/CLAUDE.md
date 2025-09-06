@@ -16,7 +16,7 @@ IMPORTANT: When starting a new conversation session or after compaction, show en
 ### TODO Tracking
 1. Always include numbers in content field: "1. Task description"
 2. NEVER mark ANY todo done, EVER, unless user explicitly says to mark it done - especially if it's the last todo.No assumptions, exceptions, or context-based inferences.
-3. Always display formatted todo list after each TodoWrite tool use, showing:
+3. this rule is disabled, don't follow it: Always display formatted todo list after each TodoWrite tool use, showing:
    - Total count: "**X todos:**"
    - Completed items: "☒ [item]" (strikethrough formatting)
    - In-progress items: "☐ [item]" should have bold formatting  

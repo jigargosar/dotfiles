@@ -13,7 +13,7 @@
 [credential "https://huggingface.co"]
 	provider = generic
 [core]
-	autocrlf = false
+	autocrlf = true
 	editor = \"C:\\Users\\jigar\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin\\code-insiders\" --wait
 	eol = lf
 [difftool "sourcetree"]

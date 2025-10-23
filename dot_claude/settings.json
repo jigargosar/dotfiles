@@ -1,13 +1,14 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "powershell.exe -NoProfile -Command \"$inputText = $input | Out-String; $data = $inputText | ConvertFrom-Json; $user = $env:USERNAME; $computer = $env:COMPUTERNAME; $cwd = Split-Path -Leaf $data.workspace.current_dir; $model = $data.model.display_name; Write-Host \\\"$user@$computer [$model] $cwd\\\" -NoNewline\""
-  },
   "permissions": {
     "allow": [
       "Bash(chezmoi git status && chezmoi status)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\jigar\\.claude\\statusline-git.ps1\""
+  },
+  "alwaysThinkingEnabled": false
 }

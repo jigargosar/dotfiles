@@ -1,43 +1,52 @@
 # Claude Instructions
 
-IMPORTANT: When starting a new conversation session or after compaction, show entire global instructions verbatim (complete file contents, no summary, word-for-word) and pledge to ALWAYS follow them.
-
 ### General Section
 1. Always present implementation plan for approval before implementing
-2. When presenting multiple options to user, ALWAYS use numbers or letters prefixes.
-   1. For ALL list levels, never bullets, dashes, or asterisks.
-3. Do exactly what user asks for - nothing less, nothing more.
+2. When presenting multiple options/choices to user, ALWAYS use numbers or letters prefixes, with proper formatting and indentation.
 
 ### Code Development
 1. Always prefer editing existing files over creating new ones
 2. Make impossible states impossible (ISI) when planning data models
 
+### Elm-Specific
+  - Always check compilation with `elm make <file> --output=NUL`
+  - Never use `--output=elm.js` or similar - we only want to verify compilation, not create artifacts
 
-### TODO Tracking
-1. Always include numbers in content field: "1. Task description"
-2. NEVER mark ANY todo done, EVER, unless user explicitly says to mark it done - especially if it's the last todo.No assumptions, exceptions, or context-based inferences.
-3. this rule is disabled, don't follow it: Always display formatted todo list after each TodoWrite tool use, showing:
-   - Total count: "**X todos:**"
-   - Completed items: "☒ [item]" (strikethrough formatting)
-   - In-progress items: "☐ [item]" should have bold formatting  
-   - Pending items: "☐ [item]"
-   - Each item must be on separate line
-   - Highlight todos that were modified in the last TodoWrite operation using code formatting: "`☐ [item]`"
+# Prettier config
+* When user asks to install prettier, and its not installed, install using inferred package manager, as a dev dependency
+* If package manager cannot be inferred, use pnpm.
+* Ensure that prettier config exists in package.json, if not found use following as default. if found don't modify it.
+```json
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "endOfLine": "lf"
+  },
+```
 
-### Extended Git Commit Protocol
-These extensions modify the default git commit workflow:
-1. Always use explicit file names - never use `git add directory/` or `git add .` as shortcuts
-2. Use all git commands together: for e.g. 
-   `git add file1 file2 && git mv file3 file4 && git rm file5 && git commit -m "message can be multiline"`
-3. Instead of ANY promotional text or any extra fluff, ONLY end commit messages with "Committed by Claude".
-
-
-### Chezmoi Dotfiles Protocol
-1. Run `chezmoi git status && chezmoi status` - verify clean starting state before any edits, halt iff not clean
-2. Edit source files in `chezmoi source-path` directory
-3. Run `chezmoi git status && chezmoi status` - if no changes found, protocol complete
-4. List changes as expected (from step 2 edits) or unexpected - halt iff unexpected changes found
-5. Commit source changes first: `chezmoi git add file && chezmoi git -- commit -m "message"`
-6. Apply to targets: `chezmoi apply --force`
-7. Run `chezmoi git status && chezmoi status` - verify clean state, halt iff not clean
-8. Push changes: `chezmoi git -- push`
+# Other Instructions 
+- Don't use cd command or reference file from its full path. Use file name relative to current project workspace. 
+- by symmetry I meant, keep child elements similar level of abstraction, prefer extraction of methods.
+- if I rejected 2-3 of your solutions, you should ask:
+  "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
+- don't use cd path when files are relative to current workspace/project, when executing any command
+- In general, use file names relative to current project workspace, not absolute paths.
+- when I ask for check diff or analyze diff, or just diff, use git diff and analyze all changes. don't skip any change from analysis. No false positives. Also check for any bugs introduced.
+- always prefer type aliases even if their backing type is basic, i.e Set(Int,Int) bad. Set(RowIdx, ColIdx) good. type alias RowIdx = Int....
+- Never suggest callers use internal implementation details (Set.empty, Dict.empty, raw tuples, etc.) - they must use the module's exposed functions and types only, and type alias should be used instead of generic data types. Ideally we should use custom types, but thats not always practical.
+- always focus on redability as opposed to performance. Warn only about exponential increases.
+- I want simpler solutions, across functions. blindly improving single function without understanding its context leads to bad results.
+- for simple renaming, use simple tools like grep/sed etc. dont waste tokens unless refactoring is tricky.
+- When a module uses type alias for its model instead of a custom type, clients must treat it as opaque, and the module must provide an API as if that type were opaque - type aliases are an implementation choice, encapsulation is a design principle that applies regardless.
+- Abstractions and precomputed configs, are not for optimization, they are for decoupling, encaptulation. Unless explecityfied we dont care about speed optimization. But only about rediability and comlexity that stems from lack thereof.
+- for every response dont be super verbose, communicate in concise but complete form.
+- dont worry about : memory-heavy for large states. Unless its exponentially costly. Simplicity wins by default, unless specified.
+- dont run interactive commands, there is no way you can read its output.
+- rather than assuming that package manager is npm, let default be pnpm. package managers can be infered from lockfile extension.
+- don't keep jumping to implementation without thinking through the design with me first.
+- Default design Must always focus on Single Source of Truth.
+- When presenting solutions, Never give silly and obviously wrong answers.
+- When providing solutions Always present recommended solution.
+- ignore reference directory, unless I explictly ask to look into it
+- dont add any claude specific promotions to git commit messages, just use "Commited by Claude" instead

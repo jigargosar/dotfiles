@@ -13,12 +13,24 @@
 [credential "https://huggingface.co"]
 	provider = generic
 [core]
-	autocrlf = true
+	autocrlf = input
 	editor = \"C:\\Users\\jigar\\AppData\\Local\\Programs\\Microsoft VS Code Insiders\\bin\\code-insiders\" --wait
 	eol = lf
+	safecrlf = false
+	pager = 
 [difftool "sourcetree"]
 	cmd = "'' "
 [mergetool "sourcetree"]
 	cmd = "'' "
 	trustExitCode = false
 	keepBackup = false
+[push]
+	autoSetupRemote = true
+[diff]
+	algorithm = histogram
+[fetch]
+	prune = true
+[pull]
+	ff = only
+[color]
+	ui = auto

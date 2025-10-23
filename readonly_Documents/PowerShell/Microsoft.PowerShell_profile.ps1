@@ -27,6 +27,22 @@ function Sync-Chezmoi {
 
     if ([string]::IsNullOrWhiteSpace($status)) {
         Write-Host "Everything in sync." -ForegroundColor Green
+
+        # Check for unpushed commits again
+        $gitBranchAfter = chezmoi git -- status --branch --porcelain
+        if ($gitBranchAfter -match '\[ahead \d+\]') {
+            Write-Host ""
+            Write-Host "Push changes? [Y] Yes / [A] Abort: " -NoNewline
+            $pushChoice = [Console]::ReadKey($true).KeyChar
+            Write-Host $pushChoice
+
+            if ($pushChoice.ToString().ToUpper() -eq "Y") {
+                chezmoi git -- push
+                Write-Host "Pushed" -ForegroundColor Green
+            } else {
+                Write-Host "`nAborted." -ForegroundColor Yellow
+            }
+        }
         return
     }
 

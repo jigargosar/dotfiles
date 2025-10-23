@@ -50,3 +50,4 @@
 - When providing solutions Always present recommended solution.
 - ignore reference directory, unless I explictly ask to look into it
 - dont add any claude specific promotions to git commit messages, just use "Commited by Claude" instead
+- `chezmoi git` commands options need to be specified by using double hypen, otherwise chezmoi will pick it up and cause errors

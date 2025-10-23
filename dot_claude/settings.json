@@ -8,7 +8,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\jigar\\.claude\\statusline-git.ps1\""
+    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\jigar\\.claude\\statusline.ps1\""
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true
 }

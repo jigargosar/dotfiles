@@ -81,7 +81,7 @@ function Sync-Chezmoi {
 
                 $key = $commitChoice.ToString().ToUpper()
                 if ($key -eq "C" -or $key -eq "O") {
-                    $commitMsg = "Update dotfiles $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+                    $commitMsg = "$(Get-Date -Format 'yyyy-MM-dd HH:mm') Updated dotfiles"
                     chezmoi git -- add -A
                     chezmoi git -- commit -m $commitMsg
 

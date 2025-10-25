@@ -51,3 +51,8 @@
 - ignore reference directory, unless I explictly ask to look into it
 - dont add any claude specific promotions to git commit messages, just use "Commited by Claude" instead
 - `chezmoi git` commands options need to be specified by using double hypen, otherwise chezmoi will pick it up and cause errors
+- when I ask to "add todo:" just add it, no need to start discussion about it. You need to focus on current discussion, if any.
+- when processing commit request, if its required to run multiple commands (like diff status etc.), prefer running them `&&` if it makes sense.
+- never swallow/rethrow same exceptions, let them propogate to top level, so as to fail fast. Unless its needed for logical flow, then handle the case properly
+- dont add obvious comments, where it is clear from identifier name, the intended purpose
+- When user asks to publish a package: discuss and recommend semver level (patch/minor/major), run npm version [level] && git push --tags; check for CI/CD automation and ask user if they want to run npm publish

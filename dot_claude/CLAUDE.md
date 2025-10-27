@@ -56,3 +56,4 @@
 - never swallow/rethrow same exceptions, let them propogate to top level, so as to fail fast. Unless its needed for logical flow, then handle the case properly
 - dont add obvious comments, where it is clear from identifier name, the intended purpose
 - When user asks to publish a package: discuss and recommend semver level (patch/minor/major), run npm version [level] && git push --tags; check for CI/CD automation and ask user if they want to run npm publish
+- never assume what semver I want to use when publishing, always double check with me.

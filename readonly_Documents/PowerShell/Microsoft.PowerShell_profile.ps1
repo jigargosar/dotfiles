@@ -15,12 +15,12 @@ function Sync-Chezmoi {
     if (-not [string]::IsNullOrWhiteSpace($gitStatus)) {
         Write-Host "Warning: Uncommitted changes" -ForegroundColor Yellow
         Write-Host $gitStatus
-        Write-Host ""
+        Write-Host
     }
     # Check for un-pushed commits
     elseif ($gitBranch -match '\[ahead \d+\]') {
         Write-Host "Warning: Un-pushed commits" -ForegroundColor Yellow
-        Write-Host ""
+        Write-Host
     }
 
     $status = chezmoi status
@@ -31,74 +31,95 @@ function Sync-Chezmoi {
         # Check for unpushed commits again
         $gitBranchAfter = chezmoi git -- status --branch --porcelain
         if ($gitBranchAfter -match '\[ahead \d+\]') {
-            Write-Host ""
-            Write-Host "Push changes? [Y] Yes / [A] Abort: " -NoNewline
-            $pushChoice = [Console]::ReadKey($true).KeyChar
-            Write-Host $pushChoice
+            Write-Host
+            Write-Host "Push changes? (Y/Enter or Esc to abort): " -NoNewline
+            $pushChoice = [Console]::ReadKey($true)
+            Write-Host
 
-            if ($pushChoice.ToString().ToUpper() -eq "Y") {
+            if ($pushChoice.Key -eq 'Escape' -or ($pushChoice.Modifiers -eq 'Control' -and $pushChoice.Key -eq 'C')) {
+                Write-Host "Aborted." -ForegroundColor Yellow
+                return
+            }
+
+            if ($pushChoice.KeyChar.ToString().ToUpper() -eq "Y" -or $pushChoice.Key -eq 'Enter') {
                 chezmoi git -- push
                 Write-Host "Pushed" -ForegroundColor Green
             } else {
-                Write-Host "`nAborted." -ForegroundColor Yellow
+                Write-Host "Aborted." -ForegroundColor Yellow
             }
         }
         return
     }
 
     Write-Host "=== chezmoi status ===" -ForegroundColor Cyan
-    Write-Host $status
-    Write-Host ""
+    Write-Output $status
+    Write-Host
 
-    Write-Host "Press any key to run 'chezmoi diff'..." -NoNewline
-    [Console]::ReadKey($true) | Out-Null
-    Write-Host ""
+    Write-Host "Show diff? (Y/Enter or Esc to abort): " -NoNewline
+    $diffChoice = [Console]::ReadKey($true)
+    Write-Host
 
-    chezmoi diff
-    Write-Host ""
+    if ($diffChoice.Key -eq 'Escape' -or ($diffChoice.Modifiers -eq 'Control' -and $diffChoice.Key -eq 'C')) {
+        Write-Host "Aborted." -ForegroundColor Yellow
+        return
+    }
+
+    if ($diffChoice.KeyChar.ToString().ToUpper() -eq "Y" -or $diffChoice.Key -eq 'Enter') {
+        chezmoi diff
+    } else {
+        Write-Host "Aborted." -ForegroundColor Yellow
+        return
+    }
+    Write-Host
 
     Write-Host "=== Re-add ===" -ForegroundColor Cyan
-    Write-Host "Proceed with chezmoi re-add? [Y] Yes / [A] Abort: " -NoNewline
-    $choice = [Console]::ReadKey($true).KeyChar
-    Write-Host $choice
+    Write-Host "Run re-add? (Y/Enter or Esc to abort): " -NoNewline
+    $choice = [Console]::ReadKey($true)
+    Write-Host
 
-    switch ($choice.ToString().ToUpper()) {
-        "Y" {
-            chezmoi re-add
-            Write-Host "Re-added" -ForegroundColor Green
-            Write-Host ""
+    if ($choice.Key -eq 'Escape' -or ($choice.Modifiers -eq 'Control' -and $choice.Key -eq 'C')) {
+        Write-Host "Aborted." -ForegroundColor Yellow
+        return
+    }
 
-            # Check git status after re-add
-            $gitStatusAfter = chezmoi git -- status --short
-            if (-not [string]::IsNullOrWhiteSpace($gitStatusAfter)) {
-                Write-Host "=== chezmoi git status ===" -ForegroundColor Cyan
-                Write-Host $gitStatusAfter
-                Write-Host ""
+    if ($choice.KeyChar.ToString().ToUpper() -eq "Y" -or $choice.Key -eq 'Enter') {
+        chezmoi re-add
+        Write-Host "Re-added" -ForegroundColor Green
+        Write-Host
 
-                Write-Host "Commit changes? [C] Commit and push / [O] Commit only / [A] Abort: " -NoNewline
-                $commitChoice = [Console]::ReadKey($true).KeyChar
-                Write-Host $commitChoice
+        # Check git status after re-add
+        $gitStatusAfter = chezmoi git -- status --short
+        if (-not [string]::IsNullOrWhiteSpace($gitStatusAfter)) {
+            Write-Host "=== chezmoi git status ===" -ForegroundColor Cyan
+            Write-Output $gitStatusAfter
+            Write-Host
 
-                $key = $commitChoice.ToString().ToUpper()
-                if ($key -eq "C" -or $key -eq "O") {
-                    $commitMsg = "$(Get-Date -Format 'yyyy-MM-dd HH:mm') Updated dotfiles"
-                    chezmoi git -- add -A
-                    chezmoi git -- commit -m $commitMsg
+            Write-Host "Commit changes? [C] Commit and push / [O] Commit only / [A] Abort: " -NoNewline
+            $commitChoice = [Console]::ReadKey($true)
+            Write-Host
 
-                    if ($key -eq "C") {
-                        chezmoi git -- push
-                        Write-Host "Committed and pushed" -ForegroundColor Green
-                    } else {
-                        Write-Host "Committed" -ForegroundColor Green
-                    }
+            if ($commitChoice.Key -eq 'Escape' -or ($commitChoice.Modifiers -eq 'Control' -and $commitChoice.Key -eq 'C')) {
+                Write-Host "Aborted." -ForegroundColor Yellow
+                return
+            }
+
+            $key = $commitChoice.KeyChar.ToString().ToUpper()
+            if ($key -eq "C" -or $key -eq "O") {
+                $commitMsg = "$(Get-Date -Format 'yyyy-MM-dd HH:mm') Updated dotfiles"
+                chezmoi git -- add -A
+                chezmoi git -- commit -m $commitMsg
+
+                if ($key -eq "C") {
+                    chezmoi git -- push
+                    Write-Host "Committed and pushed" -ForegroundColor Green
                 } else {
-                    Write-Host "`nAborted." -ForegroundColor Yellow
+                    Write-Host "Committed" -ForegroundColor Green
                 }
+            } else {
+                Write-Host "Aborted." -ForegroundColor Yellow
             }
         }
-        default {
-            Write-Host "`nAborted." -ForegroundColor Yellow
-            return
-        }
+    } else {
+        Write-Host "Aborted." -ForegroundColor Yellow
     }
 }

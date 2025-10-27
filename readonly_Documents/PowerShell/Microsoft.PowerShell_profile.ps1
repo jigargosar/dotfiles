@@ -7,7 +7,38 @@ Invoke-Expression (& { (chezmoi completion powershell | Out-String) })
 
 # $Env:EDITOR = "notepad.exe"
 
+# Sync-Chezmoi function moved to separate file for development with git
+# Hardlinked from: C:\Users\jigar\projects\powershell-sync-chezmoi\Sync-Chezmoi.ps1
+. "$PSScriptRoot\Sync-Chezmoi.ps1"
+
+<#
+# Original inline function (commented for posterity):
 function Sync-Chezmoi {
+    # TODO: Fix chezmoi diff doesn't work properly for deleted files
+    # TODO: Handle deleted files properly with chezmoi forget
+
+    # REFACTORING PLAN:
+    # Development workflow:
+    # 1. Create ~/projects/powershell-chezmoi-sync git repo
+    # 2. Copy this function to project
+    # 3. Comment out this function in profile (temporary)
+    # 4. Refactor & test in project dir with git
+    # 5. Once stable, install from profile using Install/Update functions
+    #
+    # Code refactoring tasks:
+    # 1. Extract Get-UserConfirmation - handle Y/Enter/Esc pattern
+    # 2. Extract Test-UnpushedCommits - check git branch status
+    # 3. Extract Show-ChezmoiDiff - display diff workflow
+    # 4. Extract Invoke-ChezmoiReAdd - re-add workflow
+    # 5. Extract Sync-ChezmoiGit - commit/push workflow
+    # 6. Simplify main function to coordinator
+    #
+    # Integration (after development):
+    # 1. Add Install-ChezmoiSyncModule function to profile
+    # 2. Add Update-ChezmoiSyncModule function to profile
+    # 3. Profile clones module to Modules/ChezmoiSync via git
+    # 4. Add Modules/ChezmoiSync to .chezmoiignore
+
     $gitStatus = chezmoi git -- status --short
     $gitBranch = chezmoi git -- status --branch --porcelain
 
@@ -123,3 +154,4 @@ function Sync-Chezmoi {
         Write-Host "Aborted." -ForegroundColor Yellow
     }
 }
+#>

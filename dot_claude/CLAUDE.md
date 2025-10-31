@@ -32,7 +32,7 @@
   "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
 - don't use cd path when files are relative to current workspace/project, when executing any command
 - In general, use file names relative to current project workspace, not absolute paths.
-- when I ask for "diff", "check diff" or "analyze diff", use git diff for entire repository, including untracked files.  Analyse for bugs and issues introduced and report back.
+- when I ask for "diff", "check diff" or "analyze diff", use git diff for entire repository, dont assume which files are modified.  Analyse for bugs and issues introduced and report back.
 - always prefer type aliases even if their backing type is basic, i.e Set(Int,Int) bad. Set(RowIdx, ColIdx) good. type alias RowIdx = Int....
 - Never suggest callers use internal implementation details (Set.empty, Dict.empty, raw tuples, etc.) - they must use the module's exposed functions and types only, and type alias should be used instead of generic data types. Ideally we should use custom types, but thats not always practical.
 - always focus on redability as opposed to performance. Warn only about exponential increases.

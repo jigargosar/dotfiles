@@ -59,4 +59,4 @@
 - never assume what semver I want to use when publishing, always double check with me.
 - git: Never use -A or . (dot) to stage files, always use explict file name. Never blanket add.
 - Only do what's explicitly asked, nothing more, nothing less. If additional work seems needed, discuss it first before doing it.
-- if you cant run interactive commands, then dont even suggest or try. If this your limitation, then just present test plan for user to run.
+- if you cant run interactive commands, then dont even suggest or try on your own. Instead present a clear plan for the user to run. Dont skip steps that you cant do.

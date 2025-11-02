@@ -1,62 +1,78 @@
-# Claude Instructions
+# Claude Instructions Summary
 
-### General Section
-1. Always present implementation plan for approval before implementing
-2. When presenting multiple options/choices to user, ALWAYS use numbers or letters prefixes, with proper formatting and indentation.
+## General Workflow
+- Always present implementation plan for approval before implementing
+- Use numbered/lettered prefixes with proper formatting when presenting options
+- Always prefer editing existing files over creating new ones
+- Only do what's explicitly asked, nothing more/less - discuss additional work first
+- Don't keep jumping to implementation without thinking through the design first
+- If 2-3 solutions rejected, ask user to share their approach:
+  > "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
 
-### Code Development
-1. Always prefer editing existing files over creating new ones
-2. Make impossible states impossible (ISI) when planning data models
+## Code Quality & Design
+- Make impossible states impossible (ISI) for data models
+- Default design must always focus on Single Source of Truth
+- Focus on readability over performance (warn only about exponential increases)
+- Want simpler solutions across functions, not blind single-function improvements
+- By symmetry: keep child elements similar level of abstraction, prefer extraction of methods
+- Don't worry about memory-heavy for large states unless exponentially costly - simplicity wins by default
+- Don't add obvious comments where identifier name is clear
+- Always prefer type aliases even for basic types (e.g., `Set(RowIdx, ColIdx)` not `Set(Int, Int)`)
+- Never suggest internal implementation details to callers (Set.empty, Dict.empty, raw tuples, etc.)
+- When a module uses type alias for its model, clients must treat it as opaque - type aliases are implementation choice, encapsulation is design principle
+- Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
 
-### Elm-Specific
-  - Always check compilation with `elm make <file> --output=NUL`
-  - Never use `--output=elm.js` or similar - we only want to verify compilation, not create artifacts
+## Error Handling
+- Never swallow/rethrow same exceptions - let them propagate to top level to fail fast
+- **Exception:** Handle the case properly if needed for logical flow
 
-# Prettier config
-* When user asks to install prettier, and its not installed, install using inferred package manager, as a dev dependency
-* If package manager cannot be inferred, use pnpm.
-* Ensure that prettier config exists in package.json, if not found use following as default. if found don't modify it.
+## Communication
+- Be concise but complete, not super verbose
+- Don't present silly/obviously wrong answers
+- Always present recommended solution
+- When asked to "add todo:" just add it, no discussion needed - focus on current discussion
+
+## File & Path Usage
+- Don't use cd command or absolute paths when files are relative to workspace
+- Use file names relative to current project workspace
+- For simple renaming, use grep/sed etc, don't waste tokens unless refactoring is tricky
+- Ignore reference directory unless explicitly asked to look into it
+
+## Tool/Command Usage
+- Don't run interactive commands - present a clear plan for user to run instead, don't skip steps you can't do
+- Default to pnpm (infer from lockfile), not npm
+- For "diff" requests, use git diff for entire repository, don't assume which files are modified - analyze for bugs and issues
+
+## Git
+- Never use `-A` or `.` to stage files, always use explicit file names - never blanket add
+- Don't add Claude promotions to commits, just use "Committed by Claude"
+- When processing commit request with multiple commands (diff, status, etc.), prefer chaining with `&&`
+
+## Chezmoi
+- `chezmoi git` commands options need double hyphen, otherwise chezmoi will pick it up and cause errors
+
+## Package Publishing
+- When user asks to publish: discuss and recommend semver level (patch/minor/major)
+- Never assume what semver to use, always double check
+- Run `npm version [level] && git push --tags`
+- Check for CI/CD automation and ask if they want to run `npm publish`
+
+## Prettier Config
+- When user asks to install prettier and it's not installed: install using inferred package manager as dev dependency
+- If package manager cannot be inferred, use pnpm
+- Ensure prettier config exists in package.json, if not found use default below - if found don't modify it:
 ```json
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "endOfLine": "lf"
-  },
+"prettier": {
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "endOfLine": "lf"
+}
 ```
 
-# Other Instructions 
-- Don't use cd command or reference file from its full path. Use file name relative to current project workspace. 
-- by symmetry I meant, keep child elements similar level of abstraction, prefer extraction of methods.
-- if I rejected 2-3 of your solutions, you should ask:
-  "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
-- don't use cd path when files are relative to current workspace/project, when executing any command
-- In general, use file names relative to current project workspace, not absolute paths.
-- when I ask for "diff", "check diff" or "analyze diff", use git diff for entire repository, dont assume which files are modified.  Analyse for bugs and issues introduced and report back.
-- always prefer type aliases even if their backing type is basic, i.e Set(Int,Int) bad. Set(RowIdx, ColIdx) good. type alias RowIdx = Int....
-- Never suggest callers use internal implementation details (Set.empty, Dict.empty, raw tuples, etc.) - they must use the module's exposed functions and types only, and type alias should be used instead of generic data types. Ideally we should use custom types, but thats not always practical.
-- always focus on redability as opposed to performance. Warn only about exponential increases.
-- I want simpler solutions, across functions. blindly improving single function without understanding its context leads to bad results.
-- for simple renaming, use simple tools like grep/sed etc. dont waste tokens unless refactoring is tricky.
-- When a module uses type alias for its model instead of a custom type, clients must treat it as opaque, and the module must provide an API as if that type were opaque - type aliases are an implementation choice, encapsulation is a design principle that applies regardless.
-- Abstractions and precomputed configs, are not for optimization, they are for decoupling, encaptulation. Unless explecityfied we dont care about speed optimization. But only about rediability and comlexity that stems from lack thereof.
-- for every response dont be super verbose, communicate in concise but complete form.
-- dont worry about : memory-heavy for large states. Unless its exponentially costly. Simplicity wins by default, unless specified.
-- dont run interactive commands, there is no way you can read its output.
-- rather than assuming that package manager is npm, let default be pnpm. package managers can be infered from lockfile extension.
-- don't keep jumping to implementation without thinking through the design with me first.
-- Default design Must always focus on Single Source of Truth.
-- When presenting solutions, Never give silly and obviously wrong answers.
-- When providing solutions Always present recommended solution.
-- ignore reference directory, unless I explictly ask to look into it
-- dont add any claude specific promotions to git commit messages, just use "Commited by Claude" instead
-- `chezmoi git` commands options need to be specified by using double hypen, otherwise chezmoi will pick it up and cause errors
-- when I ask to "add todo:" just add it, no need to start discussion about it. You need to focus on current discussion, if any.
-- when processing commit request, if its required to run multiple commands (like diff status etc.), prefer running them `&&` if it makes sense.
-- never swallow/rethrow same exceptions, let them propogate to top level, so as to fail fast. Unless its needed for logical flow, then handle the case properly
-- dont add obvious comments, where it is clear from identifier name, the intended purpose
-- When user asks to publish a package: discuss and recommend semver level (patch/minor/major), run npm version [level] && git push --tags; check for CI/CD automation and ask user if they want to run npm publish
-- never assume what semver I want to use when publishing, always double check with me.
-- git: Never use -A or . (dot) to stage files, always use explict file name. Never blanket add.
-- Only do what's explicitly asked, nothing more, nothing less. If additional work seems needed, discuss it first before doing it.
-- if you cant run interactive commands, then dont even suggest or try on your own. Instead present a clear plan for the user to run. Dont skip steps that you cant do.
+## Elm-Specific
+- Always check compilation with `elm make <file> --output=NUL`
+- Never use `--output=elm.js` or similar - we only want to verify compilation, not create artifacts
+
+
+## Miscellaneous Instructions

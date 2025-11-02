@@ -76,3 +76,4 @@
 
 
 ## Miscellaneous Instructions
+- if and when manually creating package.json file, ensure all dependencies are installed via package manager, dont hardcode them.

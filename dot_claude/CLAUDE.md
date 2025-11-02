@@ -35,7 +35,7 @@
 ## File & Path Usage
 - Don't use cd command or absolute paths when files are relative to workspace
 - Use file names relative to current project workspace
-- For simple renaming, use grep/sed etc, don't waste tokens unless refactoring is tricky
+- For simple renaming, use grep/sed etc., don't waste tokens unless refactoring is tricky
 - Ignore reference directory unless explicitly asked to look into it
 
 ## Tool/Command Usage
@@ -58,10 +58,10 @@
 - Check for CI/CD automation and ask if they want to run `npm publish`
 
 ## Prettier Config
-- When user asks to install prettier and it's not installed: install using inferred package manager as dev dependency
+- When user asks to install prettier, and it's not installed: install using inferred package manager as dev dependency
 - If package manager cannot be inferred, use pnpm
 - Ensure prettier config exists in package.json, if not found use default below - if found don't modify it:
-```json
+```
 "prettier": {
   "semi": false,
   "singleQuote": true,

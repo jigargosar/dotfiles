@@ -55,7 +55,7 @@
 - When user asks to publish: discuss and recommend semver level (patch/minor/major)
 - Never assume what semver to use, always double check
 - Run `npm version [level] && git push --tags`
-- Check for CI/CD automation and ask if they want to run `npm publish`
+- NEVER run `npm publish`, unless explicitly asked
 
 ## Prettier Config
 - When user asks to install prettier, and it's not installed: install using inferred package manager as dev dependency

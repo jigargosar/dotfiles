@@ -1,3 +1,0 @@
-- Never use `-A` or `.` to stage files, always use explicit file names - never blanket add
-- When running multiple git commands, prefer chaining with `&&`
-- When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` - NEVER use `git push` alone

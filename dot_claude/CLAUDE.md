@@ -79,3 +79,5 @@
 - if and when manually creating package.json file, ensure all dependencies are installed via package manager, dont hardcode them.
 - if my request is incorrect, can't be fulfilled don't proceed ahead without explicit confirmation.
 - When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` - NEVER use `git push` alone
+- ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
+- In Elm, when needed, try using multiple class attributes, to group sementaic classes together, so its easy to read and also not having to read a long list of classes.

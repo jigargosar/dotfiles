@@ -1,0 +1,44 @@
+{
+    "workbench.colorTheme": "Solarized Dark",
+    "github.copilot.chat.generateTests.codeLens": true,
+    "github.copilot.chat.notebook.followCellExecution.enabled": true,
+    "github.copilot.chat.editor.temporalContext.enabled": true,
+    "window.zoomLevel": 0.1
+    ,
+    "multiCommand.commands": [
+        {
+            "command": "multiCommand.hideAllUI",
+            "sequence": [
+                "workbench.action.closeSidebar",
+                "workbench.action.closePanel",
+                "workbench.action.closeAuxiliaryBar"
+            ]
+        }
+    ],
+    "accessibility.voice.keywordActivation": "chatInView",
+    "editor.formatOnPaste": true,
+    "[instructions]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "git.autofetch": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeLens": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.autoIndentOnPaste": true,
+    "files.autoSave": "onWindowChange",
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "editor.minimap.enabled": false,
+    "git.enableSmartCommit": true
+}

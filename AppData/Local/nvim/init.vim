@@ -1,24 +1,7 @@
 source ~\AppData\Local\nvim\settings.vim
 
-" lazy.nvim bootstrap and setup
-" lua << LUA
-" local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-" if not vim.loop.fs_stat(lazypath) then
-"   vim.fn.system({
-"     "git",
-"     "clone",
-"     "--filter=blob:none",
-"     "https://github.com/folke/lazy.nvim.git",
-"     "--branch=stable",
-"     lazypath,
-"   })
-" end
-" vim.opt.rtp:prepend(lazypath)
-"
-" require("lazy").setup({})
-" LUA
 
-" Vimscript equivalent:
+" Lazy bootstrap: Vimscript equivalent:
 let s:lazypath = stdpath('data') .. '/lazy/lazy.nvim'
 if !isdirectory(s:lazypath)
   call system('git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git ' .. s:lazypath)
@@ -49,6 +32,23 @@ require("lazy").setup({
         colorscheme = { enable_preview = true },
       },
     },
+  },
+  {
+    "levouh/tint.nvim",
+    opts = {
+      tint = -70,
+      saturation = 0.1,
+    },
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup({
+        silent_chdir = false,
+        exclude_dirs = { vim.fn.expand("~") },
+      })
+      require("telescope").load_extension("projects")
+    end,
   },
 })
 EOF

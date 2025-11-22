@@ -71,8 +71,41 @@
 ```
 
 ## Elm-Specific
-- Always check compilation with `elm make <file> --output=NUL`
+- Always check compilation with exactly this command `elm make <file> --output=NUL`. Don't invent your own.
 - Never use `--output=elm.js` or similar - we only want to verify compilation, not create artifacts
+
+## Elm formatting rules
+
+### Purpose
+These rules are for AI/code agents making edits or updates. Adhere to these rules so that when elm-format runs, your edits will not be unexpectedly changed or invalidated. Review and re-read your code after formatting to ensure it matches these rules.
+
+### Indentation & Spacing
+- Indent with 4 spaces per level (no tabs).
+- Two blank lines between top-level declarations (functions, type aliases, types).
+- No trailing whitespace at the end of lines.
+- If a line ends with `=`, the value or body always starts on a new line, indented.
+
+### Records
+- For any record (type alias, record literal, etc.):
+    - Flat, single-line style and multiline style are both valid.
+    - Flat style: `{ a : Int, b : String, c : Bool }`
+    - Multiline style: each field on its own line, indented, with closing `}` on its own line.
+
+### Type Declarations
+- Type aliases and custom types use PascalCase.
+- For custom types, each constructor is indented on its own line.
+
+### Function Definitions
+- Function signatures and bodies are indented and placed on a new line after the `=` sign.
+- Use `let ... in` for local bindings, with the `in` keyword on a new line.
+
+### Case Statements
+- `case ... of` is used for pattern matching, with each branch indented.
+- Each branch is formatted as:
+    - Pattern followed by `->` on its own line
+    - Result indented on the next line
+    - A single blank line is placed between branches
+
 
 
 ## Miscellaneous Instructions
@@ -81,3 +114,6 @@
 - When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` - NEVER use `git push` alone
 - ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
 - In Elm, when needed, try using multiple class attributes, to group sementaic classes together, so its easy to read and also not having to read a long list of classes.
+- If I am straying off path, not focusing on core problem, getting finiky about anything, remind me of this instruction. I rather work on main objectives and keep the fluff, going down the rabbit hole, unable to pick between two solution when both are equally bad/good. Unecessary perfection is dangerous. There is almost always time to comeback and fix things, but more likely we wont have to comeback. Ensure you do it as politely as you can. And not annoy be by contineously pointing it out. Give me some breathing room, then you can remark again. I wont tolerate you interfering with this reminder everytime.
+- Elm: when running dev server as background task, check its last output to figure out if there any compilation errors. no need to run elm make. Also if dev server is not running offer to start one.
+- Fixing subtle duplications or unnecessary indirection may help uncover major duplications that were previously hidden - jumping to tackle major duplication upfront isn't always the right approach, analyze carefully.

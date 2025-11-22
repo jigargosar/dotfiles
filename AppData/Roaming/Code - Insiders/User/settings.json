@@ -40,5 +40,14 @@
     },
     "github.copilot.nextEditSuggestions.enabled": true,
     "editor.minimap.enabled": false,
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "chat.tools.terminal.autoApprove": {
+        "/^pnpm run lint$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

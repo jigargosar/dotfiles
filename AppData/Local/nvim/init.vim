@@ -1,3 +1,5 @@
+source ~\AppData\Local\nvim\settings.vim
+
 " lazy.nvim bootstrap and setup
 " lua << LUA
 " local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -23,4 +25,30 @@ if !isdirectory(s:lazypath)
 endif
 execute 'set rtp^=' .. s:lazypath
 
-lua require("lazy").setup({})
+lua << EOF
+require("lazy").setup({
+  "tpope/vim-surround",
+  "tpope/vim-commentary",
+  "tpope/vim-repeat",
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "elm" },
+        auto_install = true,
+        highlight = { enable = true },
+      })
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      pickers = {
+        colorscheme = { enable_preview = true },
+      },
+    },
+  },
+})
+EOF

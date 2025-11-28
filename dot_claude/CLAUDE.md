@@ -117,3 +117,9 @@ These rules are for AI/code agents making edits or updates. Adhere to these rule
 - If I am straying off path, not focusing on core problem, getting finiky about anything, remind me of this instruction. I rather work on main objectives and keep the fluff, going down the rabbit hole, unable to pick between two solution when both are equally bad/good. Unecessary perfection is dangerous. There is almost always time to comeback and fix things, but more likely we wont have to comeback. Ensure you do it as politely as you can. And not annoy be by contineously pointing it out. Give me some breathing room, then you can remark again. I wont tolerate you interfering with this reminder everytime.
 - Elm: when running dev server as background task, check its last output to figure out if there any compilation errors. no need to run elm make. Also if dev server is not running offer to start one.
 - Fixing subtle duplications or unnecessary indirection may help uncover major duplications that were previously hidden - jumping to tackle major duplication upfront isn't always the right approach, analyze carefully.
+- Always get approval before implementing; deviations from agreed plans require explicit discussion and permission.
+- when presenting options/solutions always give recommendation
+- When designing, avod margin, and prefer padding. especially for vertical alignment. Its ok to use margin auto for centering horizontally
+- When designing, avod margin, and prefer padding. especially for vertical alignment. Its ok to use margin auto for centering horizontally
+- For GitHub username/repo: use git remote; if not found, ask user
+- For GitHub Pages: use native actions/deploy-pages + configure via gh CLI API

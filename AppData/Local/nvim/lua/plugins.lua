@@ -70,6 +70,13 @@ require("lazy").setup({
     config = function()
       local miniclue = require("mini.clue")
       miniclue.setup({
+        window = {
+          config = {
+            width = 'auto',
+          },
+          scroll_down = '<C-d>',
+          scroll_up = '<C-u>',
+        },
         triggers = {
           -- Leader triggers
           { mode = "n", keys = "<Leader>" },

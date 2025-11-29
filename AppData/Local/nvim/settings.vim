@@ -1,7 +1,7 @@
 " CORE
 let mapleader = " "
 let g:nvim_dir = stdpath('config')
-" cd ~
+" autocmd VimEnter * cd ~
 
 " OPTIONS
 
@@ -27,15 +27,6 @@ set cursorline
 
 " system clipboard
 set clipboard=unnamedplus
-
-" KEYMAPS
-" edit
-nnoremap <leader>ec <Cmd>execute 'edit' g:nvim_dir .. '/init.vim'<CR>
-nnoremap <leader>es <Cmd>execute 'edit' g:nvim_dir .. '/settings.vim'<CR>
-" source
-nnoremap <leader>ss <Cmd>execute 'source' g:nvim_dir .. '/settings.vim'<CR>
-nnoremap <leader>sc <Cmd>source %<CR>
-nnoremap <leader>sl <Cmd>.source<CR>
 
 " AUTOCMDS
 " cursorline only in active window

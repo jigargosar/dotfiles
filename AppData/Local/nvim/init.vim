@@ -9,3 +9,4 @@ endif
 execute 'set rtp^=' .. s:lazypath
 
 lua require('plugins')
+lua require('keymaps')

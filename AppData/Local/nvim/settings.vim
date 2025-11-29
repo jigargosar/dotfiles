@@ -1,6 +1,7 @@
 " CORE
 let mapleader = " "
 let g:nvim_dir = stdpath('config')
+" cd ~
 
 " OPTIONS
 

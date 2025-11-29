@@ -8,47 +8,4 @@ if !isdirectory(s:lazypath)
 endif
 execute 'set rtp^=' .. s:lazypath
 
-lua << EOF
-require("lazy").setup({
-  "tpope/vim-surround",
-  "tpope/vim-commentary",
-  "tpope/vim-repeat",
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "elm" },
-        auto_install = true,
-        highlight = { enable = true },
-      })
-    end,
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      pickers = {
-        colorscheme = { enable_preview = true },
-      },
-    },
-  },
-  {
-    "levouh/tint.nvim",
-    opts = {
-      tint = -70,
-      saturation = 0.1,
-    },
-  },
-  {
-    "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup({
-        silent_chdir = false,
-        exclude_dirs = { vim.fn.expand("~") },
-      })
-      require("telescope").load_extension("projects")
-    end,
-  },
-})
-EOF
+lua require('plugins')

@@ -33,6 +33,8 @@ require("lazy").setup({
     "ahmedkhalf/project.nvim",
     config = function()
       require("project_nvim").setup({
+        detection_methods = { "pattern" },
+        patterns = { ".git", ".projectroot", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
         silent_chdir = false,
         exclude_dirs = { vim.fn.expand("~") },
       })

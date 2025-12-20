@@ -102,3 +102,22 @@ Recommendation: Option 2
 - Elm: when running dev server as background task, check its last output to figure out if there is any compilation errors. no need to run elm make. Also, if dev server is not running offer to start one.
 
 ## Miscellaneous Instructions
+- in typescript projects after a major change, always run lint and build
+- in typescript projects after a major change, always run lint and build and also tests
+- only after a major change in code you shuld run lint build and test
+- you replies get too verbose, keep them brief and to the point. unless specifically asked
+- When code changes aren't reflecting in the browser after multiple edits and you're confident the code is correct, proactively suggest restarting the dev server to clear cache issues.
+- if you are running dev server as background task, only focus last few for error or success. when output grows too long, ask to restart deverserver
+- dont use magic numbers, specially when writing new code.
+- when working with tailwind v4 (which we do almost always) dont use outdated knowledge.
+- when asking next you should provide suggetsions and recommendations, Never just blanket `Next?`
+- never hand code dependencies verison in package.json, we have pnpm install command for that. Dont be oversmart.
+- always review your code for silly mistakes, before presenting to user.
+- In Elm, try to expose types from imports rather than using qualified module names for types
+- keep your responses terse and very brief, unless explictly asked to elobrate. prompts like `discuss` and `explain` should also be very focused. unless explictly asked to eloborate.
+- keep responses extremely terse, for the entire conversation
+- never pass more data that whats required to target function, unless target functinn needs many arguments all present is passed object.
+- dont perform any actions whitout permission, when I  asked a question, just reply dont infer it as permission to edit. I dont ask rhetorical questions
+- Responses should be terse, and to the point,
+- no silly questions 
+- no obvously wrong options/solutions shouldnt be listed. 

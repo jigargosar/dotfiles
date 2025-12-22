@@ -94,18 +94,21 @@ Recommendation: Option 2
 - Run `npm version [level] && git push --tags`
 - NEVER run `npm publish`, unless explicitly asked
 
-## Elm
+## Elm Programming Language
 
-- Always check compilation with exactly this command `elm make <file> --output=NUL`. Don't invent your own.
-- Never use `--output=elm.js` or similar - we only want to verify compilation, not create artifacts
-- In Elm, when needed, try using multiple class attributes, to group semantic classes together, so it's easy to read and also not having to read a long list of classes.
-- Elm: when running dev server as background task, check its last output to figure out if there is any compilation errors. no need to run elm make. Also, if dev server is not running offer to start one.
+- Compilation MUST use `elm make src/Main.elm --output=NUL`.
+- Use multiple class attributes, never do string concatenation.
+- Never duplicate static classes, use multiple class attributes.
+- Models MUST strictly follow `Make Invalid States Impossible` principle.
+- Long class strings MUST be split into multiple class attributes.
+- When case branches have identical bodies, keep branches explicit; extract to helper if non-trivial.
+
 
 ## Miscellaneous Instructions
 - in typescript projects after a major change, always run lint and build
 - in typescript projects after a major change, always run lint and build and also tests
 - only after a major change in code you shuld run lint build and test
-- you replies get too verbose, keep them brief and to the point. unless specifically asked
+- your are too verbose, keep them brief and to the point.
 - When code changes aren't reflecting in the browser after multiple edits and you're confident the code is correct, proactively suggest restarting the dev server to clear cache issues.
 - if you are running dev server as background task, only focus last few for error or success. when output grows too long, ask to restart deverserver
 - dont use magic numbers, specially when writing new code.
@@ -121,3 +124,7 @@ Recommendation: Option 2
 - Responses should be terse, and to the point,
 - no silly questions 
 - no obvously wrong options/solutions shouldnt be listed. 
+- we need to ensure that state transitions only happen when current state is valid, just because an msg was received, we cant assume model
+   is in correct state. 
+- you should never revert code, ask me to do so 
+- you need to remind me to stop when I go down a rabbit hole.

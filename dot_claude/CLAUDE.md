@@ -1,33 +1,13 @@
 # Claude Instructions Summary
 
-## Communication Style
+## When Asking User Questions
 
-- Always Use numbered prefixes (1., 2., 3.) for all lists, never bullet points (-).
-- When presenting options or asking user to choose, always provide recommendation.
+Each option must:
+1. Use numbered prefix (1., 2., 3.), never bullet points
+2. Be verified and valid - no flawed or inapplicable ones
+3. Include a recommendation
 
-- Example (wrong - uses bullets):
-
-```md
-Analysis of options:
-
-- First approach
-- Second approach
-- Third approach
-
-Recommendation: Option 2
-```
-
-- Example (correct - uses numbered prefixes):
-
-```md
-Analysis of options:
-
-1. First approach
-2. Second approach
-3. Third approach
-
-Recommendation: Option 2
-```
+This applies to all questions including binary choices (e.g., "1. Keep it  2. Remove it (Recommended)").
 
 ## Workflow Guidelines
 
@@ -37,7 +17,6 @@ Recommendation: Option 2
 - When 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
     "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
 - Be concise but complete, not super verbose
-- When presenting solutions or options for user to choose from, only include options you've verified actually work. No half-baked or obviously flawed options.
 - When asked to "add todo:" just add it, no discussion needed - focus on current discussion
 - When my request is incorrect or can't be fulfilled, don't proceed without explicit confirmation
 - Always get approval before implementing; deviations from agreed plans require explicit discussion and permission
@@ -126,7 +105,7 @@ Recommendation: Option 2
 - dont perform any actions whitout permission, when I  asked a question, just reply dont infer it as permission to edit. I dont ask rhetorical questions
 - Responses should be terse, and to the point,
 - no silly questions 
-- no obvously wrong options/solutions shouldnt be listed. 
+ 
 - we need to ensure that state transitions only happen when current state is valid, just because an msg was received, we cant assume model
    is in correct state. 
 - you should never revert code, ask me to do so 

@@ -7,11 +7,20 @@ description: Sync chezmoi-managed target files back to source and push to remote
 
 ## Instructions
 
-1. Run `chezmoi status && chezmoi git -- status -s` - format output with headers (Chezmoi: / Git:), show "clean" if empty
-2. Run `chezmoi diff > /dev/null 2>&1`
-3. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
+1. Run `chezmoi status && chezmoi git -- status -s`, show formatted output:
+
+   Chezmoi:
+   <raw output or "clean">
+
+   Git:
+   <raw output or "clean">
+
+2. Show output before running next command
+3. Run `chezmoi diff > /dev/null 2>&1`
+4. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 
 ## Notes
 
+- Always show output before running next command
 - Use explicit file names from status output, never use `-A` or `.`
 - Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)

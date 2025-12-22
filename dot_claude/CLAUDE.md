@@ -34,10 +34,10 @@ Recommendation: Option 2
 - Always present implementation plan for approval before implementing
 - Only do what's explicitly asked, nothing more/less - discuss additional work first
 - Don't keep jumping to implementation without thinking through the design first
-- If 2-3 solutions rejected, ask user to share their approach:
-    > "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
+- If 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
+    "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
 - Be concise but complete, not super verbose
-- Don't present silly/obviously wrong answers
+- When presenting solutions or options for user to choose from, only include options you've verified actually work. No half-baked or obviously flawed options.
 - When asked to "add todo:" just add it, no discussion needed - focus on current discussion
 - if my request is incorrect, can't be fulfilled don't proceed ahead without explicit confirmation
 - Always get approval before implementing; deviations from agreed plans require explicit discussion and permission

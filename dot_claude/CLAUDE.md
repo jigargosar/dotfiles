@@ -64,6 +64,7 @@ Recommendation: Option 2
 - File Paths: ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
 - File Paths: For simple renaming, use grep/sed etc., don't waste tokens unless refactoring is tricky
 - File Paths: Ignore reference directory unless explicitly asked to look into it
+- File Paths: When file write fails repeatedly due to "unexpectedly modified" errors, retry using Windows path format
 - Tools: Don't run interactive commands - present a clear plan for user to run instead, don't skip steps you can't do
 - Tools: Default to pnpm (infer from lockfile), not npm
 - Tools: For "diff" requests, use git diff for entire repository, don't assume which files are modified - analyze for bugs and issues
@@ -86,6 +87,7 @@ Recommendation: Option 2
 ## Chezmoi
 
 - `chezmoi git` commands options need double hyphen, otherwise chezmoi will pick it up and cause errors
+- After editing chezmoi-managed files (e.g., `~/.claude/CLAUDE.md`), invoke chezmoi-sync skill
 
 ## Package Publishing
 

@@ -103,7 +103,7 @@ Recommendation: Option 2
 - Never duplicate static classes, use multiple class attributes.
 - Models MUST strictly follow `Make Invalid States Impossible` principle.
 - Long class strings MUST be split into multiple class attributes.
-- When case branches have identical bodies, keep branches explicit; extract to helper if non-trivial.
+- Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
 
 
 ## Miscellaneous Instructions

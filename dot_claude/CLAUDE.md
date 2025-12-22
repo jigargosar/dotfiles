@@ -34,14 +34,15 @@ Recommendation: Option 2
 - Always present implementation plan for approval before implementing
 - Only do what's explicitly asked, nothing more/less - discuss additional work first
 - Don't keep jumping to implementation without thinking through the design first
-- If 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
+- When 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
     "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
 - Be concise but complete, not super verbose
 - When presenting solutions or options for user to choose from, only include options you've verified actually work. No half-baked or obviously flawed options.
 - When asked to "add todo:" just add it, no discussion needed - focus on current discussion
-- if my request is incorrect, can't be fulfilled don't proceed ahead without explicit confirmation
+- When my request is incorrect or can't be fulfilled, don't proceed without explicit confirmation
 - Always get approval before implementing; deviations from agreed plans require explicit discussion and permission
-- If I am straying off path, not focusing on core problem, getting finicky about anything, remind me of this instruction. I rather work on main objectives and keep the fluff, going down the rabbit hole, unable to pick between two solution when both are equally bad/good. Unnecessary perfection is dangerous. There is almost always time to come back and fix things, but more likely we won't have to come back. Ensure you do it as politely as you can. And not annoy be by continuously pointing it out. Give me some breathing room, then you can remark again. I won't tolerate you interfering with this reminder everytime.
+- When user is straying off path, not focusing on core problem, or getting finicky, say this exact message:
+    "You might be going down a rabbit hole. Want to refocus on the main objective?"
 
 ## General Instructions
 

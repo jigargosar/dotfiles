@@ -1,3 +1,8 @@
+---
+name: inbox
+description: Manage roadmap workflow - process inbox items or add new tasks. Use when user says "process inbox", "add to roadmap", or uses "inbox:" prefix.
+---
+
 # Inbox
 
 Manage roadmap workflow - process inbox items or add new tasks.
@@ -21,42 +26,26 @@ When invoked with a task description (e.g., `/inbox fix login bug` or `inbox: fi
 When invoked without argument or asked to "process inbox":
 
 1. Read ROADMAP.md
-2. Present each InBox item ONE AT A TIME with options:
+2. Present each InBox item ONE AT A TIME with options and recommendation:
 
 ```
-**1. [Item name]**
+**[Item name]**
 
 1. Ready
 2. In Progress
 3. Done: Pending Review
 4. Done
-5. Backlog (Recommended - [brief reason])
+5. Backlog
 ```
 
-If related items exist, add: `6. Merge with "[related item]" in [section]`
+Add suggestions as option 6+ when applicable (e.g., merge with related item, split into subtasks, rename for clarity).
 
 3. Wait for user selection before proceeding to next item
 4. Apply changes after each selection
 
 ### Create ROADMAP.md (if missing)
 
-If ROADMAP.md doesn't exist, create with structure:
-
-```markdown
-# Roadmap
-
-## InBox (each item to be evaluated for placement)
-
-## Ready
-
-## In Progress
-
-## Done: Pending Review
-
-## Done (commit when moved here)
-
-## Backlog
-```
+If ROADMAP.md doesn't exist, copy from `templates/ROADMAP.md`.
 
 ## Workflow Rules
 
@@ -65,4 +54,4 @@ If ROADMAP.md doesn't exist, create with structure:
 - Never move items without explicit user approval
 - Keep task descriptions concise but complete
 
-Be terse. No verbose explanations.
+Be concise but friendly. Avoid unnecessary verbosity.

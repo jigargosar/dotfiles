@@ -1,6 +1,6 @@
 # Roadmap
 
-## InBox (each item to be evaluated for placement)
+## InBox (each item to be evaluated for placement, commit when done)
 
 ## Ready
 

@@ -16,7 +16,7 @@ Look for:
    - Repeated inline logic that should be extracted
 
 2. **Library functions:**
-   - Hand-written code that exists in elm-community libraries (list-extra, maybe-extra, etc.)
+   - Hand-written code that exists in elm-community libraries (list-extra, maybe-extra, result-extra, etc.)
 
 3. **Deep nesting:**
    - Nested case statements that should be flattened
@@ -33,7 +33,8 @@ Do not rely on examples. Discover patterns by reading the code.
 
 Report findings with:
 - Problem description
-- Current code snippet showing the issue with enough context to understand it
-- Suggested improvement with code showing the fix
-- All other locations where this same pattern appears
+- Current code snippet showing the issue with enough context
+- Suggested improvement with complete code showing the fix
+- Recommendation: Implement or Skip, with reasoning
+- All other locations where this pattern appears
 - File and line references for each location

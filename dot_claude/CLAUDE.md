@@ -39,7 +39,6 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - Code Quality: Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
 - Error Handling: Never swallow/rethrow same exceptions - let them propagate to top level to fail fast
 - Error Handling: **Exception:** Handle the case properly if needed for logical flow
-- File Paths: Don't use cd command or absolute paths when files are relative to workspace
 - File Paths: Use file names relative to current project workspace
 - File Paths: ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
 - File Paths: For simple renaming, use grep/sed etc., don't waste tokens unless refactoring is tricky
@@ -51,6 +50,10 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - Package Management: if and when manually creating package.json file, ensure all dependencies are installed via package manager, don't hardcode them.
 - Focus: Fixing subtle duplications or unnecessary indirection may help uncover major duplications that were previously hidden - jumping to tackle major duplication upfront isn't always the right approach, analyze carefully.
 - Design: When designing, avoid margin, and prefer padding. especially for vertical alignment. It's ok to use margin auto for centering horizontally
+
+## Tools
+
+- Bash: When running commands, don't use `cd /path &&` prefix or absolute paths - shell is already in project folder, use relative paths.
 
 ## Git
 

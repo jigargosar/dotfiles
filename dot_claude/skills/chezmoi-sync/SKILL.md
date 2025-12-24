@@ -24,3 +24,4 @@ description: Sync chezmoi-managed target files back to source and push to remote
 - Always show output before running next command
 - Use explicit file names from status output, never use `-A` or `.`
 - Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)
+- Include ALL files from chezmoi status in the add command, not just the ones related to current task

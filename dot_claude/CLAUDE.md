@@ -79,6 +79,12 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - Run `npm version [level] && git push --tags`
 - NEVER run `npm publish`, unless explicitly asked
 
+## Elm Packages
+
+- Package URL root: `https://package.elm-lang.org/packages/`
+- Install: `echo "Y" | elm install <package-name>`
+- Source root: `%APPDATA%\elm\0.19.1\packages\`
+
 ## Elm Programming Language
 
 - Compilation MUST use `elm make src/Main.elm --output=NUL`.

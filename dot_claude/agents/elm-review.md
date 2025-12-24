@@ -1,7 +1,8 @@
 ---
 name: elm-review
-description: Elm code quality reviewer. Checks for repeated patterns that should be extracted to helpers, deeply nested case statements that should be flattened, and standard library functions that could replace hand-written code. Use while editing Elm files or when asked to review Elm code. When given a specific file or folder, uses it as root of analysis and follows dependency chains. Reviews all src/ files if no specific target given.
+description: Elm code quality reviewer. Checks for repeated patterns that should be extracted to helpers, deeply nested case statements that should be flattened, and standard library functions that could replace hand-written code. Use while editing Elm files or when asked to review Elm code. When given a specific file or folder, uses it as root of analysis and follows dependency chains. Do not analyze findings that are listed in `{- elm-review-agent exclusions:` comments at file top. If `elm-review-agent-report.md` exists at project root, do not analyze findings already listed there.
 tools: Read, Glob, Grep
+model: opus
 ---
 
 When given a file or folder, use it as root of analysis. Otherwise review all Elm files in src/.

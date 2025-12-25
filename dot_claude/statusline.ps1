@@ -10,6 +10,27 @@ $currentDir = Split-Path -Leaf $data.workspace.current_dir
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
 
+# Calculate consumed context percentage with color coding
+$contextPart = ""
+if ($data.context_window.current_usage -ne $null) {
+    $currentTokens = $data.context_window.current_usage.input_tokens +
+                     $data.context_window.current_usage.cache_creation_input_tokens +
+                     $data.context_window.current_usage.cache_read_input_tokens
+    $windowSize = $data.context_window.context_window_size
+    $usedPercentage = [math]::Floor(($currentTokens * 100) / $windowSize)
+
+    # Color code based on usage level
+    $ctxColor = if ($usedPercentage -lt 50) {
+        "$($PSStyle.Foreground.Green)"
+    } elseif ($usedPercentage -lt 75) {
+        "$($PSStyle.Foreground.Yellow)"
+    } else {
+        "$($PSStyle.Foreground.Red)"
+    }
+
+    $contextPart = " [Ctx: ${ctxColor}${usedPercentage}%$($PSStyle.Reset)]"
+}
+
 # PowerShell 7.2+ PSStyle colors
 $greenColor = "$($PSStyle.Foreground.Green)"
 $redColor = "$($PSStyle.Foreground.Red)"
@@ -49,10 +70,10 @@ try {
         }
 
         # Output the complete status line
-        Write-Output "${currentDir}@${gitPart} [${model}]"
+        Write-Output "${currentDir}@${gitPart} [${model}]${contextPart}"
     } else {
         # Not a git repo, just show directory and model
-        Write-Output "${currentDir} [${model}]"
+        Write-Output "${currentDir} [${model}]${contextPart}"
     }
 } finally {
     Pop-Location

@@ -105,6 +105,18 @@ When user confirms task is done, move it from "In Progress" or "Pending Review" 
 - Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
 
 
+## Code Analysis for Extraction/Refactoring
+
+<!-- TODO: Move to dedicated agent/skill/command when appropriate -->
+
+- Read line by line, no preconceptions about what belongs where
+- Ask what code does, not what it currently touches - signatures are accidents of history
+- Every location must be justified, not inherited - "it's already here" is not justification
+- Coupling claims require evidence - show *why*, not just that types are referenced
+- Parameters can be reshaped - analyze the operation, not current signature
+- Small extractions have value - cognitive load is cumulative
+- Distinguish orchestration (when/wiring) from implementation (what/domain)
+
 ## Miscellaneous Instructions
 - in typescript projects after a major change, always run lint and build
 - in typescript projects after a major change, always run lint and build and also tests

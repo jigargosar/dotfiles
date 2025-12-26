@@ -74,6 +74,14 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - `chezmoi git` commands options need double hyphen, otherwise chezmoi will pick it up and cause errors
 - After editing chezmoi-managed files (e.g., `~/.claude/CLAUDE.md`), invoke chezmoi-sync skill
 
+## When in Plan Mode
+
+Ensure task is in ROADMAP.md "In Progress" section.
+
+## When Task Completed
+
+When user confirms task is done, move it from "In Progress" or "Pending Review" to "Done" in ROADMAP.md.
+
 ## Package Publishing
 
 - When user asks to publish: discuss and recommend semver level (patch/minor/major)

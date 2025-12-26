@@ -1,13 +1,13 @@
 # Roadmap
 
-## InBox (each item to be evaluated for placement, commit when done)
+## Inbox
 
 ## Ready
 
 ## In Progress
 
-## Done: Pending Review
+## Pending Review
 
-## Done (commit when moved here)
+## Done
 
 ## Backlog

@@ -1,57 +1,30 @@
 ---
 name: inbox
-description: Manage roadmap workflow - process inbox items or add new tasks. Use when user says "process inbox", "add to roadmap", or uses "inbox:" prefix.
+description: "Process Inbox tasks in ROADMAP.md - triage by moving or modifying. Invoke with /inbox or 'process inbox'. Present each task one at a time with move options (Inbox, Ready, In Progress, Pending Review, Done, Backlog), auto-detected suggestions (merge, split, rename), and Reassess option for deeper analysis. Also supports processing other sections: 'process ready', 'process backlog', etc."
 ---
 
-# Inbox
+# When Processing Inbox:
 
-Manage roadmap workflow - process inbox items or add new tasks.
-
-## Triggers
-
-- `/inbox` or `/inbox <task>` - user command
-- `inbox: <task>` - quick add syntax
-- "process inbox", "add to roadmap" - context triggers
-
-## Instructions
-
-### Quick Add (with argument)
-
-When invoked with a task description (e.g., `/inbox fix login bug` or `inbox: fix login bug`):
-- Add task to InBox section in ROADMAP.md
-- No discussion needed, just add it
-
-### Process Inbox (no argument)
-
-When invoked without argument or asked to "process inbox":
-
-1. Read ROADMAP.md
-2. Present each InBox item ONE AT A TIME with options and recommendation:
+Read ROADMAP.md. For each Inbox task, present options and recommendation:
 
 ```
-**[Item name]**
+**[Task name]**
 
-1. Ready
-2. In Progress
-3. Done: Pending Review
-4. Done
-5. Backlog
+1. Inbox (current)
+2. Ready
+3. In Progress
+4. Pending Review
+5. Done
+6. Backlog
+7+ [Auto-detected suggestions if applicable]
+N. Reassess...
 ```
 
-Add suggestions as option 6+ when applicable (e.g., merge with related item, split into subtasks, rename for clarity).
+# Processing Other Sections
 
-3. Wait for user selection before proceeding to next item
-4. Apply changes after each selection
+Same workflow as "When Processing Inbox" applies. Invoke with "process ready", "process backlog", etc. Mark current section with "(current)" in options.
 
-### Create ROADMAP.md (if missing)
+# Notes
+- Template: Ensure ROADMAP.md exist at project root, else copy from `templates/ROADMAP.md`.
+- Tone: Be concise but friendly. Avoid unnecessary verbosity.
 
-If ROADMAP.md doesn't exist, copy from `templates/ROADMAP.md`.
-
-## Workflow Rules
-
-- Task flow: Ready → In Progress → Done: Pending Review (await approval) → Done
-- InBox is the entry point for all new items
-- Never move items without explicit user approval
-- Keep task descriptions concise but complete
-
-Be concise but friendly. Avoid unnecessary verbosity.

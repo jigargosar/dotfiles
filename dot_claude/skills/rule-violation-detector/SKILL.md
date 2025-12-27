@@ -1,18 +1,18 @@
 ---
 name: rule-violation-detector
-description: Use when user says "violation", "vio", "you violated", "broke rule", "didn't follow instruction", or similar indicating AI broke a rule from global instructions
+description: Use when user says "violation", "vio", "you violated", "broke rule", "didn't follow instruction", or similar indicating AI broke a rule from CLAUDE.md files
 ---
 
 # Rule Violation Detector
 
 ## Common Violations (check first)
 
-1. **Bash paths**: Using `cd /path &&` prefix or absolute paths instead of relative paths
-2. **Git add**: Using `-A` or `.` instead of explicit file names
-3. **Verbose responses**: Being too wordy when user expects terse replies
-4. **Acting without permission**: Making edits when user only asked a question
-5. **Not presenting plan**: Implementing without approval
-7. **Rabbit hole**: Not reminding user when they stray off path
+1. **Numbered options**: Not using numbered prefix (1., 2., 3.) with recommendation when asking questions (see "When Asking User Questions")
+2. **Bash paths**: Using `cd /path &&` prefix or absolute paths - use relative paths (see "Tools > Bash")
+3. **File paths**: Using absolute Windows paths or `/mnt/c/` WSL paths - use workspace-relative (see "File Paths")
+4. **Acting without permission**: Making edits when user only asked a question (see "Miscellaneous Instructions")
+5. **Not presenting plan**: Implementing without approval (see "Workflow Guidelines")
+6. **Rabbit hole**: Not reminding user when they stray off path (see "Workflow Guidelines")
 
 ## Instructions
 

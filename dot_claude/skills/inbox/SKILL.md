@@ -5,19 +5,28 @@ description: "Process Inbox tasks in ROADMAP.md - triage by moving or modifying.
 
 # When Processing Inbox:
 
-Read ROADMAP.md. For each Inbox task, present options and recommendation:
+Read ROADMAP.md. Present ONE task at a time with options and recommendation. Wait for user response before proceeding to next.
 
 ```
 **[Task name]**
 
-1. Inbox (current)
-2. Ready
-3. In Progress
-4. Pending Review
-5. Done
-6. Backlog
-7+ [Auto-detected suggestions if applicable]
-N. Reassess...
+a. Inbox (current)
+b. Ready
+c. In Progress
+d. Pending Review
+e. Done
+f. Backlog
+g. [Auto-detected suggestions if applicable, continue h, i...]
+R. Reassess...
+```
+
+# Auto-detected Suggestions
+
+When suggesting merge, split, rename, or other modifications, always show a preview:
+
+```
+g. Merge with "other task name"
+   Preview: `- [merged task text]`
 ```
 
 # Processing Other Sections

@@ -56,6 +56,7 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - Bash: When running commands, don't use `cd /path &&` prefix or absolute paths - shell is already in project folder, use relative paths.
 - Search: Respect `.gitignore` when searching and doing any file operations.
 - Search: Relying on narrow search/grep terms may miss relevant files/content. Read full file contents when needed.
+- Chrome MCP: After code changes, always hard refresh browser (Ctrl+Shift+R) before testing - don't rely on HMR/auto-reload.
 
 ## Git
 

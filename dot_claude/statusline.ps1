@@ -9,6 +9,7 @@ $data = $inputText | ConvertFrom-Json
 $currentDir = Split-Path -Leaf $data.workspace.current_dir
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
+$sessionId = $data.session_id
 
 # Calculate consumed context percentage with color coding
 $contextPart = ""
@@ -70,10 +71,10 @@ try {
         }
 
         # Output the complete status line
-        Write-Output "${currentDir}@${gitPart} [${model}]${contextPart}"
+        Write-Output "${sessionId} |`n${gitPart} [${model}]${contextPart}"
     } else {
-        # Not a git repo, just show directory and model
-        Write-Output "${currentDir} [${model}]${contextPart}"
+        # Not a git repo, just show model
+        Write-Output "${sessionId} |`n[${model}]${contextPart}"
     }
 } finally {
     Pop-Location

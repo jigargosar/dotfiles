@@ -9,7 +9,11 @@ $data = $inputText | ConvertFrom-Json
 $currentDir = Split-Path -Leaf $data.workspace.current_dir
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
-$sessionId = $data.session_id
+
+# DEBUG: Uncomment to see raw JSON
+# Write-Output "=== RAW JSON DATA ==="
+# Write-Output $inputText
+# exit
 
 # Calculate consumed context percentage with color coding
 $contextPart = ""
@@ -71,11 +75,18 @@ try {
         }
 
         # Output the complete status line
-        Write-Output "${sessionId} |`n${gitPart} [${model}]${contextPart}"
+        $statusLine = "${gitPart} [${model}]${contextPart}"
     } else {
         # Not a git repo, just show model
-        Write-Output "${sessionId} |`n[${model}]${contextPart}"
+        $statusLine = "[${model}]${contextPart}"
     }
+
+    # Output status line
+    Write-Output $statusLine
+
+    # DEBUG: Uncomment to append raw JSON data
+    # Write-Output "`n=== RAW JSON DATA ==="
+    # Write-Output $inputText
 } finally {
     Pop-Location
 }

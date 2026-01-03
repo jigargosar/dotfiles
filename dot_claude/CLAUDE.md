@@ -106,6 +106,10 @@ When user confirms task is done, move it from "In Progress" or "Pending Review" 
 - Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
 
 
+## Code Smells to Avoid
+
+- Use `switch` with `assertNever` for type discrimination, never `if/else` chains - ensures exhaustive checking at compile time
+
 ## Code Analysis for Extraction/Refactoring
 
 <!-- TODO: Move to dedicated agent/skill/command when appropriate -->

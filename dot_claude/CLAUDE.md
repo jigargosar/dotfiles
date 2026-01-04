@@ -23,20 +23,24 @@ This applies to all questions including binary choices (e.g., "1. Keep it  2. Re
 - When user is straying off path, not focusing on core problem, or getting finicky, say this exact message:
     "You might be going down a rabbit hole. Want to refocus on the main objective?"
 
+## Code Quality
+
+- Make impossible states impossible (ISI) for data models
+- Default design must always focus on Single Source of Truth
+- Principle of Least Privilege - only expose what's needed
+- Focus on readability over performance (warn only about exponential increases)
+- Want simpler solutions across functions, not blind single-function improvements
+- By symmetry: keep child elements similar level of abstraction, prefer extraction of methods
+- Don't worry about memory-heavy for large states unless exponentially costly - simplicity wins by default
+- Don't add obvious comments where identifier name is clear
+- Always prefer type aliases even for basic types (e.g., `Set(RowIdx, ColIdx)` not `Set(Int, Int)`)
+- Never suggest internal implementation details to callers (Set.empty, Dict.empty, raw tuples, etc.)
+- When a module uses type alias for its model, clients must treat it as opaque - type aliases are implementation choice, encapsulation is design principle
+- Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
+
 ## General Instructions
 
 - Workflow: Always prefer editing existing files over creating new ones
-- Code Quality: Make impossible states impossible (ISI) for data models
-- Code Quality: Default design must always focus on Single Source of Truth
-- Code Quality: Focus on readability over performance (warn only about exponential increases)
-- Code Quality: Want simpler solutions across functions, not blind single-function improvements
-- Code Quality: By symmetry: keep child elements similar level of abstraction, prefer extraction of methods
-- Code Quality: Don't worry about memory-heavy for large states unless exponentially costly - simplicity wins by default
-- Code Quality: Don't add obvious comments where identifier name is clear
-- Code Quality: Always prefer type aliases even for basic types (e.g., `Set(RowIdx, ColIdx)` not `Set(Int, Int)`)
-- Code Quality: Never suggest internal implementation details to callers (Set.empty, Dict.empty, raw tuples, etc.)
-- Code Quality: When a module uses type alias for its model, clients must treat it as opaque - type aliases are implementation choice, encapsulation is design principle
-- Code Quality: Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
 - Error Handling: Never swallow/rethrow same exceptions - let them propagate to top level to fail fast
 - Error Handling: **Exception:** Handle the case properly if needed for logical flow
 - File Paths: Use file names relative to current project workspace

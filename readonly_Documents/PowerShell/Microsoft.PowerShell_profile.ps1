@@ -36,20 +36,18 @@ function prompt {
     $displayPath = $realPath.Replace('\', '/').Replace($homePath, "~")
     if (!$displayPath.EndsWith('/')) { $displayPath += '/' }
     
-    # RESTORED: This line enables Windows Terminal "Duplicate Tab" functionality
+    # Enable Windows Terminal "Duplicate Tab"
     Write-Host "$([char]27)]9;9;`"$realPath`"$([char]27)\" -NoNewline
 
-    # 2. Git Information (Using rev-parse for accuracy)
+    # 2. Git Information
     $gitBlock = ""
     if (Get-Command git -ErrorAction SilentlyContinue) {
-        # Explicitly get the branch name (removes the [#] / [HEAD] bugs)
         $branchName = git rev-parse --abbrev-ref HEAD 2>$null
         
         if ($branchName) {
-            # Get everything else in one porcelain call
             $status = git status --porcelain --branch 2>$null
             
-            # Extract Ahead/Behind from the first line
+            # Extract Ahead/Behind
             $ahead  = if ($status[0] -match 'ahead\s(\d+)')  { " ↑$($Matches[1])" } else { "" }
             $behind = if ($status[0] -match 'behind\s(\d+)') { " ↓$($Matches[1])" } else { "" }
             
@@ -62,17 +60,13 @@ function prompt {
             if ($dirtyCount -gt 0) { $statusColor = "Red" }
             elseif ($ahead -or $behind) { $statusColor = "Cyan" }
 
-            $gitBlock = "[$branchName$plus$ahead$behind]"
+            $gitBlock = " [$branchName$plus$ahead$behind]"
         }
     }
 
-    # 3. Render Top Line (Right Aligned)
+    # 3. Render (Single Line for Path + Git)
     Write-Host "`n$displayPath" -ForegroundColor Cyan -NoNewline
-    
     if ($gitBlock) {
-        $pad = $Host.UI.RawUI.WindowSize.Width - $displayPath.Length - $gitBlock.Length
-        if ($pad -gt 0) { Write-Host (" " * $pad) -NoNewline }
-        else { Write-Host " " -NoNewline }
         Write-Host $gitBlock -ForegroundColor $statusColor -NoNewline
     }
 

@@ -16,16 +16,18 @@ function Import-Cached {
 }
 
 # --- 2. SHELL BEHAVIOR & PREDICTIONS ---
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+if ($host.UI.SupportsVirtualTerminal) {
+    Set-PSReadLineOption -PredictionSource History
+    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
-# # Kill ring bindings
-# Set-PSReadLineKeyHandler -Key Ctrl+y -Function Yank
-# Set-PSReadLineKeyHandler -Key Alt+y  -Function YankPop
+    # # Kill ring bindings
+    # Set-PSReadLineKeyHandler -Key Ctrl+y -Function Yank
+    # Set-PSReadLineKeyHandler -Key Alt+y  -Function YankPop
 
-# Path-aware deletion vs whitespace-aware deletion
-Set-PSReadLineKeyHandler -Key Ctrl+w -Function ShellBackwardKillWord   # deletes back to / or \ boundaries
-Set-PSReadLineKeyHandler -Key Alt+w  -Function UnixWordRubout          # deletes back to whitespace
+    # Path-aware deletion vs whitespace-aware deletion
+    Set-PSReadLineKeyHandler -Key Ctrl+w -Function ShellBackwardKillWord   # deletes back to / or \ boundaries
+    Set-PSReadLineKeyHandler -Key Alt+w  -Function UnixWordRubout          # deletes back to whitespace
+}
 
 # --- 3. BACKGROUND INITIALIZATION (Lazy Loading) ---
 $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCount 1 -Action {

@@ -4,14 +4,9 @@ user-invocable: false
 description: |
   Control AI workflow with explicit triggers.
 
-  Triggers must start with `/` (e.g., /restate not restate):
-  1. /restate - verify AI understanding
-  2. /steps (or /plan, /outline) - terse implementation steps
-  3. /draft (or /preview) - detailed preview before execution
-  4. /discuss - focused exploration
-  5. /assert - validate statement/assumption
-  6. /revise (or /redo) - redo last response with instruction
-  7. /park - add item to AI todo list
+  Triggers: /restate, /steps, /plan, /outline, /draft, /preview, /discuss, /assert, /revise, /redo, /park, park:
+
+  Only these exact keywords trigger this skill.
 ---
 
 # Protocol
@@ -50,7 +45,7 @@ description: |
 
 ## /park
 1. Extract item from message (content after "park:" or before "/park")
-2. Add to TodoWrite as pending
+2. Add to TodoWrite as pending - do NOT act on it
 3. Confirm: "Parked: [item]"
 
 ## Rules

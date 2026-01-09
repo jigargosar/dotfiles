@@ -3,84 +3,70 @@ name: refine-requirement
 description: |
   Iterative requirements clarification before execution.
 
-  OUTPUT FORMAT: Headers numbered, nested items numbered.
-  Example:
-  1. Header
-     1. Nested item
-     2. Another item
-  Reference: "2.1" = header 2, item 1.
+  Triggers:
+  1. /restate - verify AI understanding
+  2. /steps (or /plan, /outline) - terse implementation steps
+  3. /draft (or /preview) - detailed preview before execution
+  4. /discuss - focused exploration
+  5. /assert - validate statement/assumption
+  6. /revise (or /redo) - redo last response with instruction
 
-  Triggers (with or without `/` prefix per rules below):
-  1. restate - AI presents understanding of request
-  2. plan - AI shows numbered implementation steps
-  3. draft - AI shows preview of changes before execution
-  4. discuss - focused discussion on specific point
-  5. assert - AI validates user's statement/assumption
-
-  Prefix rules:
-  1. Required mid-sentence (e.g., "I think /restate this needs work")
-  2. Optional at end of message (e.g., "Add dark mode. restate")
-  3. Optional as standalone single word (e.g., "restate")
-
-  Multiple triggers in one prompt supported (e.g., "/restate /plan").
-  Natural language ("go", "proceed", "do it") executes the agreed plan.
+  Note: Bare keyword (no slash) works at end of prompt or standalone.
 ---
 
-# Refine Requirement
+# Workflow
 
-Iterative requirements clarification before execution.
+## /restate
+1. Present understanding of request
+2. Purpose: user verifies AI understood before proceeding
+3. Include: goal, scope, constraints inferred
+4. Wait for refinement or next trigger
+5. Iterate until user confirms
 
-OUTPUT FORMAT: Headers numbered, nested items numbered.
-Example:
-1. Header
+## /steps (or /plan, /outline)
+1. Terse implementation steps
+2. Based on refined requirements
+3. Include affected files if known
+
+## /draft (or /preview)
+1. Detailed preview before execution
+2. For code: snippets, pseudo code, reasoning
+3. For prose: full text draft
+4. Do NOT edit files or run commands
+
+## /discuss
+1. Specific point only
+2. Alternatives/tradeoffs
+3. No restate/replan unless asked
+
+## /assert
+1. Validate statement/assumption
+2. Confirm, correct, or clarify with evidence
+
+## /revise (or /redo)
+1. Redo last AI response
+2. Apply instruction given before trigger
+3. Keep same intent, refine output
+
+## Rules
+1. User controls flow
+2. Use latest requirements
+3. Stay terse
+4. Explicit confirmations (e.g., "Show draft?" not "Proceed?")
+5. Execute on: "go"
+
+## Combining Triggers
+Triggers can be interspersed with content:
+"Sentence 1. /restate Sentence 2. /steps"
+Each trigger applies to surrounding context.
+
+## Output Format
+All responses use numbered lists:
+
+1. Header one
    1. Nested item
    2. Another item
+2. Header two
+   1. Its nested item
+
 Reference: "2.1" = header 2, item 1.
-
-Triggers (with or without `/` prefix per rules below):
-1. restate - AI presents understanding of request
-2. plan - AI shows numbered implementation steps
-3. draft - AI shows preview of changes before execution
-4. discuss - focused discussion on specific point
-5. assert - AI validates user's statement/assumption
-
-Prefix rules:
-1. Required mid-sentence (e.g., "I think /restate this needs work")
-2. Optional at end of message (e.g., "Add dark mode. restate")
-3. Optional as standalone single word (e.g., "restate")
-
-Multiple triggers in one prompt supported (e.g., "/restate /plan").
-Natural language ("go", "proceed", "do it") executes the agreed plan.
-
-1. On `restate`
-   1. Present numbered understanding of the request
-   2. Wait for refinement or next stage
-
-2. On `plan`
-   1. Present numbered implementation steps
-   2. Based on current (possibly refined) requirements
-
-3. On `draft`
-   1. Show summary of proposed changes
-   2. List affected files with brief description
-   3. Details on demand - user can ask for specific diffs
-   4. Do NOT write files
-
-4. On `discuss`
-   1. Respond only to specific point raised
-   2. Offer alternatives/tradeoffs as numbered options
-   3. No restating or replanning unless asked
-
-5. On `assert`
-   1. Validate user's statement/assumption
-   2. Confirm, correct, or clarify with numbered points
-   3. Use own knowledge to verify
-
-6. Execution
-   1. Natural language confirms: "go", "proceed", "do it", "yes", "looks good"
-
-7. Notes
-   1. Jump between states freely
-   2. Always use latest refined requirements
-   3. Stay terse
-   4. When AI asks confirmation, be explicit about what "yes/no" means (e.g., "Show updated draft?" not "Go with this?")

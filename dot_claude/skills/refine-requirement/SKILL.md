@@ -1,5 +1,5 @@
 ---
-name: iterate-requirements
+name: refine-requirement
 description: |
   Iterative requirements clarification before execution.
 
@@ -26,7 +26,9 @@ description: |
   Natural language ("go", "proceed", "do it") executes the agreed plan.
 ---
 
-# Iterate Requirements
+# Refine Requirement
+
+Iterative requirements clarification before execution.
 
 OUTPUT FORMAT: Headers numbered, nested items numbered.
 Example:
@@ -34,6 +36,21 @@ Example:
    1. Nested item
    2. Another item
 Reference: "2.1" = header 2, item 1.
+
+Triggers (with or without `/` prefix per rules below):
+1. restate - AI presents understanding of request
+2. plan - AI shows numbered implementation steps
+3. draft - AI shows preview of changes before execution
+4. discuss - focused discussion on specific point
+5. assert - AI validates user's statement/assumption
+
+Prefix rules:
+1. Required mid-sentence (e.g., "I think /restate this needs work")
+2. Optional at end of message (e.g., "Add dark mode. restate")
+3. Optional as standalone single word (e.g., "restate")
+
+Multiple triggers in one prompt supported (e.g., "/restate /plan").
+Natural language ("go", "proceed", "do it") executes the agreed plan.
 
 1. On `restate`
    1. Present numbered understanding of the request

@@ -1,5 +1,6 @@
 ---
 name: rule-violation-detector
+user-invocable: false
 description: Use when user says "violation", "vio", "you violated", "broke rule", "didn't follow instruction", or similar indicating AI broke a rule from CLAUDE.md files
 ---
 

@@ -1,15 +1,17 @@
 ---
 name: conversation-protocol
+user-invocable: false
 description: |
-  Iterative requirements clarification before execution.
+  Control AI workflow with explicit triggers.
 
-  Triggers:
+  Triggers must start with `/` (e.g., /restate not restate):
   1. /restate - verify AI understanding
   2. /steps (or /plan, /outline) - terse implementation steps
   3. /draft (or /preview) - detailed preview before execution
   4. /discuss - focused exploration
   5. /assert - validate statement/assumption
   6. /revise (or /redo) - redo last response with instruction
+  7. /park - add item to AI todo list
 ---
 
 # Protocol
@@ -45,6 +47,11 @@ description: |
 1. Redo last AI response
 2. Apply instruction given before trigger
 3. Keep same intent, refine output
+
+## /park
+1. Extract item from message (content after "park:" or before "/park")
+2. Add to TodoWrite as pending
+3. Confirm: "Parked: [item]"
 
 ## Rules
 1. User controls flow

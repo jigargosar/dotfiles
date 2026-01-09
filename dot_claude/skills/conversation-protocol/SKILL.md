@@ -1,5 +1,5 @@
 ---
-name: refine-requirement
+name: conversation-protocol
 description: |
   Iterative requirements clarification before execution.
 
@@ -10,11 +10,9 @@ description: |
   4. /discuss - focused exploration
   5. /assert - validate statement/assumption
   6. /revise (or /redo) - redo last response with instruction
-
-  Note: Bare keyword (no slash) works at end of prompt or standalone.
 ---
 
-# Workflow
+# Protocol
 
 ## /restate
 1. Present understanding of request

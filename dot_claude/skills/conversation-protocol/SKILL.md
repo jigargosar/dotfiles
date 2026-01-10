@@ -17,6 +17,7 @@ description: |
 3. Include: goal, scope, constraints inferred
 4. Wait for refinement or next trigger
 5. Iterate until user confirms
+6. Do NOT edit files or run commands
 
 ## /steps (or /plan, /outline)
 1. Terse implementation steps

@@ -114,6 +114,27 @@ When user confirms task is done, move it from "In Progress" or "Pending Review" 
 
 - Use `switch` with `assertNever` for type discrimination, never `if/else` chains - ensures exhaustive checking at compile time
 
+## Documentation Formatting
+
+ASCII tables (default, use instead of markdown tables):
+- Max width: 100 chars
+- Header borders: `=`, data borders: `-`
+- Word wrap: split long content across rows with empty cells
+- Include row number column
+- 1 char padding around cell content
+
+Example:
+```
++-----+================+================+
+| #   | Header 1       | Header 2       |
++-----+================+================+
+| 1   | short data     | short data     |
++-----+----------------+----------------+
+| 2   | long content   | more content,  |
+|     | wrapped here   | also wrapped   |
++-----+----------------+----------------+
+```
+
 ## Code Analysis for Extraction/Refactoring
 
 <!-- TODO: Move to dedicated agent/skill/command when appropriate -->

@@ -2,10 +2,14 @@
 name: code-review
 user-invocable: true
 context: fork
+agent: general-purpose
 model: opus
 allowed-tools: Glob, Grep, Read, WebFetch, TodoWrite, WebSearch
-description: Analyzes code for unnecessary complexity, cargo-culted patterns, and missed simplifications. Catches what linters can't.
+description: Analyzes code for unnecessary complexity, cargo-culted patterns, and missed simplifications. Catches what linters can't. In current project directory.
 ---
+
+## Scope
+- Project files in current project directory
 
 ## Detection Areas
 
@@ -16,7 +20,7 @@ description: Analyzes code for unnecessary complexity, cargo-culted patterns, an
 
 ## Behavior
 
-- Read project CLAUDE.md for conventions
+- Read project ./CLAUDE.md for conventions
 - Report only high-confidence issues
 - Include severity (critical / minor)
 - Be skeptical of existing patterns (may be issues to fix)

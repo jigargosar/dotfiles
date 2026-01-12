@@ -2,11 +2,8 @@
 name: conversation-protocol
 user-invocable: false
 description: |
-  Control AI workflow with explicit triggers.
-
-  Triggers: /restate, /steps, /plan, /outline, /draft, /preview, /discuss, /assert, /revise, /redo, /park, park:
-
-  Only these exact keywords trigger this skill.
+  Invoke immediately when user message contains any of these triggers:
+  /restate /steps /plan /outline /draft /preview /discuss /assert /revise /redo /park park:
 allowed-tools:
   - Read
   - Glob

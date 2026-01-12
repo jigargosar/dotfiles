@@ -21,6 +21,34 @@ require("lazy").setup({
         colorscheme = { enable_preview = true },
       },
     },
+    keys = {
+      {
+        "<C-e>",
+        function()
+          require('telescope.builtin').buffers({
+            sort_mru = true,
+            initial_mode = "normal",
+            layout_config = { prompt_position = "top", height = 0.4 },
+            previewer = false,
+            prompt_title = false,
+            results_title = false,
+            attach_mappings = function(prompt_bufnr, map)
+              local actions = require('telescope.actions')
+              map('n', '<C-e>', 'move_selection_next')
+              map('n', 'e', 'select_default')
+              map('n', '<Esc>', 'close')
+              -- disable insert mode entry
+              map('n', 'i', function() end)
+              map('n', 'a', function() end)
+              map('n', 'I', function() end)
+              map('n', 'A', function() end)
+              return false
+            end,
+          })
+        end,
+        desc = "Recent buffers",
+      },
+    },
   },
   {
     "levouh/tint.nvim",
@@ -125,6 +153,15 @@ require("lazy").setup({
     "folke/which-key.nvim",
     enabled = false,
     opts = {},
+  },
+  {
+    "ghillb/cybu.nvim",
+    enabled = false,
+    dependencies = { "nvim-tree/nvim-web-devicons", "nvim-lua/plenary.nvim" },
+    opts = {
+      display_time = 0,
+      style = { path = "relative" },
+    },
   },
   {
     "anuvyklack/hydra.nvim",

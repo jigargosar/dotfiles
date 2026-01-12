@@ -16,7 +16,7 @@ function Import-Cached {
 }
 
 # --- 2. SHELL BEHAVIOR & PREDICTIONS ---
-if ($host.UI.SupportsVirtualTerminal) {
+if ($host.Name -eq 'ConsoleHost' -and [Environment]::UserInteractive) {
     Set-PSReadLineOption -PredictionSource History
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 

@@ -1,9 +1,10 @@
 ---
 name: conversation-protocol
 user-invocable: false
-description: |
-  Invoke immediately when user message contains any of these triggers:
+description: >-
+  **ALWAYS INVOKE THIS SKILL** when user message contains any of these triggers:
   /restate /steps /plan /outline /draft /preview /discuss /assert /revise /redo /park park:
+  Do NOT handle these triggers directly - invoke this skill instead.
 allowed-tools:
   - Read
   - Glob
@@ -32,11 +33,11 @@ If uncertain whether an action is mutation: it is. If uncertain whether to wait:
 # Protocol
 
 ## /restate
-1. Present understanding of request
-2. Purpose: user verifies AI understood before proceeding
-3. Include: goal, scope, constraints inferred
-4. Iterate until user confirms
-5. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
+Purpose: Prevent misunderstanding and scope drift. User verifies AI understood before work begins.
+
+1. State what you think user wants
+2. Iterate until user confirms
+3. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
 
 ## /steps (or /plan, /outline)
 1. Terse implementation steps

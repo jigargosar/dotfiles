@@ -1,6 +1,6 @@
 ---
 name: acq
-description: |
+description: >-
   Ask clarifying questions about current context.
   Triggers: acq?, acq
 ---

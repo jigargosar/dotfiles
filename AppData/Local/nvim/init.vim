@@ -10,3 +10,4 @@ execute 'set rtp^=' .. s:lazypath
 
 lua require('plugins')
 lua require('keymaps')
+lua require('bufferpicker')

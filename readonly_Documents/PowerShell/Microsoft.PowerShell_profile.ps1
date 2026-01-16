@@ -38,7 +38,7 @@ $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCo
     Import-Cached "chezmoi" "chezmoi completion powershell"
 
     # Scoop (lazy - loads real module on first Tab)
-    . "$HOME\.cache\pwsh\scoop-completion-lazy.ps1"
+    . "$HOME\Documents\PowerShell\Scripts\scoop-completion-lazy.ps1"
 }
 
 # --- 4. THE PROMPT (Path + Git + Telemetry) ---

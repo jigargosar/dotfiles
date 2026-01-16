@@ -16,7 +16,7 @@ function Import-Cached {
 }
 
 # --- 2. SHELL BEHAVIOR & PREDICTIONS ---
-if ($host.Name -eq 'ConsoleHost' -and [Environment]::UserInteractive) {
+if ($host.Name -eq 'ConsoleHost' -and [Environment]::UserInteractive -and !([Console]::IsOutputRedirected)) {
     Set-PSReadLineOption -PredictionSource History
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
@@ -37,11 +37,8 @@ $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCo
     # Chezmoi
     Import-Cached "chezmoi" "chezmoi completion powershell"
 
-    # Scoop
-    $scoopModulePath = "$HOME\scoop\modules\scoop-completion"
-    if (Test-Path $scoopModulePath) {
-        Import-Module $scoopModulePath -ErrorAction SilentlyContinue
-    }
+    # Scoop (lazy - loads real module on first Tab)
+    . "$HOME\.cache\pwsh\scoop-completion-lazy.ps1"
 }
 
 # --- 4. THE PROMPT (Path + Git + Telemetry) ---

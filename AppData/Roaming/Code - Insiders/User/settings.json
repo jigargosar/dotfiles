@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Solarized Dark",
     "github.copilot.chat.generateTests.codeLens": true,
     "github.copilot.chat.notebook.followCellExecution.enabled": true,
     "github.copilot.chat.editor.temporalContext.enabled": true,
@@ -49,5 +48,8 @@
     },
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "chat.tools.terminal.outputLocation": "chat",
+    "claudeCode.preferredLocation": "sidebar",
+    "workbench.colorTheme": "Monokai"
 }

@@ -33,3 +33,6 @@ setn('<leader>th', cmd('Telescope help_tags'), { desc = 'Help tags' })
 setn('<leader>tc', cmd('Telescope colorscheme'), { desc = 'Colorschemes' })
 setn('<leader>td', cmd('Telescope diagnostics'), { desc = 'Diagnostics' })
 setn('<leader>tl', cmd('Telescope lsp_document_symbols'), { desc = 'LSP symbols' })
+
+-- Terminal: jk to exit terminal mode
+vim.keymap.set('t', 'jk', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

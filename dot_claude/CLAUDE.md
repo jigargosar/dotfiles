@@ -5,9 +5,8 @@
 Each option must:
 1. Use numbered prefix (1., 2., 3.), never bullet points
 2. Be verified and valid - no flawed or inapplicable ones
-3. Include a recommendation
-
-This applies to all questions including binary choices (e.g., "1. Keep it  2. Remove it (Recommended)").
+3. NEVER ask a question about suggestions without giving recommendations.
+4. This applies to all questions including binary choices
 
 ## Workflow Guidelines
 
@@ -109,6 +108,10 @@ When user confirms task is done, move it from "In Progress" or "Pending Review" 
 - Long class strings MUST be split into multiple class attributes.
 - Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
 
+
+## Library-Specific Usage Rules
+
+- fractional-indexing: Never use `localeCompare` for sorting - use plain `<` / `>` comparison
 
 ## Code Smells to Avoid
 

@@ -174,3 +174,7 @@ Example:
    is in correct state. 
 - you should never revert code, ask me to do so 
 - you need to remind me to stop when I go down a rabbit hole.
+
+## Chrome MCP Fix (Windows)
+
+Bug in Claude Code v2.1.20+: `ro4()` in `cli.js` misses Windows named pipes. Fix: add `if(lmY()==="win32")return[\`\\\\.\\pipe\\${smY()}\`]` at start of `ro4()`. Re-apply after updates. Issue: #22983

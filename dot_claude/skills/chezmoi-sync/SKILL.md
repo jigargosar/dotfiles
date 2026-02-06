@@ -18,6 +18,7 @@ description: Sync chezmoi-managed target files back to source and push to remote
 2. Show output before running next command
 3. Run `chezmoi diff > /dev/null 2>&1`
 4. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
+5. Run `chezmoi status && chezmoi git -- status -s` again to verify clean state
 
 ## Notes
 

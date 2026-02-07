@@ -10,8 +10,10 @@ Each option must:
 
 ## Workflow Guidelines
 
-- Always present implementation plan for approval before implementing
 - Only do what's explicitly asked, nothing more/less - discuss additional work first
+- Always present implementation plan for approval before implementing
+- Always read and understand the full function/context before modifying code
+- Refactor before modifying — when touching legacy code for a fix, improve names/structure first, then make the change
 - Don't keep jumping to implementation without thinking through the design first
 - When 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
     "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."

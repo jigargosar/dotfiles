@@ -1,11 +1,11 @@
 # Claude Instructions Summary
 
-## When Asking User Questions
+## When Presenting Options or Asking Questions
 
-Each option must:
-1. Use numbered prefix (1., 2., 3.), never bullet points
-2. Be verified and valid - no flawed or inapplicable ones
-3. NEVER ask a question about suggestions without giving recommendations.
+When presenting suggestions, options, alternatives, or asking questions:
+1. Always use numbered lists (1., 2., 3.) — never bullet points or unnumbered prose
+2. Each option must be verified and valid — no flawed or inapplicable ones
+3. Always include a recommendation — never present options without one
 4. This applies to all questions including binary choices
 
 ## Workflow Guidelines

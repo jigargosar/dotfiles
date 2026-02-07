@@ -1,12 +1,11 @@
 ---
 name: restate
 description: >-
-  * Keep AI aligned with user intent at every step. To ensure ensure no work is wasted on wrong direction. 
-  * User controls from understanding through execution. 
-  * Mutations require explicit `go`.
+  Use when user wants AI alignment verification at every step —
+  understanding, planning, previewing — before any mutation.
 
   **ALWAYS INVOKE THIS SKILL** when user message contains any of these triggers:
-  /restate /steps /draft /discuss /assert /revise /redo /park park: /unpark
+  /restate /steps /draft /discuss /approach /assert /revise /redo /park park: /unpark
   Do NOT handle these triggers directly - invoke this skill instead.
 
 
@@ -19,7 +18,7 @@ allowed-tools:
   - resolve-library-id
   - query-docs
   - AskUserQuestion
-  - TodoWrite
+  - Write
 ---
 
 ## Why This Protocol
@@ -88,19 +87,44 @@ If uncertain whether an action is mutation: it is. If uncertain whether to wait:
 
 # Protocol
 
-## /restate
-Purpose: Prevent misunderstanding and scope drift. User verifies AI understood before work begins.
+## Commands
 
-1. State what you think user wants
-2. Iterate until user confirms
-3. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
+Progression (any order, skip freely):
+  /restate → /approach → /steps → /draft → `go`
+
+Lateral (anytime, no phase change):
+  /discuss, /assert, /revise, /park, /unpark
+
+All commands are independent. Skip levels freely — /approach → /draft is fine for small tasks.
+
+---
+
+## /restate
+Purpose: Ensure AI and user are on the same page before any work begins.
+
+1. State the **problem** as you understand it — not solutions, not approach
+2. Include **goals** when context warrants — real outcomes the user cares about, not problem-negations or implementation artifacts
+3. Iterate until user confirms understanding
+4. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
+5. No mutation
+
+## /approach
+Purpose: Choose direction before detailed work — wrong approach wastes all downstream effort.
+
+1. Fetch context — read relevant code, understand current state
+2. Present alternatives — only those worth considering, skip options below 0.7 confidence
+3. Brief tradeoffs for each
+4. Recommend which to try first, with reasoning
+5. User selects or proposes different direction
+6. No mutation
 
 ## /steps
-Purpose: Expose approach before execution — catch misalignment early, bind AI to agreed steps.
+Purpose: Outline specific modifications before expanding into detail.
 
-1. Terse implementation steps
-2. Based on refined requirements
+1. Terse list of what changes — modify X, add Y, delete Z
+2. Based on locked requirement and chosen approach
 3. Include affected files if known
+4. No mutation
 
 ## /draft
 Purpose: Preview exact changes before mutation — last chance to catch errors before wasted effort.
@@ -108,11 +132,16 @@ Purpose: Preview exact changes before mutation — last chance to catch errors b
 1. State what will be mutated (files, line ranges)
 2. Show detailed preview — code snippets, pseudo code, and reasoning
 3. No mutation until user says `go`
+4. Response contains ONLY the draft or clarifying questions — nothing else
 
 ## /discuss
-1. Specific point only
-2. Alternatives/tradeoffs
-3. No restate/replan unless asked
+Purpose: Explore an idea or question without advancing any phase.
+
+1. Explore idea, tradeoffs, related questions
+2. Can interleave with any phase — no phase change
+3. "thoughts?" from user = /discuss on preceding message
+4. No restate/replan unless asked
+5. No mutation
 
 ## /assert
 Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort on false assumptions.
@@ -123,33 +152,38 @@ Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort
 4. Verdict: confirm, correct, or clarify
 5. Do NOT rely on obsolete knowledge
 6. Do NOT use evasive phrasing like "perhaps" — reliable knowledge required
+7. No mutation
 
 ## /revise (or /redo)
 1. Redo last AI response
 2. Apply instruction given before trigger
 3. Keep same intent, refine output
+4. No mutation
 
 ## /park
-Purpose: Save tangent thought without derailing current cycle.
+Purpose: Shelve a thought without derailing current work. File-based stack, resumable.
 
 1. Extract item from message (content after "park:" or before "/park")
-2. MUST call TodoWrite tool — add item as pending
+2. Write to `docs/parked.md` — newest on top, timestamped
 3. Reply: "Parked: [item]"
-
-Do NOT act on parked item. Continue current cycle.
+4. Do NOT act on parked item. Continue current work.
+5. No other mutation.
 
 ## /unpark
-Purpose: Resume parked item as new focus.
+Purpose: Resume a parked item as new focus.
 
-1. List all parked items (pending todos), numbered
+1. Read `docs/parked.md`, list items numbered
 2. User selects number
-3. Auto-start `/restate` with selected item as requirement
+3. Remove from stack
+4. Auto-start `/restate` with selected item as requirement
+5. No other mutation.
 
 ## Rules
 1. User controls flow
 2. Stay terse
 3. `ok` / `yes` = accept suggestion, still no mutation
 4. One suggestion max at end of response: must be (a) clarification within current phase, or (b) next phase prompt — no out-of-scope recommendations; when uncertain, omit suggestion entirely
+5. "thoughts?" from user = /discuss on preceding message
 
 ## Output Format
 All responses use numbered lists:
@@ -161,3 +195,5 @@ All responses use numbered lists:
    1. Its nested item
 
 Reference: "2.1" = header 2, item 1.
+
+Exception: /discuss — conversational tone, numbered lists not required.

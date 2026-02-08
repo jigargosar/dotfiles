@@ -14,7 +14,6 @@ $blue = "`e[38;5;111m"      # soft blue — git
 $lavender = "`e[38;5;183m"  # lavender — model
 $sage = "`e[38;5;150m"      # sage green — context
 $gold = "`e[38;5;180m"      # warm gold — parked
-$cyan = "`e[38;5;117m"      # soft cyan — plans
 $red = "`e[38;5;167m"       # muted red — dirty git
 $yellow = "`e[38;5;179m"    # warm yellow — ctx warning
 $hotRed = "`e[38;5;203m"    # hot red — ctx critical
@@ -67,22 +66,6 @@ try {
     } else {
         $parts += "${sage}Ctx: -${rst}"
     }
-
-    # === Parked items ===
-    $parkedFile = Join-Path $workspaceDir "docs/parked.md"
-    $parkedCount = 0
-    if (Test-Path $parkedFile) {
-        $parkedCount = (Select-String -Path $parkedFile -Pattern "^- " | Measure-Object).Count
-    }
-    $parts += "${gold}P: ${parkedCount}${rst}"
-
-    # === Active plans ===
-    $plansDir = Join-Path $workspaceDir "docs/plans"
-    $planCount = 0
-    if (Test-Path $plansDir) {
-        $planCount = (Get-ChildItem -Path $plansDir -File | Measure-Object).Count
-    }
-    $parts += "${cyan}Plans: ${planCount}${rst}"
 
     # === Assemble ===
     $sep = " ${dim}|${rst} "

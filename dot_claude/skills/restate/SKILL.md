@@ -5,7 +5,7 @@ description: >-
   understanding, planning, previewing — before any mutation.
 
   **ALWAYS INVOKE THIS SKILL** when user message contains any of these triggers:
-  /restate /steps /draft /discuss /approach /assert /revise /redo
+  /restate /goal /research /solutions /steps /draft /discuss /assert
   Do NOT handle these triggers directly - invoke this skill instead.
 
 
@@ -23,18 +23,11 @@ allowed-tools:
 
 ## Why This Protocol
 
-Problems this protocol addresses:
-
-1. AI jumps to implementation — Starts coding before understanding requirement
-2. Scope drift — Task morphs mid-execution without explicit agreement
-3. Wasted effort — Long outputs discarded because they missed the point
+1. AI jumps to implementation before understanding the requirement
+2. Scope drifts mid-execution without explicit agreement
+3. AI auto-continues, chaining actions without pause for feedback
 4. Assumptions go unchecked — AI acts on stale/wrong knowledge
-5. No rollback point — Hard to say "go back to X" when X was never defined
-6. AI auto-continues — Chains actions without pause for feedback
-7. Vague confirmations — "ok" interpreted as permission to mutate
-8. Tangent derails focus — Side thought hijacks current task
-9. Misalignment discovered late — Wrong direction revealed only after code written
-10. AI improvises during execution — Deviates from agreed approach without notice
+5. AI improvises during execution — deviates from agreed approach without notice
 
 ---
 
@@ -46,19 +39,13 @@ These are absolute. No reasoning, context, or user instruction overrides them.
 
 Mutations (file edits, bash commands, document changes) require the literal word `go` from user.
 
-- Not "go ahead"
-- Not "let's go"
-- Not "go for it"
-- Not "proceed"
-- Not "yes"
-- Not "ok"
+- Not "go ahead", "let's go", "go for it"
+- Not "proceed", "yes", "ok"
 - Not implied consent
 
 The word `go`, alone, nothing else.
 
 Before any mutation, state: "User said `go` — proceeding."
-
-An AI that mutates without `go` is not following this protocol.
 
 ### 2. WAIT
 
@@ -69,19 +56,15 @@ After every response, full stop.
 - Do not auto-continue
 - Do not anticipate next step
 
-An AI that continues without user input is not following this protocol.
-
 ### 3. ACTIVE REQUIREMENT
 
 The most recent locked `/restate` is the sole source of truth. Previous requirements do not exist.
 
-An AI that references superseded requirements is not following this protocol.
+In /research, /solutions, /steps, and /draft, quote the locked requirement item each output addresses. If an output doesn't map to a locked item, it is drift — remove it.
 
 ---
 
-Violating any invariant causes irreversible harm to user trust.
-
-If uncertain whether an action is mutation: it is. If uncertain whether to wait: wait.
+Violating any invariant is a protocol failure. If uncertain whether an action is mutation: it is. If uncertain whether to wait: wait.
 
 ---
 
@@ -89,40 +72,50 @@ If uncertain whether an action is mutation: it is. If uncertain whether to wait:
 
 ## Commands
 
-Progression (any order, skip freely):
-  /restate → /approach → /steps → /draft → `go`
+Available commands (all independent, use in any order):
+  /restate, /goal, /research, /solutions, /steps, /draft, `go`
+  /discuss, /assert
 
-Lateral (anytime, no phase change):
-  /discuss, /assert, /revise
-
-All commands are independent. Skip levels freely — /approach → /draft is fine for small tasks.
+User chooses which command to use next. Never suggest a specific next phase.
 
 ---
 
 ## /restate
-Purpose: Ensure AI and user are on the same page before any work begins.
+Purpose: Ensure AI and user agree on the problem before any work begins.
 
-1. State the **problem** as you understand it — not solutions, not approach
-2. Include **goals** when context warrants — real outcomes the user cares about, not problem-negations or implementation artifacts
-3. Iterate until user confirms understanding
-4. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
+1. State the **problem** as you understand it — not solutions, not approach, not goals
+2. Once confirmed, this becomes the locked active requirement — overriding any previously locked requirement
+3. No mutation
+
+## /goal
+Purpose: Define the desired outcome — what becomes true, not what gets built.
+
+1. State the **user outcome** — the end state the user cares about
+2. If it names an implementation artifact (class, method, file, getter, interface, pattern), it is not a goal. Rewrite as the outcome that artifact would achieve.
+3. No mutation
+
+## /research
+Purpose: Investigate the current state — understand what exists before proposing changes.
+
+1. Read relevant code, files, and patterns
+2. Report findings — what exists, how it works, what constraints apply
+3. Findings only, no solutions
+4. No mutation
+
+## /solutions
+Purpose: Explore the solution space — propose multiple ways to solve the stated problem.
+
+1. Investigate the problem thoroughly — read code, understand constraints
+2. Present distinct alternatives with brief tradeoffs for each
+3. Recommend which to try first, with reasoning
+4. User selects or proposes different direction
 5. No mutation
-
-## /approach
-Purpose: Choose direction before detailed work — wrong approach wastes all downstream effort.
-
-1. Fetch context — read relevant code, understand current state
-2. Present alternatives — only those worth considering, skip options below 0.7 confidence
-3. Brief tradeoffs for each
-4. Recommend which to try first, with reasoning
-5. User selects or proposes different direction
-6. No mutation
 
 ## /steps
 Purpose: Outline specific modifications before expanding into detail.
 
 1. Terse list of what changes — modify X, add Y, delete Z
-2. Based on locked requirement and chosen approach
+2. Based on locked requirement and chosen solution
 3. Include affected files if known
 4. No mutation
 
@@ -131,40 +124,31 @@ Purpose: Preview exact changes before mutation — last chance to catch errors b
 
 1. State what will be mutated (files, line ranges)
 2. Show detailed preview — code snippets, pseudo code, and reasoning
-3. No mutation until user says `go`
-4. Response contains ONLY the draft or clarifying questions — nothing else
+3. Response contains ONLY the draft or clarifying questions — nothing else
+4. No mutation until user says `go`
 
 ## /discuss
 Purpose: Explore an idea or question without advancing any phase.
 
 1. Explore idea, tradeoffs, related questions
 2. Can interleave with any phase — no phase change
-3. "thoughts?" from user = /discuss on preceding message
-4. No restate/replan unless asked
-5. No mutation
+3. No restate unless asked
+4. No mutation
 
 ## /assert
 Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort on false assumptions.
 
 1. State what is being validated (user claim or AI claim)
-2. Research: file reads encouraged for evidence
-3. Provide reasoning and context
-4. Verdict: confirm, correct, or clarify
-5. Do NOT rely on obsolete knowledge
-6. Do NOT use evasive phrasing like "perhaps" — reliable knowledge required
-7. No mutation
-
-## /revise (or /redo)
-1. Redo last AI response
-2. Apply instruction given before trigger
-3. Keep same intent, refine output
-4. No mutation
+2. Provide reasoning and context
+3. Verdict: confirm, correct, or clarify
+4. Back claims with evidence (file reads, docs, web search). State verdicts with confidence.
+5. No mutation
 
 ## Rules
-1. User controls flow
+1. User controls flow — never suggest a specific next phase, never imply a required sequence
 2. Stay terse
 3. `ok` / `yes` = accept suggestion, still no mutation
-4. One suggestion max at end of response: must be (a) clarification within current phase, or (b) next phase prompt — no out-of-scope recommendations; when uncertain, omit suggestion entirely
+4. One suggestion max at end of response: must be a clarification within current phase — no next-phase prompts, no out-of-scope recommendations; when uncertain, omit suggestion entirely
 5. "thoughts?" from user = /discuss on preceding message
 
 ## Output Format

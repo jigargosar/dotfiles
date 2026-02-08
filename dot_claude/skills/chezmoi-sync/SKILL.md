@@ -22,6 +22,7 @@ description: Sync chezmoi-managed target files back to source and push to remote
 
 ## Notes
 
+- Run commands EXACTLY as written — do not split chained (&&) commands into separate calls
 - Always show output before running next command
 - Use explicit file names from status output, never use `-A` or `.`
 - Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)

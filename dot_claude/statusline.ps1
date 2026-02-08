@@ -6,87 +6,78 @@ $inputText = $input | Out-String
 $data = $inputText | ConvertFrom-Json
 
 # Get basic info
-$currentDir = Split-Path -Leaf $data.workspace.current_dir
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
 
-# DEBUG: Uncomment to see raw JSON
-# Write-Output "=== RAW JSON DATA ==="
-# Write-Output $inputText
-# exit
+# 256-color palette
+$blue = "`e[38;5;111m"      # soft blue — git
+$lavender = "`e[38;5;183m"  # lavender — model
+$sage = "`e[38;5;150m"      # sage green — context
+$gold = "`e[38;5;180m"      # warm gold — parked
+$red = "`e[38;5;167m"       # muted red — dirty git
+$yellow = "`e[38;5;179m"    # warm yellow — ctx warning
+$hotRed = "`e[38;5;203m"    # hot red — ctx critical
+$dim = "`e[38;5;240m"       # dim — separator
+$rst = "`e[0m"
 
-# Calculate consumed context percentage with color coding
-$contextPart = ""
-if ($data.context_window.current_usage -ne $null) {
-    $currentTokens = $data.context_window.current_usage.input_tokens +
-                     $data.context_window.current_usage.cache_creation_input_tokens +
-                     $data.context_window.current_usage.cache_read_input_tokens
-    $windowSize = $data.context_window.context_window_size
-    $usedPercentage = [math]::Floor(($currentTokens * 100) / $windowSize)
+# Previous format (bracketed, PSStyle colors):
+#   "${gitPart} [${model}]${contextPart}${parkedPart}"
+#   e.g. "main [Opus 4.6] [Ctx: 12%] [P: 1]"
+# Switched to pipe-separated with 256-color palette for visual harmony.
 
-    # Color code based on usage level
-    $ctxColor = if ($usedPercentage -lt 50) {
-        "$($PSStyle.Foreground.Green)"
-    } elseif ($usedPercentage -lt 75) {
-        "$($PSStyle.Foreground.Yellow)"
-    } else {
-        "$($PSStyle.Foreground.Red)"
-    }
-
-    $contextPart = " [Ctx: ${ctxColor}${usedPercentage}%$($PSStyle.Reset)]"
-}
-
-# PowerShell 7.2+ PSStyle colors
-$greenColor = "$($PSStyle.Foreground.Green)"
-$redColor = "$($PSStyle.Foreground.Red)"
-$resetColor = "$($PSStyle.Reset)"
-
-# Change to workspace directory for git commands
 Push-Location $workspaceDir
 
 try {
-    # Check if we're in a git repository
-    $isGitRepo = $false
-    try {
-        git rev-parse --git-dir 2>$null | Out-Null
-        $isGitRepo = $true
-    } catch {
-        $isGitRepo = $false
-    }
+    $parts = @()
 
-    if ($isGitRepo) {
-        # Get current branch
+    # === Git status ===
+    git rev-parse --git-dir 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0) {
         $branch = git rev-parse --abbrev-ref HEAD 2>$null
-        if (!$branch) { $branch = "unknown" }
+        if (!$branch) { $branch = "?" }
 
-        # Count dirty files (staged + unstaged + untracked)
         $stagedCount = (git diff --cached --name-only 2>$null | Measure-Object).Count
         $unstagedCount = (git diff --name-only 2>$null | Measure-Object).Count
         $untrackedCount = (git ls-files --others --exclude-standard 2>$null | Measure-Object).Count
         $totalDirty = $stagedCount + $unstagedCount + $untrackedCount
 
-        # Build the status string with colors
         if ($totalDirty -gt 0) {
-            # Dirty state: branch+count in red
-            $gitPart = "${redColor}${branch}+${totalDirty}${resetColor}"
+            $parts += "${red}${branch}+${totalDirty}${rst}"
         } else {
-            # Clean state: branch in green
-            $gitPart = "${greenColor}${branch}${resetColor}"
+            $parts += "${blue}${branch}${rst}"
         }
-
-        # Output the complete status line
-        $statusLine = "${gitPart} [${model}]${contextPart}"
     } else {
-        # Not a git repo, just show model
-        $statusLine = "[${model}]${contextPart}"
+        $parts += "${dim}no-git${rst}"
     }
 
-    # Output status line
-    Write-Output $statusLine
+    # === Model ===
+    $parts += "${lavender}${model}${rst}"
 
-    # DEBUG: Uncomment to append raw JSON data
-    # Write-Output "`n=== RAW JSON DATA ==="
-    # Write-Output $inputText
+    # === Context usage ===
+    if ($data.context_window.current_usage -ne $null) {
+        $currentTokens = $data.context_window.current_usage.input_tokens +
+                         $data.context_window.current_usage.cache_creation_input_tokens +
+                         $data.context_window.current_usage.cache_read_input_tokens
+        $windowSize = $data.context_window.context_window_size
+        $pct = [math]::Floor(($currentTokens * 100) / $windowSize)
+
+        $pctColor = if ($pct -lt 50) { $sage } elseif ($pct -lt 75) { $yellow } else { $hotRed }
+        $parts += "${sage}Ctx: ${pctColor}${pct}%${rst}"
+    } else {
+        $parts += "${sage}Ctx: -${rst}"
+    }
+
+    # === Parked items ===
+    $parkedFile = Join-Path $workspaceDir "docs/parked.md"
+    $parkedCount = 0
+    if (Test-Path $parkedFile) {
+        $parkedCount = (Select-String -Path $parkedFile -Pattern "^- " | Measure-Object).Count
+    }
+    $parts += "${gold}P: ${parkedCount}${rst}"
+
+    # === Assemble ===
+    $sep = " ${dim}|${rst} "
+    Write-Output ($parts -join $sep)
 } finally {
     Pop-Location
 }

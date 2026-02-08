@@ -1,12 +1,17 @@
 # Claude Instructions Summary
 
+When asking questions — even binary ones — always present numbered options in a list. Example:
+  Bad: "Want me to proceed with writing the full plan file, or adjust further?"
+  Good:
+    1. Proceed with writing the full plan file (recommended)
+    2. Adjust further
+
 ## When Presenting Options or Asking Questions
 
 When presenting suggestions, options, alternatives, or asking questions:
 1. Always use numbered lists (1., 2., 3.) — never bullet points or unnumbered prose
 2. Each option must be verified and valid — no flawed or inapplicable ones
 3. Always include a recommendation — never present options without one
-4. This applies to all questions including binary choices
 
 ## Workflow Guidelines
 

@@ -5,7 +5,7 @@ description: >-
   understanding, planning, previewing — before any mutation.
 
   **ALWAYS INVOKE THIS SKILL** when user message contains any of these triggers:
-  /restate /steps /draft /discuss /approach /assert /revise /redo /park park: /unpark
+  /restate /steps /draft /discuss /approach /assert /revise /redo
   Do NOT handle these triggers directly - invoke this skill instead.
 
 
@@ -93,7 +93,7 @@ Progression (any order, skip freely):
   /restate → /approach → /steps → /draft → `go`
 
 Lateral (anytime, no phase change):
-  /discuss, /assert, /revise, /park, /unpark
+  /discuss, /assert, /revise
 
 All commands are independent. Skip levels freely — /approach → /draft is fine for small tasks.
 
@@ -159,24 +159,6 @@ Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort
 2. Apply instruction given before trigger
 3. Keep same intent, refine output
 4. No mutation
-
-## /park
-Purpose: Shelve a thought without derailing current work. File-based stack, resumable.
-
-1. Extract item from message (content after "park:" or before "/park")
-2. Write to `docs/parked.md` — newest on top, timestamped
-3. Reply: "Parked: [item]"
-4. Do NOT act on parked item. Continue current work.
-5. No other mutation.
-
-## /unpark
-Purpose: Resume a parked item as new focus.
-
-1. Read `docs/parked.md`, list items numbered
-2. User selects number
-3. Remove from stack
-4. Auto-start `/restate` with selected item as requirement
-5. No other mutation.
 
 ## Rules
 1. User controls flow

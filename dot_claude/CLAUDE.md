@@ -1,28 +1,32 @@
-# Claude Instructions Summary
-
-When asking questions — even binary ones — always present numbered options in a list. Example:
-  Bad: "Want me to proceed with writing the full plan file, or adjust further?"
-  Good:
-    1. Proceed with writing the full plan file (recommended)
-    2. Adjust further
-
 ## When Presenting Options or Asking Questions
 
-When presenting suggestions, options, alternatives, or asking questions:
 1. Always use numbered lists (1., 2., 3.) — never bullet points or unnumbered prose
 2. Each option must be verified and valid — no flawed or inapplicable ones
 3. Always include a recommendation — never present options without one
+4. Before asking a question, check if the answer is obvious from project context
+5. Never ask for confirmation of something you can verify yourself by reading code or config
+
+## Response Discipline
+
+- Terse and to the point by default. Only elaborate when explicitly asked.
+- "discuss", "explain", "analyze", "investigate", "research" = TALK ONLY. Produce text. Never edit files, run builds, or invoke state-changing tools.
+- No unsolicited observations, warnings, or commentary. Respond only to what was asked.
+- Problem restatement = pure problem. Zero solution words — no "extract", "split", "move", "class", "module", "field". Describe what is wrong, not how to fix.
+- Never state uncertain things as facts. Say "I believe" / "I'm not certain" when unsure. Never fabricate technical claims.
+- When suggesting next steps, always provide specific options with recommendations — never a bare "Next?"
 
 ## Workflow Guidelines
 
-- Only do what's explicitly asked, nothing more/less - discuss additional work first
+- Only do what's explicitly asked, nothing more/less. To propose additional work, discuss it first — don't just do it.
+- Investigation/research: survey ALL areas/responsibilities breadth-first before diving into any single one.
+- Questions are not permission to act. When user asks a question, reply with text — don't infer it as permission to edit.
+- Never revert code — ask user to do so.
 - Always present implementation plan for approval before implementing
 - Always read and understand the full function/context before modifying code
 - Refactor before modifying — when touching legacy code for a fix, improve names/structure first, then make the change
 - Don't keep jumping to implementation without thinking through the design first
 - When 2-3 solutions rejected OR user asks to "think again"/"rethink" 2-3 times, STOP guessing. Ask user with this exact message:
     "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of? That would be more efficient than me continuing to guess."
-- Be concise but complete, not super verbose
 - When my request is incorrect or can't be fulfilled, don't proceed without explicit confirmation
 - Always get approval before implementing; deviations from agreed plans require explicit discussion and permission
 - When user is straying off path, not focusing on core problem, or getting finicky, say this exact message:
@@ -39,24 +43,22 @@ When presenting suggestions, options, alternatives, or asking questions:
 - Don't worry about memory-heavy for large states unless exponentially costly - simplicity wins by default
 - Don't add obvious comments where identifier name is clear
 - Always prefer type aliases even for basic types (e.g., `Set(RowIdx, ColIdx)` not `Set(Int, Int)`)
-- Never suggest internal implementation details to callers (Set.empty, Dict.empty, raw tuples, etc.)
-- When a module uses type alias for its model, clients must treat it as opaque - type aliases are implementation choice, encapsulation is design principle
+- Type aliases are opaque to callers — never expose internals (Set.empty, Dict.empty, raw tuples) or assume internal representation
 - Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
+- Don't use magic numbers, especially when writing new code
+- Always review code for silly mistakes before presenting to user
+- Never pass more data than required to a function, unless the function needs many arguments all present in the passed object
+- State transitions: only act when current state is valid — receiving a message doesn't mean the model is in the correct state
 
 ## General Instructions
 
 - Workflow: Always prefer editing existing files over creating new ones
 - Error Handling: Never swallow/rethrow same exceptions - let them propagate to top level to fail fast
 - Error Handling: **Exception:** Handle the case properly if needed for logical flow
-- File Paths: Use file names relative to current project workspace
 - File Paths: ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
 - File Paths: For simple renaming, use grep/sed etc., don't waste tokens unless refactoring is tricky
 - File Paths: Ignore reference directory unless explicitly asked to look into it
 - File Paths: When file write fails repeatedly due to "unexpectedly modified" errors, retry using Windows path format
-- Tools: Don't run interactive commands - present a clear plan for user to run instead, don't skip steps you can't do
-- Tools: Default to pnpm (infer from lockfile), not npm
-- Tools: For "diff" requests, use git diff for entire repository, don't assume which files are modified - analyze for bugs and issues
-- Package Management: if and when manually creating package.json file, ensure all dependencies are installed via package manager, don't hardcode them.
 - Focus: Fixing subtle duplications or unnecessary indirection may help uncover major duplications that were previously hidden - jumping to tackle major duplication upfront isn't always the right approach, analyze carefully.
 - Design: When designing, avoid margin, and prefer padding. especially for vertical alignment. It's ok to use margin auto for centering horizontally
 
@@ -66,6 +68,17 @@ When presenting suggestions, options, alternatives, or asking questions:
 - Search: Respect `.gitignore` when searching and doing any file operations.
 - Search: Relying on narrow search/grep terms may miss relevant files/content. Read full file contents when needed.
 - Chrome MCP: After code changes, always hard refresh browser (Ctrl+Shift+R) before testing - don't rely on HMR/auto-reload.
+- Don't run interactive commands - present a clear plan for user to run instead, don't skip steps you can't do
+- Default to pnpm (infer from lockfile), not npm
+- For "diff" requests, use git diff for entire repository, don't assume which files are modified - analyze for bugs and issues
+- When code changes aren't reflecting in the browser after multiple edits and you're confident the code is correct, proactively suggest restarting the dev server to clear cache issues
+- Dev server as background task: only focus last few lines for error or success. When output grows too long, ask to restart dev server
+
+## Delegation & Tool Invocation
+
+- When user specifies which tool/skill to use, use exactly that — never substitute
+- When delegating to an agent, pass the user's exact instructions — don't add own interpretation or extra directives
+- Skill tool has its own template that overrides args — when exact prompt control matters, use Task tool instead
 
 ## Git
 
@@ -92,6 +105,7 @@ When presenting suggestions, options, alternatives, or asking questions:
 - When starting a task: ensure it is moved/added to InProgress
 - When task completed: ensure it is moved to Done
 - inbox/inbasket refer to same section
+- When checking for duplicates or related items, read the ENTIRE file and check ALL sections
 
 ## Package Publishing
 
@@ -114,11 +128,13 @@ When presenting suggestions, options, alternatives, or asking questions:
 - Models MUST strictly follow `Make Invalid States Impossible` principle.
 - Long class strings MUST be split into multiple class attributes.
 - Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
+- Expose types from imports rather than using qualified module names for types
 
 
 ## Library-Specific Usage Rules
 
 - fractional-indexing: Never use `localeCompare` for sorting - use plain `<` / `>` comparison
+- Tailwind v4: don't use outdated knowledge — always use current v4 syntax and conventions
 
 ## Code Smells to Avoid
 
@@ -157,31 +173,10 @@ Example:
 - Small extractions have value - cognitive load is cumulative
 - Distinguish orchestration (when/wiring) from implementation (what/domain)
 
-## Miscellaneous Instructions
-- in typescript projects after a major change, always run lint and build
-- in typescript projects after a major change, always run lint and build and also tests
-- only after a major change in code you shuld run lint build and test
-- your are too verbose, keep them brief and to the point.
-- When code changes aren't reflecting in the browser after multiple edits and you're confident the code is correct, proactively suggest restarting the dev server to clear cache issues.
-- if you are running dev server as background task, only focus last few for error or success. when output grows too long, ask to restart deverserver
-- dont use magic numbers, specially when writing new code.
-- when working with tailwind v4 (which we do almost always) dont use outdated knowledge.
-- when asking next you should provide suggetsions and recommendations, Never just blanket `Next?`
-- never hand code dependencies verison in package.json, we have pnpm install command for that. Dont be oversmart.
-- always review your code for silly mistakes, before presenting to user.
-- In Elm, try to expose types from imports rather than using qualified module names for types
-- keep your responses terse and very brief, unless explictly asked to elobrate. prompts like `discuss` and `explain` should also be very focused. unless explictly asked to eloborate.
-- keep responses extremely terse, for the entire conversation
-- never pass more data that whats required to target function, unless target functinn needs many arguments all present is passed object.
-- dont perform any actions whitout permission, when I  asked a question, just reply dont infer it as permission to edit. I dont ask rhetorical questions
-- Responses should be terse, and to the point,
-- no silly questions 
- 
-- we need to ensure that state transitions only happen when current state is valid, just because an msg was received, we cant assume model
-   is in correct state. 
-- you should never revert code, ask me to do so 
-- you need to remind me to stop when I go down a rabbit hole.
+## TypeScript Projects
+
+- After a major change, run lint, build, and tests
 
 ## Chrome MCP Fix (Windows)
 
-Bug in Claude Code v2.1.20+: `ro4()` in `cli.js` misses Windows named pipes. Fix: add `if(lmY()==="win32")return[\`\\\\.\\pipe\\${smY()}\`]` at start of `ro4()`. Re-apply after updates. Issue: #22983
+Bug in Claude Code on Windows: socket discovery function in minified `cli.js` misses Windows named pipes. Function names change per version — see project memory for current names and patching approach. Re-apply after updates. Issue: #22983

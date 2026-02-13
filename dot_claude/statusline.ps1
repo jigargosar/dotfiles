@@ -52,7 +52,10 @@ try {
             $behindCount = [int](git rev-list --count "HEAD..@{u}" 2>$null)
         }
 
-        # Build git status string: main+3 ↑2 ↓1
+        # Count stashes
+        $stashCount = (git stash list 2>$null | Measure-Object).Count
+
+        # Build git status string: main+3 ↑2 ↓1 S:2
         $gitColor = if ($totalDirty -gt 0) { $neonPink } else { $teal }
         $gitStatus = "${gitColor}${branch}${rst}"
         if ($totalDirty -gt 0) {
@@ -63,6 +66,9 @@ try {
         }
         if ($behindCount -gt 0) {
             $gitStatus += " ${orange}↓${behindCount}${rst}"
+        }
+        if ($stashCount -gt 0) {
+            $gitStatus += " ${cyan}≡${stashCount}${rst}"
         }
 
         $parts += $gitStatus

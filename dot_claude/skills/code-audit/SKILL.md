@@ -1,13 +1,13 @@
 ---
-name: clean-code
-description: Review source code and produce a refactoring prompt. Use when user wants to analyze code for real issues and generate an actionable fix prompt.
+name: code-audit
+description: Review source code and identify real issues. Use when user wants to analyze code for problems and generate a findings list for another AI to fix.
 argument-hint: [file-or-glob]
 disable-model-invocation: true
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash(clip:*, pbcopy:*, xclip:*)
 ---
 
-## Review this code and produce a refactoring prompt
+## Review this code and identify real issues
 
 Read all source files matching `$ARGUMENTS` completely. If no argument given, read all source files in the project (respect .gitignore). Then find issues worth fixing.
 
@@ -31,20 +31,23 @@ Common things AIs miss that usually are real problems:
 
 You won't find all of these. You might find none. You might find something not on this list. Look at what's actually in the code, not what this prompt primes you to look for.
 
-### Output format
+### Output
 
-For each real issue:
-1. What's wrong — name the function, name the problem
-2. Why it matters — what breaks or what goes wrong on the next edit
-3. Fix — exact changes with every affected call site. Not "consider refactoring." Show what to do.
-4. Verify — one manual test that proves it works
+DO NOT write fixes. DO NOT show code blocks. Only output a findings list.
 
-Combine everything into a single prompt starting with "## Fix N issues in [filename]" that can be copy-pasted to another AI to execute. End with a combined verify section.
+Copy the following to the clipboard — a short prompt that another AI session will execute:
+```
+Read [filenames] and fix these issues:
+1. functionName() — one sentence describing what's wrong and why it matters
+2. functionName() — one sentence describing what's wrong and why it matters
+...
+For each: show exact code changes, list every affected call site, provide a manual verify step.
+Preserve all existing behavior — no visual, audio, or timing changes. No new features, no file restructuring, no renaming IDs.
+```
 
-### Constraints on the output prompt
+Each finding must be one line: function name + problem + why it matters. No elaboration, no code, no fix suggestions.
+
+### Constraints
 - Only include issues you're genuinely confident about
 - If you can name the function, name the problem, and show a concrete scenario where it causes confusion or breaks on the next edit — include it. Don't downgrade real findings to "fragile but currently masked" and then drop them.
-- Preserve all existing behavior — no visual, audio, or timing changes
-- No new features, no file restructuring, no renaming IDs
 - If you found nothing real, say so. An empty list is better than invented work.
-- After generating the prompt, copy it to the clipboard so the user can paste it directly into another AI.

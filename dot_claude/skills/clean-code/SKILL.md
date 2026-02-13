@@ -4,7 +4,7 @@ description: Review source code and produce a refactoring prompt. Use when user 
 argument-hint: [file-or-glob]
 disable-model-invocation: true
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash(* | pbcopy*)
+allowed-tools: Read, Grep, Glob, Bash(clip:*, pbcopy:*, xclip:*)
 ---
 
 ## Review this code and produce a refactoring prompt
@@ -43,6 +43,7 @@ Combine everything into a single prompt starting with "## Fix N issues in [filen
 
 ### Constraints on the output prompt
 - Only include issues you're genuinely confident about
+- If you can name the function, name the problem, and show a concrete scenario where it causes confusion or breaks on the next edit — include it. Don't downgrade real findings to "fragile but currently masked" and then drop them.
 - Preserve all existing behavior — no visual, audio, or timing changes
 - No new features, no file restructuring, no renaming IDs
 - If you found nothing real, say so. An empty list is better than invented work.

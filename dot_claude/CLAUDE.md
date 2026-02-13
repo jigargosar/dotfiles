@@ -82,6 +82,7 @@
 
 ## Git
 
+- `git stash`: Always use `apply`, never `pop` — pop deletes the stash on success, losing the safety net
 - Never use `-A` or `.` to stage files, always use explicit file names - never blanket add
 - Don't add Claude promotions to commits, just use "Committed by Claude"
 - When processing commit request with multiple commands (diff, status, etc.), prefer chaining with `&&`
@@ -176,6 +177,10 @@ Example:
 ## TypeScript Projects
 
 - After a major change, run lint, build, and tests
+
+## Debugging
+
+- Dev server: When changes aren't reflecting after hard refresh, check if a stale dev server process is running on the port (`netstat -ano | grep <port>`) — kill it and restart. A stale process won't pick up file changes.
 
 ## Chrome MCP Fix (Windows)
 

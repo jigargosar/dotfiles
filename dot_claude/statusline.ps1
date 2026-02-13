@@ -15,6 +15,7 @@ $neonPink = "`e[38;2;255;50;120m"  # neon pink — dirty branch + dirty count
 $cyan = "`e[38;2;80;200;255m"      # cyan — push pending
 $orange = "`e[38;2;255;180;50m"    # vivid orange — pull pending
 $lavender = "`e[38;5;183m"         # lavender — model
+$lightBlue = "`e[38;2;150;200;255m" # light blue — thinking mode
 $sage = "`e[38;5;150m"             # sage green — context
 $yellow = "`e[38;5;179m"           # warm yellow — ctx warning
 $hotRed = "`e[38;5;203m"           # hot red — ctx critical
@@ -88,7 +89,12 @@ try {
 
     # === Assemble ===
     $sep = " ${dim}|${rst} "
-    Write-Output ($parts -join $sep)
+    $line1 = $parts -join $sep
+
+    # === Full path ===
+    $cwd = $data.cwd
+
+    Write-Output "$line1`n${dim}${cwd}${rst}"
 } finally {
     Pop-Location
 }

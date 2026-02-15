@@ -1,6 +1,11 @@
 # Git-aware statusLine script for Claude Code
 param()
 
+$hotRed = "`e[38;5;203m"
+$rst = "`e[0m"
+
+try {
+
 # Read JSON input from stdin
 $inputText = $input | Out-String
 $data = $inputText | ConvertFrom-Json
@@ -97,10 +102,20 @@ try {
     $sep = " ${dim}|${rst} "
     $line1 = $parts -join $sep
 
-    # === Full path ===
-    $cwd = $data.cwd
+    # === Full path (~ prefix when under home dir) ===
+    $cwd = $data.cwd -replace '\\', '/'
+    $homeDir = $env:USERPROFILE -replace '\\', '/'
+    if ($cwd -like "${homeDir}/*") {
+        $cwd = "~" + $cwd.Substring($homeDir.Length)
+    } elseif ($cwd -eq $homeDir) {
+        $cwd = "~"
+    }
 
     Write-Output "$line1`n${dim}${cwd}${rst}"
 } finally {
     Pop-Location
+}
+
+} catch {
+    Write-Output "${hotRed}statusline error: $_${rst}"
 }

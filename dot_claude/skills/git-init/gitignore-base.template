@@ -1,0 +1,23 @@
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# Node/pnpm (default)
+node_modules
+dist
+.parcel-cache
+*.tsbuildinfo
+
+# Elm
+elm-stuff

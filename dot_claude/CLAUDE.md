@@ -32,29 +32,28 @@
 - When user is straying off path, not focusing on core problem, or getting finicky, say this exact message:
     "You might be going down a rabbit hole. Want to refocus on the main objective?"
 
-## Code Quality
+## Code Standards — must be followed when designing and writing code
 
-- Make impossible states impossible (ISI) for data models
-- Default design must always focus on Single Source of Truth
-- Principle of Least Privilege - only expose what's needed
-- Focus on readability over performance (warn only about exponential increases)
-- Want simpler solutions across functions, not blind single-function improvements
-- By symmetry: keep child elements similar level of abstraction, prefer extraction of methods
-- Don't worry about memory-heavy for large states unless exponentially costly - simplicity wins by default
-- Don't add obvious comments where identifier name is clear
-- Always prefer type aliases even for basic types (e.g., `Set(RowIdx, ColIdx)` not `Set(Int, Int)`)
-- Type aliases are opaque to callers — never expose internals (Set.empty, Dict.empty, raw tuples) or assume internal representation
-- Abstractions and precomputed configs are for decoupling/encapsulation, not optimization
-- Don't use magic numbers, especially when writing new code
-- Always review code for silly mistakes before presenting to user
-- Never pass more data than required to a function, unless the function needs many arguments all present in the passed object
-- State transitions: only act when current state is valid — receiving a message doesn't mean the model is in the correct state
+- Make impossible states impossible (ISI) — for all data models and state
+- Tell, don't ask — tell a module what you need, don't reach into its internal state or implementation. If cross-module data is needed, ask the owning module to create and expose a function for it.
+- Single Source of Truth — every piece of data has exactly one authoritative source
+- Principle of Least Privilege — only expose what's needed
+- State transitions — validate current state before acting, don't assume validity from incoming events
+- Always optimize for readability and simplicity — performance, memory efficiency, and dependency count are not important
+- Identifier names must be clear enough that comments are unnecessary — reserve comments for explaining why, not what
+- Primitive types must use domain-specific type aliases — `Age` not `number`, `NoteId` not `string`
+- Type aliases are opaque to callers — never access underlying type or assume internal representation
+- Abstractions are for decoupling and encapsulation, not for performance optimization
+- No magic numbers
+- Pass only what a function needs — prefer individual parameters over whole objects
+- Always review your own suggestions before presenting — don't propose obviously flawed or silly solutions
 
 ## General Instructions
 
 - Workflow: Always prefer editing existing files over creating new ones
 - Error Handling: Never swallow/rethrow same exceptions - let them propagate to top level to fail fast
 - Error Handling: **Exception:** Handle the case properly if needed for logical flow
+- Error Handling: Never leave promises floating — always attach .catch(console.error) for fire-and-forget, or await and let caller handle
 - File Paths: ALWAYS use workspace-relative paths for project files - NEVER use absolute Windows paths or `/mnt/c/` WSL paths.
 - File Paths: For simple renaming, use grep/sed etc., don't waste tokens unless refactoring is tricky
 - File Paths: Ignore reference directory unless explicitly asked to look into it

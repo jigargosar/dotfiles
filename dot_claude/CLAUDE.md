@@ -143,6 +143,8 @@
 
 ## Documentation Formatting
 
+- No H1 headings in files — use plain text for document title, start sections with #
+
 ASCII tables (default, use instead of markdown tables):
 - Max width: 100 chars
 - Header borders: `=`, data borders: `-`

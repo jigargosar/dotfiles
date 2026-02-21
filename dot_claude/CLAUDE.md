@@ -34,6 +34,8 @@
 
 ## Code Standards — must be followed when designing and writing code
 
+- When auditing code against any standard, flag a violation if the code doesn't follow the principle. Don't discount violations because no harm has occurred yet or current code happens to avoid the problem.
+
 - Make impossible states impossible (ISI) — for all data models and state
 - Tell, don't ask — tell a module what you need, don't reach into its internal state or implementation. If cross-module data is needed, ask the owning module to create and expose a function for it.
 - Single Source of Truth — every piece of data has exactly one authoritative source

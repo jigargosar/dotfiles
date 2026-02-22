@@ -41,7 +41,8 @@
 - Single Source of Truth — every piece of data has exactly one authoritative source
 - Principle of Least Privilege — only expose what's needed
 - State transitions — validate current state before acting, don't assume validity from incoming events
-- Always optimize for readability and simplicity — performance, memory efficiency, and dependency count are not important
+- Always optimize for readability and simplicity — not performance, memory, or dependency count
+- Prefer libraries over hand-rolled solutions — our code isn't battle-tested, has higher maintenance cost, and tree-shaking eliminates bundle cost
 - Identifier names must be clear enough that comments are unnecessary — reserve comments for explaining why, not what
 - Primitive types must use domain-specific type aliases — `Age` not `number`, `NoteId` not `string`
 - Type aliases are opaque to callers — never access underlying type or assume internal representation

@@ -51,5 +51,6 @@
     },
     "chat.tools.terminal.outputLocation": "chat",
     "claudeCode.preferredLocation": "sidebar",
-    "workbench.colorTheme": "Monokai"
+    "workbench.colorTheme": "Monokai",
+    "workbench.startupEditor": "welcomePage"
 }

@@ -46,31 +46,60 @@ Both agent prompts must include this preamble:
 
 **Standards agent prompt**:
 > [preamble]
-> Read `~/.claude/skills/code-audit/references/standards-reviewer-guide.md`
+> Read `~/.claude/skills/code-audit/references/smell-detector.md`
 > for your complete instructions. Review these files: [file list]
 
 **Bugs agent prompt**:
 > [preamble]
-> Read `~/.claude/skills/code-audit/references/bug-reviewer-guide.md`
+> Read `~/.claude/skills/code-audit/references/bug-detector.md`
 > for your complete instructions. Review these files: [file list]
 
-## Step 4: Consolidate and cross-check
+## Step 4: Cross-check (do NOT merge)
 
-After both agents return, review all findings. Cross-check:
+After both agents return, cross-check between the two result sets:
 - Does a proposed bug fix introduce a standards violation?
 - Does a proposed standards fix introduce a bug?
-- Are there duplicate findings across agents?
-- Deduplicate and merge where appropriate
+- Remove exact duplicates (same location + same problem) — keep the version
+  from whichever agent is the better fit (standards issue → standards section,
+  bug → bugs section)
 
-## Step 5: Present report
+**Keep findings in their original category.** Never move a standards finding
+into the bugs section or vice versa.
 
-For each issue:
-- Issue number, severity (High/Medium/Low), category
+## Step 5: Present report — two separate sections
+
+Present all findings in **two clearly separated sections**. Never interleave.
+
+### Section 1: Standards Violations
+
+Number issues S1, S2, S3, … For each:
+- Issue ID (S*n*), severity (High/Medium/Low), standards category
 - What's wrong (describe the problem, not the fix)
 - Location (file:line)
 - Solution with self-critique flag (keep/discard/uncertain + reasoning)
 
-End with ASCII summary table:
-- Issue count by severity
-- Issue count by category
-- Items flagged as uncertain or needing discussion
+### Section 2: Bugs
+
+Number issues B1, B2, B3, … For each:
+- Issue ID (B*n*), severity (High/Medium/Low), bug category
+- What's wrong (describe the problem, not the fix)
+- Location (file:line)
+- Solution with self-critique flag (keep/discard/uncertain + reasoning)
+
+### Summary table
+
+End with an ASCII summary table with **separate rows for each section**:
+
+```
++-----+===================+=======+==========+=========+
+| #   | Section           | High  | Medium   | Low     |
++-----+===================+=======+==========+=========+
+| 1   | Standards (S)     | …     | …        | …       |
++-----+-------------------+-------+----------+---------+
+| 2   | Bugs (B)          | …     | …        | …       |
++-----+-------------------+-------+----------+---------+
+| 3   | Total             | …     | …        | …       |
++-----+-------------------+-------+----------+---------+
+```
+
+Follow with: items flagged as uncertain or needing discussion.

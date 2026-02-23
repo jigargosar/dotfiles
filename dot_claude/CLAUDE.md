@@ -82,6 +82,7 @@
 - When user specifies which tool/skill to use, use exactly that — never substitute
 - When delegating to an agent, pass the user's exact instructions — don't add own interpretation or extra directives
 - Skill tool has its own template that overrides args — when exact prompt control matters, use Task tool instead
+- NEVER use the `skill-creator` skill — it is banned. Build skills directly by hand.
 
 ## Git
 

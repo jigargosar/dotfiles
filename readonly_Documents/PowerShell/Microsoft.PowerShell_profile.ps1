@@ -79,3 +79,19 @@ function prompt {
     
     return "`n> "
 }
+
+
+# --- BEGIN: Remove conflicting aliases for Git usr\bin ---
+Get-ChildItem "C:\Program Files\Git\usr\bin" -Filter *.exe |
+    ForEach-Object {
+        $name = $_.BaseName
+        try {
+            Remove-Item "Alias:$name" -ErrorAction SilentlyContinue
+        } catch {
+            # Skip constant/read-only aliases
+        }
+    }
+
+# Prepend Git usr\bin to PATH
+$env:Path = "C:\Program Files\Git\usr\bin;" + $env:Path
+# --- END: Remove conflicting aliases for Git usr\bin ---

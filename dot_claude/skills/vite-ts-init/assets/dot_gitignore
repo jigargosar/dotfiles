@@ -14,11 +14,8 @@ Thumbs.db
 # Logs
 *.log
 
-# Node/pnpm (default)
+# Node/Vite
 node_modules
 dist
 .parcel-cache
 *.tsbuildinfo
-
-# Elm
-elm-stuff

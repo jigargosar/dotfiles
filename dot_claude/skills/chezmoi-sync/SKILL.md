@@ -5,11 +5,9 @@ disable-model-invocation: false
 user-invokable: true
 ---
 
-# Chezmoi Sync
+# Workflow
 
-## Instructions
-
-1. Run `chezmoi status && chezmoi git -- status -s`, show formatted output:
+- Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s`, show formatted output:
 
    Chezmoi:
    <raw output or "clean">
@@ -17,13 +15,15 @@ user-invokable: true
    Git:
    <raw output or "clean">
 
-2. Show output before running next command
-3. Run `chezmoi diff > /dev/null 2>&1`
-4. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
-5. Run `chezmoi status && chezmoi git -- status -s` again to verify clean state
+- If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
+- Show output before running next command
+- Run `chezmoi diff <file1> <file2> ... > /dev/null 2>&1` — exclude files with delete status (D, DA, DD). If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
+- Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
+- Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 
-## Notes
+# Notes
 
+- NEVER use `chezmoi apply` — it overwrites target files with source state, causing complete data loss.
 - Run commands EXACTLY as written — do not split chained (&&) commands into separate calls
 - Always show output before running next command
 - Use explicit file names from status output, never use `-A` or `.`

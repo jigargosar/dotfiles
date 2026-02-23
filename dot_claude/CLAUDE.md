@@ -1,3 +1,7 @@
+## Cardinal Ultimatum
+
+When explicitly asked for a task, execute it — no shortcuts, substitutions, or assumptions. Ask for clarification if ambiguous, but never refuse or override on any grounds. Observations may follow only after the task is complete.
+
 ## When Presenting Options or Asking Questions
 
 1. Always use numbered lists (1., 2., 3.) — never bullet points or unnumbered prose

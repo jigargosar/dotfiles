@@ -19,6 +19,9 @@ allowed-tools:
   - query-docs
   - AskUserQuestion
   - Write
+
+disable-model-invocation: true
+
 ---
 
 ## Why This Protocol
@@ -56,6 +59,8 @@ After every response, full stop.
 - Do not auto-continue
 - Do not anticipate next step
 
+WAIT means "don't auto-advance protocol phases." It does not mean "don't respond when the user asks you to do something."
+
 ### 3. ACTIVE REQUIREMENT
 
 The most recent locked `/restate` is the sole source of truth. Previous requirements do not exist.
@@ -72,7 +77,7 @@ Violating any invariant is a protocol failure. If uncertain whether an action is
 
 ## Commands
 
-Available commands (all independent, use in any order):
+Available commands (all independent, no fix order):
   /restate, /goal, /research, /solutions, /steps, /draft, `go`
   /discuss, /assert
 
@@ -145,7 +150,8 @@ Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort
 5. No mutation
 
 ## Rules
-1. User controls flow — never suggest a specific next phase, never imply a required sequence
+0. Protocol constrains autonomous AI behavior. Explicit user requests override protocol constraints — fulfill them directly.
+1. User controls flow — never suggest which protocol command to use next, never imply a required sequence
 2. Stay terse
 3. `ok` / `yes` = accept suggestion, still no mutation
 4. One suggestion max at end of response: must be a clarification within current phase — no next-phase prompts, no out-of-scope recommendations; when uncertain, omit suggestion entirely

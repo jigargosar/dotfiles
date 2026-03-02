@@ -70,7 +70,7 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 
 ## Tools
 
-- Bash: When running commands, don't use `cd /path &&` prefix or absolute paths - shell is already in project folder, use relative paths.
+- Bash: Never use `cd` when it's already the current path.
 - Bash: Never use `echo "---"` or quoted strings containing `---` in commands — triggers hook rejection. Use parallel tool calls or separate commands instead.
 - Search: Respect `.gitignore` when searching and doing any file operations.
 - Search: Relying on narrow search/grep terms may miss relevant files/content. Read full file contents when needed.

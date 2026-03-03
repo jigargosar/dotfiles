@@ -81,12 +81,15 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - When code changes aren't reflecting in the browser after multiple edits and you're confident the code is correct, proactively suggest restarting the dev server to clear cache issues
 - Dev server as background task: only focus last few lines for error or success. When output grows too long, ask to restart dev server
 
-## Delegation & Tool Invocation
+## Skills
 
-- When user specifies which tool/skill to use, use exactly that — never substitute
-- When delegating to an agent, pass the user's exact instructions — don't add own interpretation or extra directives
-- Skill tool has its own template that overrides args — when exact prompt control matters, use Task tool instead
-- NEVER use the `skill-creator` skill — it is banned. Build skills directly by hand.
+- Invoke `language-elm` skill when project contains files with `.elm` extension
+- Invoke `language-typescript` skill when project contains `tsconfig.json`
+- Invoke `markdown-document-formatting` skill when creating or editing `.md` files
+- Invoke `project-planning-board` skill when project contains `docs/Board.md`
+- Invoke `chezmoi-sync` skill after editing chezmoi-managed files (e.g., `~/.claude/CLAUDE.md`)
+- Invoke `fix-chrome-connection` skill when encountering browser extension connection failures
+- Invoke `package-publishing` skill when user asks to publish, version, or release a package
 
 ## Git
 
@@ -101,97 +104,9 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - For GitHub username/repo: use git remote; if not found, ask user
 - For GitHub Pages: use native actions/deploy-pages + configure via gh CLI API
 
-## Chezmoi
-
-- `chezmoi git` commands options need double hyphen, otherwise chezmoi will pick it up and cause errors
-- After editing chezmoi-managed files (e.g., `~/.claude/CLAUDE.md`), invoke chezmoi-sync skill
-
-## Board (docs/Board.md)
-
-- Sections: Urgent, InBasket, Ready, InProgress, Done, Backlog
-- New items go at top of their section
-- Items can move between any sections
-- When starting a task: ensure it is moved/added to InProgress
-- When task completed: ensure it is moved to Done
-- inbox/inbasket refer to same section
-- When checking for duplicates or related items, read the ENTIRE file and check ALL sections
-
-## Package Publishing
-
-- When user asks to publish: discuss and recommend semver level (patch/minor/major)
-- Never assume what semver to use, always double check
-- Run `npm version [level] && git push --tags`
-- NEVER run `npm publish`, unless explicitly asked
-
-## Elm Packages
-
-- Package URL root: `https://package.elm-lang.org/packages/`
-- Install: `echo "Y" | elm install <package-name>`
-- Source root: `%APPDATA%\elm\0.19.1\packages\`
-
-## Elm Programming Language
-
-- Compilation MUST use `elm make src/Main.elm --output=NUL`.
-- Use multiple class attributes, never do string concatenation.
-- Never duplicate static classes, use multiple class attributes.
-- Models MUST strictly follow `Make Invalid States Impossible` principle.
-- Long class strings MUST be split into multiple class attributes.
-- Avoid catch-all (`_`) case branches even if code duplicates across branches. Extract to helper when 3+ branches share identical body. Use catch-all only when 5+ branches share identical body.
-- Expose types from imports rather than using qualified module names for types
-
-
 ## Library-Specific Usage Rules
 
 - fractional-indexing: Never use `localeCompare` for sorting - use plain `<` / `>` comparison
 - Tailwind v4: don't use outdated knowledge — always use current v4 syntax and conventions
 
-## Code Smells to Avoid
 
-- Use `switch` with `assertNever` for type discrimination, never `if/else` chains - ensures exhaustive checking at compile time
-
-## Documentation Formatting
-
-- No H1 headings in files — use plain text for document title, start sections with #
-
-ASCII tables (default, use instead of markdown tables):
-- Max width: 100 chars
-- Header borders: `=`, data borders: `-`
-- Word wrap: split long content across rows with empty cells
-- Include row number column
-- 1 char padding around cell content
-
-Example:
-```
-+-----+================+================+
-| #   | Header 1       | Header 2       |
-+-----+================+================+
-| 1   | short data     | short data     |
-+-----+----------------+----------------+
-| 2   | long content   | more content,  |
-|     | wrapped here   | also wrapped   |
-+-----+----------------+----------------+
-```
-
-## Code Analysis for Extraction/Refactoring
-
-<!-- TODO: Move to dedicated agent/skill/command when appropriate -->
-
-- Read line by line, no preconceptions about what belongs where
-- Ask what code does, not what it currently touches - signatures are accidents of history
-- Every location must be justified, not inherited - "it's already here" is not justification
-- Coupling claims require evidence - show *why*, not just that types are referenced
-- Parameters can be reshaped - analyze the operation, not current signature
-- Small extractions have value - cognitive load is cumulative
-- Distinguish orchestration (when/wiring) from implementation (what/domain)
-
-## TypeScript Projects
-
-- After a major change, run lint, build, and tests
-
-## Debugging
-
-- Dev server: When changes aren't reflecting after hard refresh, check if a stale dev server process is running on the port (`netstat -ano | grep <port>`) — kill it and restart. A stale process won't pick up file changes.
-
-## Chrome MCP Fix (Windows)
-
-Bug in Claude Code on Windows: socket discovery function in minified `cli.js` misses Windows named pipes. Function names change per version — see project memory for current names and patching approach. Re-apply after updates. Issue: #22983

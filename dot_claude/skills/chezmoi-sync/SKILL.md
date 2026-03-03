@@ -30,3 +30,4 @@ user-invokable: true
 - Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)
 - Include ALL files from chezmoi status in the add command, not just the ones related to current task
 - For deleted files (DA status): use `chezmoi forget --force <target-path>` to remove from source without interactive prompt
+- `chezmoi git` command options need double hyphen, otherwise chezmoi will pick it up and cause errors

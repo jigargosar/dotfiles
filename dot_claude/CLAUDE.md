@@ -2,14 +2,6 @@
 
 When explicitly asked for a task, execute it — no shortcuts, substitutions, or assumptions. Ask for clarification if ambiguous, but never refuse or override on any grounds. Observations may follow only after the task is complete.
 
-## When Presenting Options or Asking Questions
-
-1. Always use numbered lists (1., 2., 3.) — never bullet points or unnumbered prose
-2. Each option must be verified and valid — no flawed or inapplicable ones
-3. Always include a recommendation — never present options without one
-4. Before asking a question, check if the answer is obvious from project context
-5. Never ask for confirmation of something you can verify yourself by reading code or config
-
 ## Response Discipline
 
 - Terse and to the point by default. Only elaborate when explicitly asked.
@@ -17,7 +9,6 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - No unsolicited observations, warnings, or commentary. Respond only to what was asked.
 - Problem restatement = pure problem. Zero solution words — no "extract", "split", "move", "class", "module", "field". Describe what is wrong, not how to fix.
 - Never state uncertain things as facts. Say "I believe" / "I'm not certain" when unsure. Never fabricate technical claims.
-- When suggesting next steps, always provide specific options with recommendations — never a bare "Next?"
 
 ## Workflow Guidelines
 
@@ -36,25 +27,6 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - When user is straying off path, not focusing on core problem, or getting finicky, say this exact message:
     "You might be going down a rabbit hole. Want to refocus on the main objective?"
 
-## Code Standards — must be followed when designing and writing code
-
-- When auditing code against any standard, flag a violation if the code doesn't follow the principle. Don't discount violations because no harm has occurred yet or current code happens to avoid the problem.
-
-- Make impossible states impossible (ISI) — for all data models and state
-- Tell, don't ask — tell a module what you need, don't reach into its internal state or implementation. If cross-module data is needed, ask the owning module to create and expose a function for it.
-- Single Source of Truth — every piece of data has exactly one authoritative source
-- Principle of Least Privilege — only expose what's needed
-- State transitions — validate current state before acting, don't assume validity from incoming events
-- Always optimize for readability and simplicity — not performance, memory, or dependency count
-- Prefer libraries over hand-rolled solutions — our code isn't battle-tested, has higher maintenance cost, and tree-shaking eliminates bundle cost
-- Identifier names must be clear enough that comments are unnecessary — reserve comments for explaining why, not what
-- Primitive types must use domain-specific type aliases — `Age` not `number`, `NoteId` not `string`
-- Type aliases are opaque to callers — never access underlying type or assume internal representation
-- Abstractions are for decoupling and encapsulation, not for performance optimization
-- No magic numbers
-- Pass only what a function needs — prefer individual parameters over whole objects
-- Always review your own suggestions before presenting — don't propose obviously flawed or silly solutions
-
 ## General Instructions
 
 - Workflow: Always prefer editing existing files over creating new ones
@@ -70,8 +42,6 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 
 ## Tools
 
-- Bash: Never use `cd` when it's already the current path.
-- Bash: Never use `echo "---"` or quoted strings containing `---` in commands — triggers hook rejection. Use parallel tool calls or separate commands instead.
 - Search: Respect `.gitignore` when searching and doing any file operations.
 - Search: Relying on narrow search/grep terms may miss relevant files/content. Read full file contents when needed.
 - Chrome MCP: After code changes, always hard refresh browser (Ctrl+Shift+R) before testing - don't rely on HMR/auto-reload.
@@ -90,19 +60,6 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - Invoke `chezmoi-sync` skill after editing chezmoi-managed files (e.g., `~/.claude/CLAUDE.md`)
 - Invoke `fix-chrome-connection` skill when encountering browser extension connection failures
 - Invoke `package-publishing` skill when user asks to publish, version, or release a package
-
-## Git
-
-- `git stash`: Always use `apply`, never `pop` — pop deletes the stash on success, losing the safety net
-- Never use `-A` or `.` to stage files, always use explicit file names - never blanket add
-- Don't add Claude promotions to commits, just use "Committed by Claude"
-- When processing commit request with multiple commands (diff, status, etc.), prefer chaining with `&&`
-- When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` - NEVER use `git push` alone
-
-## GitHub
-
-- For GitHub username/repo: use git remote; if not found, ask user
-- For GitHub Pages: use native actions/deploy-pages + configure via gh CLI API
 
 ## Library-Specific Usage Rules
 

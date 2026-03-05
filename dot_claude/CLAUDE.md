@@ -61,6 +61,13 @@ When explicitly asked for a task, execute it — no shortcuts, substitutions, or
 - Invoke `fix-chrome-connection` skill when encountering browser extension connection failures
 - Invoke `package-publishing` skill when user asks to publish, version, or release a package
 
+## Gentle Reminders
+
+- Refer to `bash.md` when executing Bash commands
+- Refer to `code-standards.md` when writing or reviewing code
+- Refer to `communication.md` when responding
+- Refer to `git.md` when executing git commands
+
 ## Library-Specific Usage Rules
 
 - fractional-indexing: Never use `localeCompare` for sorting - use plain `<` / `>` comparison

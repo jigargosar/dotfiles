@@ -5,6 +5,10 @@ user-invocable: false
 disable-model-invocation: false
 ---
 
+## Text Formatting
+
+- Never use `**bold**` for labels or emphasis — use plain text instead
+
 ## Heading Convention
 
 - New files: title is plain text, sections start with `#`, subsections `##`

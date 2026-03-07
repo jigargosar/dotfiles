@@ -7,7 +7,7 @@ user-invokable: true
 
 # Workflow
 
-1. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s`, show formatted output:
+- Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s`, show formatted output:
 
    Chezmoi:
    <raw output or "clean">
@@ -15,12 +15,17 @@ user-invokable: true
    Git:
    <raw output or "clean">
 
-2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
-3. Show output before running next command
-4. Run `chezmoi diff <file1> <file2> ... > /dev/null 2>&1` — exclude files with delete status (D, DA, DD). If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
-5. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
-6. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
-7. Ask user: "Re-add skills, commands, agents?" — if yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/` then restart workflow from step 1
+- If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
+- Show output before running next command
+- Run `chezmoi diff <file1> <file2> ... > /dev/null 2>&1` — exclude files with delete status (D, DA, DD). If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
+- Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
+- Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
+- Ask user:
+   "Do you want to re-add:
+   ~/.claude/skills/
+   ~/.claude/commands/
+   ~/.claude/agents/"
+   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/` then restart workflow from the beginning
 
 # Notes
 

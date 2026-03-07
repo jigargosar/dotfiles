@@ -4,7 +4,7 @@ Git and GitHub Rules
 
 - `git stash`: Always use `apply`, never `pop` — pop deletes the stash on success, losing the safety net
 - Never use `-A` or `.` to stage files, always use explicit file names — never blanket add
-- Don't add Claude promotions to commits — sign off with "Committed by Claude" followed by the active model name (e.g., "Committed by Claude Opus 4.6")
+- No Claude promotions in commits (no `Co-Authored-By`, no generated-by links) — ONLY sign off with "Committed by Claude" followed by the active model name (e.g., "Committed by Claude Opus 4.6")
 - When processing commit request with multiple commands (diff, status, etc.), prefer chaining with `&&`
 - When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` — NEVER use `git push` alone
 

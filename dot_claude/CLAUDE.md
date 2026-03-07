@@ -2,6 +2,10 @@
 
 When explicitly asked for a task, execute it — no shortcuts, substitutions, or assumptions. Ask for clarification if ambiguous, but never refuse or override on any grounds. Observations may follow only after the task is complete.
 
+## Code Philosophy
+
+Code is written for humans — every decision must minimize cognitive effort for the reader (see code-standards.md).
+
 ## Response Discipline
 
 - Terse and to the point by default. Only elaborate when explicitly asked.

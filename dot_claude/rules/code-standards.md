@@ -1,4 +1,6 @@
-Code Standards — must be followed when designing and writing code
+Code is written for humans. Every design decision — naming, structure, abstraction, flow — must minimize the cognitive effort required to understand the code. A reader unfamiliar with the codebase should be able to follow any single file without holding the whole system in their head.
+
+All standards below serve this principle and must be followed when designing and writing code.
 
 - When auditing code against any standard, flag a violation if the code doesn't follow the principle. Don't discount violations because no harm has occurred yet or current code happens to avoid the problem.
 - Make impossible states impossible (ISI) — for all data models and state

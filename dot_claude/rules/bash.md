@@ -1,6 +1,6 @@
 # Bash Rules
 
-1. Never use `cd` when it's already the current path
+1. When chaining commands, don't `cd` to the project root — if it's already the working directory
 2. Never use `echo` or quoted strings containing `---` — triggers hook rejection
 3. Never use `$()` subshell substitution — use plain strings
 4. Never use heredoc/EOF syntax — use `-m` with quoted strings instead. Escape special characters as needed.

@@ -29,8 +29,9 @@ Run Workflow: Sync, then Workflow: Re-add.
    "Do you want to re-add:
    ~/.claude/skills/
    ~/.claude/commands/
-   ~/.claude/agents/"
-   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/`
+   ~/.claude/agents/
+   ~/.claude/rules/"
+   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/`
 8. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
 9. Run: `chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 10. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically

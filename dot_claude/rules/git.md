@@ -7,6 +7,7 @@ Git and GitHub Rules
 - No Claude promotions in commits (no `Co-Authored-By`, no generated-by links) — ONLY sign off with "Committed by Claude" followed by the active model name (e.g., "Committed by Claude Opus 4.6")
 - When processing commit request with multiple commands (diff, status, etc.), prefer chaining with `&&`
 - When pushing git commits to remote repository, ALWAYS use `git push --follow-tags` — NEVER use `git push` alone
+- Always use `git -C <path>` for all git commands — never rely on shell working directory
 
 # GitHub
 

@@ -24,4 +24,5 @@ disable-model-invocation: false
 ## Declarations
 - Always use `const`. Usage of `let` requires strong justification.
 - `Readonly` / `readonly` by default — mutability requires justification (like `let`)
-- Use `switch` with `assertNever` for type discrimination, never `if/else` chains
+- Use `switch` for type discrimination, never `if/else` chains
+- Only add `assertNever` in the `default` case when the compiler can't verify exhaustiveness (e.g., the return value isn't used). When each case returns or assigns to a typed binding, the compiler already ensures exhaustiveness.

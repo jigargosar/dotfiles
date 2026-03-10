@@ -41,6 +41,8 @@ If `package.json` already exists, ask before overwriting.
 pnpm add -D vite typescript prettier tailwindcss @tailwindcss/vite @vitejs/plugin-basic-ssl
 ```
 
+After install, if pnpm warns about ignored build scripts, prompt the user to run `pnpm approve-builds` before continuing.
+
 ### 3. Copy template files
 
 Read each asset from `~/.claude/skills/vite-ts-init/assets/` and write to the project.

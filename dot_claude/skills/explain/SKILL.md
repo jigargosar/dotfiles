@@ -2,7 +2,7 @@
 name: explain
 description: >
   Checkpoint skill. When the user says "explain" anywhere in their message,
-  they want you to restate your understanding of their prompt — nothing more.
+  they want you to re-confirm your understanding of their prompt — nothing more.
   Do not act, infer permission, or jump to conclusions. Just tell them what
   you heard. User-invocable via /explain.
 allowed-tools: ""

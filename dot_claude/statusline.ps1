@@ -111,7 +111,53 @@ try {
         $cwd = "~"
     }
 
-    Write-Output "$line1`n${dim}${cwd}${rst}"
+    # === ai-research git state ===
+    $aiResearchDir = "$env:USERPROFILE/projects/ai-research"
+    $aiLine = ""
+    if (Test-Path $aiResearchDir) {
+        Push-Location $aiResearchDir
+        try {
+            git rev-parse --git-dir 2>$null | Out-Null
+            if ($LASTEXITCODE -eq 0) {
+                $aiBranch = git rev-parse --abbrev-ref HEAD 2>$null
+                if (!$aiBranch) { $aiBranch = "?" }
+
+                $aiStagedCount = (git diff --cached --name-only 2>$null | Measure-Object).Count
+                $aiUnstagedCount = (git diff --name-only 2>$null | Measure-Object).Count
+                $aiUntrackedCount = (git ls-files --others --exclude-standard 2>$null | Measure-Object).Count
+                $aiTotalDirty = $aiStagedCount + $aiUnstagedCount + $aiUntrackedCount
+
+                $aiAheadCount = 0
+                $aiBehindCount = 0
+                $aiUpstream = git rev-parse --abbrev-ref "@{u}" 2>$null
+                if ($aiUpstream -and $LASTEXITCODE -eq 0) {
+                    $aiAheadCount = [int](git rev-list --count "@{u}..HEAD" 2>$null)
+                    $aiBehindCount = [int](git rev-list --count "HEAD..@{u}" 2>$null)
+                }
+
+                $aiStashCount = (git stash list 2>$null | Measure-Object).Count
+
+                # Grayed versions of primary palette
+                $dimTeal = "`e[38;2;130;150;140m"      # gray-green — clean branch
+                $dimPink = "`e[38;2;150;125;130m"      # gray-pink — dirty branch + dirty count
+                $dimCyan = "`e[38;2;130;140;150m"      # gray-cyan — push pending
+                $dimOrange = "`e[38;2;150;140;130m"    # gray-orange — pull pending
+
+                $aiGitColor = if ($aiTotalDirty -gt 0) { $dimPink } else { $dimTeal }
+                $aiLine = "${dim}AR ${aiGitColor}${aiBranch}${rst}"
+                if ($aiTotalDirty -gt 0) { $aiLine += "${dimPink}+${aiTotalDirty}${rst}" }
+                if ($aiAheadCount -gt 0) { $aiLine += " ${dimCyan}↑${aiAheadCount}${rst}" }
+                if ($aiBehindCount -gt 0) { $aiLine += " ${dimOrange}↓${aiBehindCount}${rst}" }
+                if ($aiStashCount -gt 0) { $aiLine += " ${dimCyan}≡${aiStashCount}${rst}" }
+            }
+        } finally {
+            Pop-Location
+        }
+    }
+
+    $output = "$line1`n${dim}${cwd}${rst}"
+    if ($aiLine) { $output += "`n${aiLine}" }
+    Write-Output $output
 } finally {
     Pop-Location
 }

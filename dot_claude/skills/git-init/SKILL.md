@@ -2,7 +2,7 @@
 name: git-init
 description: Initialize a git repository with proper .gitignore and initial commit. Use when user asks to initialize git, set up git, or create a repo.
 user-invocable: true
-allowed-tools: Glob, Read, Bash(git init*), Bash(git status*)
+allowed-tools: Glob, Read, Write(.gitignore), Bash(git init), Bash(git status), Bash(git add .gitignore && git commit -m "Initial commit"), Bash(gh api user --jq .login), Bash(gh repo create*)
 disable-model-invocation: true
 ---
 
@@ -21,7 +21,7 @@ Initialize a git repository with proper .gitignore and initial commit.
 4. Detect project type from existing files. If unclear, default to Node/pnpm. Add any extra project-specific entries not already in the template.
 5. Write `.gitignore` with combined content
 6. Run `git status` to count untracked files. Show the count and ask user for confirmation before staging (e.g. "Stage 50 files?"). List any suspicious files (large binaries, secrets, etc.) if detected.
-7. Stage files and create initial commit with message "Initial commit"
+7. Run `git add .gitignore && git commit -m "Initial commit"`
 
 ### Phase 3 — Remote (prompted individually)
 8. Use AskUserQuestion to ask about GitHub remote:

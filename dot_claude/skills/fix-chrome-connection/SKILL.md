@@ -11,18 +11,18 @@ disable-model-invocation: false
 
 On Windows, Claude-in-Chrome uses a named pipe `\\.\pipe\claude-mcp-browser-bridge-{username}` for communication. Stale `claude.exe` processes from previous sessions hold this pipe open, blocking new connections. The specific culprit is the `--chrome-native-host` process spawned by Chrome via `chrome-native-host.bat`.
 
-## IMPORTANT: Shell Compatibility
+## Shell Compatibility
 
-Claude Code CLI uses a bash-like shell, NOT PowerShell. All commands below use plain `wmic` and `taskkill` which work in any Windows shell. **Do NOT use PowerShell-native syntax** like `Get-CimInstance`, `Where-Object`, pipe operators (`|`), or `Stop-Process`.
+Use `powershell.exe -Command "..."` and `taskkill` for process inspection and killing. `wmic` does not work.
 
-## IMPORTANT: Safety
+## Safety
 
 **Do NOT broaden search filters.** If the exact commands below find nothing, skip to the Fallback section. Never match on broad terms like `mcp`, `browser`, or `chrome` — this will kill your own MCP server connections and cascade into errors.
 
 ## Step 1: List claude.exe processes
 
 ```
-wmic process where "name='claude.exe'" get ProcessId,CommandLine /FORMAT:LIST
+powershell.exe -Command "Get-CimInstance Win32_Process -Filter \"name='claude.exe'\" | Select ProcessId,CommandLine | Format-List"
 ```
 
 Look for a process with `--chrome-native-host` in its CommandLine. This is the stale pipe holder. It is safe to kill — Claude Code CLI is never this process.
@@ -41,13 +41,13 @@ If CommandLine was blank for all processes but there are suspicious `claude.exe`
 
 ## Step 3: Verify
 
-Re-run the wmic command from Step 1. The `--chrome-native-host` process should be gone.
+Re-run the powershell command from Step 1. The `--chrome-native-host` process should be gone.
 
 Then retry the browser connection.
 
 ## Fallback: If Step 1 finds nothing or CommandLine is blank
 
-The native host process may not be visible via wmic. In this case:
+The native host process may not be visible. In this case:
 
 1. **Close Chrome completely** (all windows — check system tray too). This kills all Chrome child processes including the native host.
 2. **Reopen Chrome.**
@@ -58,7 +58,9 @@ This is the most reliable fix when process inspection fails.
 ## Still broken after fallback?
 
 1. Open Chrome → Extensions → Claude → toggle off, then on
-2. If that fails, restart the Claude Code CLI session entirely
+2. If extension shows `_metadata` corruption error in chrome://extensions, fully uninstall and reinstall from Chrome Web Store
+3. If native host bat crashes (Bun panic), reinstalling the extension resets it
+4. If all else fails, restart the Claude Code CLI session entirely
 
 ## Process Flag Reference
 

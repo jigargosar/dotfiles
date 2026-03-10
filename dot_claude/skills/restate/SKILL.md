@@ -20,7 +20,8 @@ allowed-tools:
   - AskUserQuestion
   - Write
 
-disable-model-invocation: true
+disable-model-invocation: false
+user-invocable: true
 
 ---
 
@@ -79,7 +80,7 @@ Violating any invariant is a protocol failure. If uncertain whether an action is
 
 Available commands (all independent, no fix order):
   /restate, /goal, /research, /solutions, /steps, /draft, `go`
-  /discuss, /assert
+  /discuss, /assert, /pause-restate
 
 User chooses which command to use next. Never suggest a specific next phase.
 
@@ -149,8 +150,13 @@ Purpose: Verify claim (made by user or AI) with evidence — avoid wasted effort
 4. Back claims with evidence (file reads, docs, web search). State verdicts with confidence.
 5. No mutation
 
+## /pause-restate
+Purpose: Suspend protocol when user needs something done directly.
+
+1. Fulfill user's request directly — no protocol constraints apply
+2. Return to normal conversation mode until a protocol command is invoked
+
 ## Rules
-0. Protocol constrains autonomous AI behavior. Explicit user requests override protocol constraints — fulfill them directly.
 1. User controls flow — never suggest which protocol command to use next, never imply a required sequence
 2. Stay terse
 3. `ok` / `yes` = accept suggestion, still no mutation

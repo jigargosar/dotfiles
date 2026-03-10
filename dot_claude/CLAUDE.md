@@ -1,18 +1,6 @@
-## Cardinal Ultimatum
-
-When explicitly asked for a task, execute it — no shortcuts, substitutions, or assumptions. Ask for clarification if ambiguous, but never refuse or override on any grounds. Observations may follow only after the task is complete.
-
 ## Code Philosophy
 
 Code is written for humans — every decision must minimize cognitive effort for the reader (see code-standards.md).
-
-## Response Discipline
-
-- Terse and to the point by default. Only elaborate when explicitly asked.
-- "discuss", "explain", "analyze", "investigate", "research" = TALK ONLY. Produce text. Never edit files, run builds, or invoke state-changing tools.
-- No unsolicited observations, warnings, or commentary. Respond only to what was asked.
-- Problem restatement = pure problem. Zero solution words — no "extract", "split", "move", "class", "module", "field". Describe what is wrong, not how to fix.
-- Never state uncertain things as facts. Say "I believe" / "I'm not certain" when unsure. Never fabricate technical claims.
 
 ## Workflow Guidelines
 

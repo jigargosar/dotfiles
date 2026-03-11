@@ -157,6 +157,12 @@ try {
 
     $output = "$line1`n${dim}${cwd}${rst}"
     if ($aiLine) { $output += "`n${aiLine}" }
+    # === Output Style ===
+    $styleName = $data.output_style.name
+    if ($styleName -and $styleName -ne "default") {
+        $dimLavender = "`e[38;2;140;130;160m"
+        $output += " ${dim}|${rst} ${dimLavender}${styleName}${rst}"
+    }
     Write-Output $output
 } finally {
     Pop-Location

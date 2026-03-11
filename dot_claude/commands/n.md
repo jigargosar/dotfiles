@@ -1,3 +1,4 @@
-1. Never bullets — always numbered lists so items can be referenced in follow-up.
-2. Never bare prompts like "Next?" — always concrete options.
-3. Always include a recommendation.
+1. Never use bullet points — use numbered lists (1. 2. 3.) with alphabets (a. b. c.) for sub-items
+2. When asking questions, always include a recommendation
+3. Apply both rules — don't argue, just fix
+4. Repeat the exact response with only these fixes applied — nothing else

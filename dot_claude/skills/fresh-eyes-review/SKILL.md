@@ -17,7 +17,7 @@ When user asks to review readability, find noise, or understand "what's hard to 
 
 1. Read the file top-to-bottom in a single pass
 2. At each section, note:
-   - How many things am I holding in working memory right now?
+   - How many things am I holding in working memory right now? (human limit: 4-5 items)
    - Did I have to scan backward to recall something?
    - Can I tell what this section is for without reading every line?
    - Does this line carry the same visual weight as the important lines around it?
@@ -28,7 +28,7 @@ When user asks to review readability, find noise, or understand "what's hard to 
 - Walls of declarations with no signal about purpose or grouping
 - Flat functions where every line is a peer — no hierarchy, no chunking
 - Setup/plumbing interleaved with core logic
-- Variables introduced far from where they're used
+- Variables introduced far from where they're used — reader carries dead names through code that doesn't reference them
 - Reader forced to hold too many names before seeing any payoff
 
 ## What NOT to do

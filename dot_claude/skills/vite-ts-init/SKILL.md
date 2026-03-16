@@ -1,16 +1,18 @@
 ---
 name: vite-ts-init
-description: Initialize a Vite + TypeScript + Tailwind v4 + pnpm project in the current directory. Use when user runs /vite-ts-init or asks to scaffold or set up a new Vite TypeScript project.
+description: Initialize or update a Vite + TypeScript + Tailwind v4 + pnpm project. Works on new and existing projects. Use when user runs /vite-ts-init.
 user-invocable: true
 ---
 
 # vite-ts-init
 
-Initialize Vite + TypeScript + Tailwind v4 + pnpm in the current directory.
+Initialize or update Vite + TypeScript + Tailwind v4 + pnpm in the current directory.
 
 ## Approach
 
 Run all steps silently. Only pause before destructive actions (e.g. overwriting an existing file).
+
+If existing project detected, recommend and present options, and offer to diff and propose changes.
 
 ## Steps
 

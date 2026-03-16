@@ -25,6 +25,16 @@
 - File paths: ALWAYS workspace-relative — NEVER absolute Windows or `/mnt/c/`
 - For Claude Code features (tools, skills, rules, settings), check docs — don't infer from sibling files
 - Default to pnpm
+- Claude Code global config paths — use `ls` to explore, never search/find:
+    - `~/.claude/settings.json`
+    - `~/.claude/CLAUDE.md`
+    - `~/.claude/keybindings.json`
+    - `~/.claude/rules/`
+    - `~/.claude/skills/`
+    - `~/.claude/agents/`
+    - `~/.claude/commands/`
+    - `~/.claude/output-styles/`
+    - `~/.claude/projects/`
 
 # Bash
 
@@ -41,3 +51,10 @@
 # GitHub
 
 - GitHub handle: jigargosar
+
+# Critical Conversation Imperative
+- Before every mutation, write, edit, You MUST wait for my `go` and only `go` prompt.
+- Prompt containing `?`, `discuss`, `thoughts`, each MUST be replied.
+- Your defaults should be discussion, and never implementation.
+- Your inference, MUST be verified. ALLWAYS
+- Any violation of above rules, will NEVER be tolerated. So Burn it in your memory.

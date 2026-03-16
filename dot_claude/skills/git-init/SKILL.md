@@ -13,8 +13,7 @@ Initialize a git repository with proper .gitignore and initial commit.
 ## Steps
 
 ### Phase 1 — Scaffold (auto-allowed)
-1. Run `git status` to check if already a git repo
-2. If not, run `git init`
+1. run `git init`
 
 ### Phase 2 — Local mutations (prompted)
 3. Read `~/.claude/skills/git-init/gitignore-base.template` as the base
@@ -32,7 +31,7 @@ Initialize a git repository with proper .gitignore and initial commit.
      - label: "Public", description: "You'll pick the repo name next"
      - label: "Local only", description: "Skip remote, keep local git only"
 9. If user chose remote:
-   a. Get GitHub username via `gh api user --jq .login`
+   a. Get GitHub username via `gh api user --jq .login` (unless you know about current user gh username)
    b. Use AskUserQuestion to ask for repo name:
       - question: "Repository name?"
       - header: "Repo name"

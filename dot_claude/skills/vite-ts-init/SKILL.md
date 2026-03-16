@@ -28,7 +28,8 @@ Write `package.json`. Use `basename $(pwd)` for the name field.
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "typecheck:watch": "tsc --noEmit --watch"
     }
 }
 ```

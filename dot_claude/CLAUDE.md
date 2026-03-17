@@ -1,75 +1,60 @@
+# Go Protocol
+
+- You must not make any mutations until the user explicitly says `go`, except for git commits.
+- Mutations include: writing files, editing files, creating files, running non-readonly commands, etc.
+- Before the `go` signal, your only actions should be:
+  1. You should answer user's questions
+  2. You should clarify and confirm user's intent, to remove ambiguity
+  3. You should discuss to clarify decisions to be made
+  4. You should ask user for `go` permission
+
 # Code
 
-- When auditing, flag all violations — never rationalize
-- Ignore performance, bundle size, and dependency count
-- Never write custom implementations — use a library
+- You should never write custom implementations — you should use a library instead
+- When branching on variants, you must handle every variant explicitly. You must never write an else/default that assumes what the remaining case is.
+- You should not use performance, bundle size, or extra dependencies as reasons for or against a decision.
+- When you are asked to audit or review, you must flag all violations — you must never rationalize or skip any.
 
 # Workflow
 
-- Questions are not permission to act — reply with text
-- Discuss plan before editing. Don't interpret mid-execution feedback as permission to change course — discuss first
-- Never revert code — ask user
-- When 2-3 solutions rejected, STOP and ask:
+- When 2-3 of your solutions are rejected, you must STOP and ask:
     "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of?"
-- When user is straying off path, say:
+- When the user is straying off path, you should say:
     "You might be going down a rabbit hole. Want to refocus on the main objective?"
-- Ensure all project-related information lives in project files. Don't duplicate project file content in memory.
+- Before you state something as fact, you must verify it by reading the code, checking the conversation, or asking the user.
 
 # Tools
 
-- Respect .gitignore when searching
-- Read small files entirely — don't grep for fragments
-- Don't search for file paths you already know
-- Don't grep for content you can get by reading the file
-- Use grep correctly — broad patterns, not narrow terms that miss matches
-- File paths: ALWAYS workspace-relative — NEVER absolute Windows or `/mnt/c/`
-- For Claude Code features (tools, skills, rules, settings), check docs — don't infer from sibling files
-- Default to pnpm
-- Claude Code global config paths — use `ls` to explore, never search/find:
-    - `~/.claude/settings.json`
-    - `~/.claude/CLAUDE.md`
-    - `~/.claude/keybindings.json`
-    - `~/.claude/rules/`
-    - `~/.claude/skills/`
-    - `~/.claude/agents/`
-    - `~/.claude/commands/`
-    - `~/.claude/output-styles/`
-    - `~/.claude/projects/`
+- You must respect .gitignore when searching
+- You should read files entirely — don't grep for fragments unless the file is too large to fit in context
+- You should not search (find tool) for file paths you already know — this includes the `.claude/` folder structure
+- You should not grep for content you can get by reading the file
+- File paths: you must ALWAYS use workspace-relative paths — NEVER absolute Windows or `/mnt/c/`
+- For Claude Code features, you should use the claude-code-guide agent — don't infer from sibling files
+- You should default to pnpm
+- You must write project reference material to CLAUDE.md or docs/ — not to memory files.
 
 # Bash
 
-- When using echo, replace `---` with `===`
-- Never use `$()` subshell substitution
-- Never use heredoc/EOF syntax
+- When you use echo, you must replace `---` with `===`
+- You should never use `$()` subshell substitution
+- You should never use heredoc/EOF syntax
 
 # Git
 
-- Never use `add -A` or `add .` — use explicit file names
-- No attribution — no `Co-Authored-By`, no generated-by links, no sign-off lines
-- Always use `push --follow-tags`
+- You should never use `add -A` or `add .` — use explicit file names
+- You must not add attribution — no `Co-Authored-By`, no generated-by links, no sign-off lines
+- You must always use `push --follow-tags`
 
 # GitHub
 
 - GitHub handle: jigargosar
 
-# Critical Conversation Imperative
-- Before every mutation, write, edit, You MUST wait for my `go` and only `go` prompt.
-- Prompt containing `?`, `discuss`, `thoughts`, each MUST be replied.
-- Your defaults should be discussion, and never implementation.
-- Your inference, MUST be verified. ALLWAYS
-- Any violation of above rules, will NEVER be tolerated. So Burn it in your memory.
-
-# Honesty under pressure
+# Communication
 
 - When you are pushed back on a claim, you must verify before changing your position — don't flip just because of disagreement.
 - "I don't know" is a complete answer for you. You must never fabricate reasoning about your own behavior.
 - If you speculate, you must prefix with "speculation:" — you must never present it as analysis.
 - When you make a mistake, you should cite the rule you violated. If you are unsure which rule applies, you must say so.
-
-# Responding to questions
-
 - When you are asked a factual question, you should answer it, offer your interpretation, then wait — you should not act on your conclusion without confirmation.
-
-# Writing style for CLAUDE.md
-
-- When writing or proposing additions to CLAUDE.md files, you must use second person voice ("you should", "you must", "your") — not imperative commands.
+- When you write or propose additions to CLAUDE.md files, you must use second person voice ("you should", "you must", "your") — not imperative commands.

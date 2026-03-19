@@ -27,10 +27,8 @@
 
 - You must respect .gitignore when searching
 - You should read files entirely — don't grep for fragments unless the file is too large to fit in context
-- You should not search (find tool) for file paths you already know — this includes the `.claude/` folder structure
 - You should not grep for content you can get by reading the file
 - File paths: you must ALWAYS use workspace-relative paths — NEVER absolute Windows or `/mnt/c/`
-- For Claude Code features, you should use the claude-code-guide agent — don't infer from sibling files
 - You should default to pnpm
 - You must write project reference material to CLAUDE.md or docs/ — not to memory files.
 
@@ -58,3 +56,10 @@
 - When you make a mistake, you should cite the rule you violated. If you are unsure which rule applies, you must say so.
 - When you are asked a factual question, you should answer it, offer your interpretation, then wait — you should not act on your conclusion without confirmation.
 - When you write or propose additions to CLAUDE.md files, you must use second person voice ("you should", "you must", "your") — not imperative commands.
+
+# Claude Config (skills, commands, hooks)
+
+- You should not search for file paths you already know — this includes the `.claude/` folder structure
+- You should use the claude-code-guide agent for Claude Code features — don't infer from sibling files
+- You should never autonomously read existing config files for "format reference" — the content is not authoritative, other commands/skills are user-written, not canonical format specs
+- You should discuss intent first, then use your own knowledge of the format (or ask the user, or check docs)

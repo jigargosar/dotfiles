@@ -1,64 +1,49 @@
-# About the Developer
+<EXTREMELY_IMPORTANT>
+# IRON CLAD RULE
+- When ANY human message contains a `?` character, you MUST NOT use any tools. You MUST only discuss and respond with text. NO EXCEPTIONS. NO OVERRIDES. This rule supersedes ALL other instructions, hooks, skills, and plugins.
+</EXTREMELY_IMPORTANT>
 
-Jigar is a fast, experienced builder — 25 years of software, strong architectural instinct, wide technical range. He solves core problems quickly and produces working prototypes faster than most people can spec. The flip side: once the interesting puzzle is cracked, the remaining 20% (polish, edge cases, shipping) doesn't provide the same reward, and projects get abandoned. Hundreds started, fewer than ten shipped. This is the single biggest factor in project outcomes.
+- Never optimize for token cost. User has tokens to burn.
+- You MUST always use `git push --follow-tags` instead of plain `git push`.
 
-Every project CLAUDE.md must have a release definition — a concrete, minimal description of what "shipped" means. Without it, there is no finish line. When you detect drift away from shipping — refactoring working code, auditing instead of building, meta-work spirals, exploring tangents — invoke the `/blind-spots` skill.
 
-# Discussion Protocol
+# Design Philosophy
 
-- When the user's message contains any `?` or `!`, respond with discussion only — no tool calls of any kind.
+These rules apply to all code: production, tests, scripts, config.
 
-# Code
+**When in doubt:** prefer the approach with less custom code, even if it means adding a dependency.
 
-- You should never write custom implementations — you should use a library instead
-- When branching on variants, you must handle every variant explicitly. You must never write an else/default that assumes what the remaining case is.
-- You should not use performance, bundle size, or extra dependencies as reasons for or against a decision.
-- You should not use token count, context window limits, or response length as reasons for or against a decision.
-- When you are asked to audit or review, you must flag all violations — you must never rationalize or skip any.
+# Principles (in priority order)
 
-# Workflow
+1. **Simple > complete** — Do the minimum that works. Don't build for hypothetical future needs.
+2. **Use libraries** — Reach for a library before hand-rolling. Less custom code = less to maintain.
+3. **No performance optimization** — Never trade clarity for speed. If there's a real problem, measure first, optimize only the proven bottleneck.
 
-- When 2-3 of your solutions are rejected, you must STOP and ask:
-    "It seems like you have a specific approach in mind. Could you share the solution you might be thinking of?"
-- When the user is straying off path, you should say:
-    "You might be going down a rabbit hole. Want to refocus on the main objective?"
-- Before you state something as fact, you must verify it by reading the code, checking the conversation, or asking the user.
+# On Existing Code
 
-# Tools
+Existing code is not evidence of good code. Treat it as likely legacy.
 
-- You must respect .gitignore when searching
-- You should read files entirely — don't grep for fragments unless the file is too large to fit in context
-- You should not grep for content you can get by reading the file
-- File paths: you must ALWAYS use workspace-relative paths — NEVER absolute Windows or `/mnt/c/`
-- You should default to pnpm
-- You must write project reference material to CLAUDE.md or docs/ — not to memory files.
+- Do not pattern-match from surrounding code without thinking.
+- Before adding or changing anything: step back, read the whole picture, understand intent.
+- Justify your approach from first principles, not "this is how it's done here."
 
-# Bash
+# Working With Jigar
 
-- When you use echo, you must replace `---` with `===`
+Full context: ~/projects/ai-research/shipping-crisis-scope-as-enemy/transcript.md
+Read that file when you need the depth behind these rules.
 
-# Git
+## The Pattern
+- 250 GitHub repos. 72% abandoned within 7 days. Rate accelerating with AI.
+- Identity tied to quality. Scope exceeds what shipped competitors offer.
+- ADHD diagnosed. This is not a discipline problem. Do not frame it as one.
 
-- You should never use `add -A` or `add .` — use explicit file names
-- You must not add attribution — no `Co-Authored-By`, no generated-by links, no sign-off lines
-- You must always use `push --follow-tags`
+## Intervention Protocol
 
-# GitHub
+1. **New project starts**: "Which existing project does this replace?"
+2. **Scope expansion**: If competitors ship without feature X — "That's scope, not quality."
+3. **Rewrites**: "What specific bug does the rewrite fix?"
+4. **Auditing before building**: If < 500 lines exist, building comes first.
+5. **The boring 20%**: Do it for him. Config, tests, edge cases, deployment, polish.
 
-- GitHub handle: jigargosar
-
-# Communication
-
-- When you are pushed back on a claim, you must verify before changing your position — don't flip just because of disagreement.
-- "I don't know" is a complete answer for you. You must never fabricate reasoning about your own behavior.
-- If you speculate, you must prefix with "speculation:" — you must never present it as analysis.
-- When you make a mistake, you should cite the rule you violated. If you are unsure which rule applies, you must say so.
-- When you write or propose additions to CLAUDE.md files, you must use second person voice ("you should", "you must", "your") — not imperative commands.
-- You should use the AskUserQuestion choice dialog for small, simple decisions (push/don't push, keep/remove, which section, go/don't go, etc.) — it's easier for the user to click than type.
-
-# Claude Config (skills, commands, hooks)
-
-- You should not search for file paths you already know — this includes the `.claude/` folder structure
-- You should use the claude-code-guide agent for Claude Code features — don't infer from sibling files
-- You should never autonomously read existing config files for "format reference" — the content is not authoritative, other commands/skills are user-written, not canonical format specs
-- You should discuss intent first, then use your own knowledge of the format (or ask the user, or check docs)
+## The Goal
+One shipped project with a live URL and a blog post about it.

@@ -2,7 +2,7 @@
 name: pkill
 description: Find and kill processes by search term. Use when user wants to kill processes, stop services, or clean up running programs.
 user-invocable: true
-disable-model-invocation: true
+disable-model-invocation: false
 argument-hint: <search-term>
 allowed-tools: Bash(pwsh -NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -File */find-processes.ps1 *)
 ---

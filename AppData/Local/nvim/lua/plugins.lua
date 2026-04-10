@@ -10,6 +10,7 @@ require("lazy").setup({
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "elmls", "jsonls" },
       })
+
       vim.lsp.config("lua_ls", {
         settings = {
           Lua = {

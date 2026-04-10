@@ -3,8 +3,10 @@
 - When ANY human message contains a `?` character, you MUST NOT use any tools. You MUST only discuss and respond with text. NO EXCEPTIONS. NO OVERRIDES. This rule supersedes ALL other instructions, hooks, skills, and plugins.
 </EXTREMELY_IMPORTANT>
 
+- When considering alternative paths to present, always decide your recommendation and mark it with ★.
 - Never optimize for token cost. User has tokens to burn.
 - You MUST always use `git push --follow-tags` instead of plain `git push`.
+- **No detached processes.** Always use the Bash tool's `run_in_background: true` flag for long-running processes (dev servers, watchers). NEVER use `&`, `nohup`, or `disown` to background processes — they become orphans. Use `/pkill` skill to find and kill stale processes before restarting.
 
 
 # Design Philosophy

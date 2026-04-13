@@ -10,6 +10,9 @@ try {
 $inputText = $input | Out-String
 $data = $inputText | ConvertFrom-Json
 
+# Dump full stdin payload (pretty JSON) for inspection
+$data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
+
 # Get basic info
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
@@ -163,6 +166,21 @@ try {
         $dimLavender = "`e[38;2;140;130;160m"
         $output += " ${dim}|${rst} ${dimLavender}${styleName}${rst}"
     }
+
+    # === Effort level (settings file + env var) ===
+    $settingsPath = "$env:USERPROFILE/.claude/settings.json"
+    $effortFromSettings = $null
+    if (Test-Path $settingsPath) {
+        try {
+            $settingsJson = Get-Content $settingsPath -Raw | ConvertFrom-Json
+            $effortFromSettings = $settingsJson.effortLevel
+        } catch {}
+    }
+    $effortFromEnv = $env:CLAUDE_CODE_EFFORT_LEVEL
+    $effortSettingsDisplay = if ($effortFromSettings) { $effortFromSettings } else { "-" }
+    $effortEnvDisplay = if ($effortFromEnv) { $effortFromEnv } else { "-" }
+    $output += " ${dim}|${rst} ${sage}effort: s=${effortSettingsDisplay} e=${effortEnvDisplay}${rst}"
+
     Write-Output $output
 } finally {
     Pop-Location

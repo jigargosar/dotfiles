@@ -41,7 +41,7 @@ If `package.json` already exists, ask before overwriting.
 ### 2. Install dependencies
 
 ```bash
-pnpm add -D vite typescript prettier tailwindcss @tailwindcss/vite
+pnpm add -D vite typescript prettier tailwindcss @tailwindcss/vite vite-plugin-devtools-json
 ```
 
 After install, if pnpm warns about ignored build scripts, prompt the user to run `pnpm approve-builds` before continuing.

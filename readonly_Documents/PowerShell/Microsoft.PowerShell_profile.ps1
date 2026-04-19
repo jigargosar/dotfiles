@@ -95,3 +95,4 @@ Get-ChildItem "C:\Program Files\Git\usr\bin" -Filter *.exe |
 # Prepend Git usr\bin to PATH
 $env:Path = "C:\Program Files\Git\usr\bin;" + $env:Path
 # --- END: Remove conflicting aliases for Git usr\bin ---
+function qmd { node "C:\Users\jigar\AppData\Roaming\npm\node_modules\@tobilu\qmd\dist\cli\qmd.js" @args }

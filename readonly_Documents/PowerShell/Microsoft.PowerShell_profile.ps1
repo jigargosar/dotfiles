@@ -95,4 +95,28 @@ Get-ChildItem "C:\Program Files\Git\usr\bin" -Filter *.exe |
 # Prepend Git usr\bin to PATH
 $env:Path = "C:\Program Files\Git\usr\bin;" + $env:Path
 # --- END: Remove conflicting aliases for Git usr\bin ---
-function qmd { node "C:\Users\jigar\AppData\Roaming\npm\node_modules\@tobilu\qmd\dist\cli\qmd.js" @args }
+
+# Vim Mode Toggle
+# ── Vi Mode Toggle ───────────────────────────────────────────
+function Toggle-VimMode {
+    $current = (Get-PSReadLineOption).EditMode
+    if ($current -eq 'Vi') {
+        Set-PSReadLineOption -EditMode Windows
+        Write-Host -NoNewline "`e[6 q"  # restore beam cursor
+        Write-Host "Vi mode OFF"
+    } else {
+        Set-PSReadLineOption -EditMode Vi
+        Write-Host "Vi mode ON"
+    }
+}
+Set-Alias tvm Toggle-VimMode
+
+# ── Vi Mode Cursor Shape ──────────────────────────────────────
+Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
+    param($mode)
+    if ($mode -eq 'Command') {
+        Write-Host -NoNewline "`e[2 q"  # steady block  (normal mode)
+    } else {
+        Write-Host -NoNewline "`e[6 q"  # steady bar    (insert mode)
+    }
+}

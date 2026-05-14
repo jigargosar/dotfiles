@@ -25,13 +25,9 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 # Workflow: Re-add
 
-7. Ask user:
-   "Do you want to re-add:
-   ~/.claude/skills/
-   ~/.claude/commands/
-   ~/.claude/agents/
-   ~/.claude/rules/
-   ~/.claude/output-styles/"
+7. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
+   Options: "Yes" (re-add all listed dirs), "No" (skip and finish)
+   Dirs: ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/
    If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
 8. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
 9. Run: `chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`

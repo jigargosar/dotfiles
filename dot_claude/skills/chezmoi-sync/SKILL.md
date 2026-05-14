@@ -47,3 +47,5 @@ Run Workflow: Sync, then Workflow: Re-add.
 - Include ALL files from chezmoi status in the add command, not just the ones related to current task
 - For deleted files (DA status): use `chezmoi forget --force <target-path>` to remove from source without interactive prompt
 - `chezmoi git` command options need double hyphen, otherwise chezmoi will pick it up and cause errors
+- **These commands must be run in Bash, not PowerShell** — PowerShell path handling differs and is not covered here.
+- Paths with spaces: use partial quoting — quote only the space-containing segment, leaving `~` unquoted: `~/AppData/Roaming/"Code - Insiders"/User/settings.json`. This applies to all chezmoi and `chezmoi git --` commands.

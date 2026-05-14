@@ -52,5 +52,8 @@
     "chat.tools.terminal.outputLocation": "chat",
     "claudeCode.preferredLocation": "sidebar",
     "workbench.colorTheme": "Monokai",
-    "workbench.startupEditor": "welcomePage"
+    "workbench.startupEditor": "welcomePage",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
 }

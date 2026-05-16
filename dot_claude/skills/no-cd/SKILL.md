@@ -8,6 +8,7 @@ description: >-
   already set — cd into it wastes a command and breaks chaining.
 user-invocable: false
 disable-model-invocation: false
+model: haiku
 ---
 
 # No Redundant cd

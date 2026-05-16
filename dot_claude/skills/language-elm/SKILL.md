@@ -3,6 +3,7 @@ name: language-elm
 description: Elm programming language conventions and package management. TRIGGER when project contains elm.json or user is working with .elm files.
 user-invocable: false
 disable-model-invocation: false
+model: haiku
 ---
 
 ## Packages

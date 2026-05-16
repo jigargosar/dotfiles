@@ -4,6 +4,7 @@ description: |
   Creates tasks using TaskCreate tool and renumbers them
   by prefixing a number to each task.
 disable-model-invocation: true
+model: haiku
 ---
 
 # Instructions

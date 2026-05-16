@@ -8,6 +8,7 @@ when_to_use: |
 argument-hint: [what the skill/command should do]
 disable-model-invocation: false
 user-invocable: true
+model: opus
 ---
 
 Treat users request for command creation same as skill creation. Commands are deprecated in favour of skills.

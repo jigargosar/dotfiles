@@ -3,6 +3,7 @@ name: markdown-document-formatting
 description: Formatting rules for Markdown documents. TRIGGER when editing or creating Markdown files, so that proper formatting instructions can be applied.
 user-invocable: true
 disable-model-invocation: false
+model: haiku
 ---
 
 ## Text Formatting

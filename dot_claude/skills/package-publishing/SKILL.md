@@ -3,6 +3,7 @@ name: package-publishing
 description: npm package publishing workflow. TRIGGER when user asks to publish, version, or release a package.
 user-invocable: false
 disable-model-invocation: false
+model: haiku
 ---
 
 - When user asks to publish: discuss and recommend semver level (patch/minor/major)

@@ -2,6 +2,7 @@
 name: git-init
 description: Initialize a git repository with proper .gitignore and initial commit. Use when user asks to initialize git, set up git, or create a repo.
 user-invocable: true
+model: sonnet
 allowed-tools: Glob, Read, Write(.gitignore), AskUserQuestion, Bash(git init), Bash(git status -s), Bash(git add *), Bash(git commit -m "Initial commit"), Bash(gh api user --jq .login), Bash(gh repo create *), Bash(git push --follow-tags)
 disable-model-invocation: true
 ---

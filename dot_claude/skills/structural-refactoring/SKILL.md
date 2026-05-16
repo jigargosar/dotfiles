@@ -1,6 +1,7 @@
 ---
 name: structural-refactoring
 description: Use when refactoring or restructuring existing code, or when about to propose extracting helpers, splitting files, introducing abstractions, or deduplicating similar code. Provides the toolbox of structural moves and the criteria for when each one is warranted. Counteracts the default reflex to over-structure at the file/class level and under-structure at the function level.
+model: opus
 ---
 
 # Structural Refactoring

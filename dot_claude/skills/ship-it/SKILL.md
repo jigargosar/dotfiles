@@ -13,6 +13,7 @@ description: |
   noise-reduction (cleanup-phase only).
 user-invocable: true
 disable-model-invocation: false
+model: sonnet
 ---
 
 # Who You're Working With

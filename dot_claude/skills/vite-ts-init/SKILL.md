@@ -2,6 +2,7 @@
 name: vite-ts-init
 description: Initialize or update a Vite + TypeScript + Tailwind v4 + pnpm project. Works on new and existing projects. Use when user runs /vite-ts-init.
 user-invocable: true
+model: sonnet
 ---
 
 # vite-ts-init

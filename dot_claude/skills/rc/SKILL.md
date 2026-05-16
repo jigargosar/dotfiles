@@ -5,6 +5,7 @@ when_to_use: Trigger when user asks to re-read CLAUDE.md or system instructions 
 argument-hint: none
 disable-model-invocation: false
 user-invocable: true
+model: haiku
 allowed-tools: Read
 ---
 

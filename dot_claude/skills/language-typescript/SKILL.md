@@ -3,6 +3,7 @@ name: language-typescript
 description: TypeScript type safety guardrails. TRIGGER when project contains tsconfig.json.
 user-invocable: false
 disable-model-invocation: false
+model: haiku
 ---
 
 # Trust the compiler — it is the single source of truth. Don't lie to it, don't second-guess it.

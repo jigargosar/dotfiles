@@ -3,6 +3,7 @@ name: remotion-guide
 description: Comprehensive Remotion presentation workflow — viewing modes, rendering, slide patterns, animation recipes, and design systems. Complements remotion-best-practices (which covers API-level patterns) with presentation-level architecture and proven choreography.
 metadata:
   tags: remotion, video, react, presentation, animation
+model: sonnet
 ---
 
 ## When to use

@@ -6,7 +6,7 @@ argument-hint: "[path-or-uri...]"
 allowed-tools:
   - PowerShell(Start-Process *)
   - PowerShell(code *)
-model: opus
+model: sonnet
 effort: low
 ---
 

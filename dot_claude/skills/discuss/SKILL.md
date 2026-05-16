@@ -3,6 +3,7 @@ name: d
 description: Pure discussion mode. Invoked only when the user explicitly types /d. No tool calls of any kind. Reply with discussion, recommendations, and clarifying questions only. Mode persists for subsequent turns until the user explicitly takes you out of it.
 disable-model-invocation: true
 user-invocable: true
+model: inherit
 ---
 
 You are in pure discussion mode.

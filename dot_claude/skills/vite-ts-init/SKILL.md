@@ -1,21 +1,27 @@
 ---
 name: vite-ts-init
-description: Initialize or update a Vite + TypeScript + Tailwind v4 + pnpm project. Works on new and existing projects. Use when user runs /vite-ts-init.
+description: Initialize or update a Vite + TypeScript + Tailwind v4 + pnpm project. Works on new and existing projects.
 user-invocable: true
-model: sonnet
+model: inherit
+allowed-tools: AskUserQuestion, Skill(git-init)
+disable-model-invocation: false
 ---
-
-# vite-ts-init
-
-Initialize or update Vite + TypeScript + Tailwind v4 + pnpm in the current directory.
 
 ## Approach
 
-Run all steps silently. Only pause before destructive actions (e.g. overwriting an existing file).
-
-If existing project detected, recommend and present options, and offer to diff and propose changes.
+1. Run all steps silently. Pause only before destructive actions.
+2. For each file write: read asset (apply any substitutions), read destination, diff.
+3. If byte-identical: print one-line no-op note, move on. No AUQ.
+4. If different: show diff, then AUQ before overwriting.
+5. Append-only operations (e.g., `.gitignore` entries) don't require AUQ.
 
 ## Steps
+
+### 0. Git init
+
+AskUserQuestion: "Run `git-init` skill first?"
+- "Yes" — Call `Skill(git-init)`, then continue.
+- "Skip" — Continue.
 
 ### 1. package.json
 
@@ -37,8 +43,6 @@ Write `package.json`. Use `basename $(pwd)` for the name field.
 }
 ```
 
-If `package.json` already exists, ask before overwriting.
-
 ### 2. Install dependencies
 
 ```bash
@@ -50,7 +54,6 @@ After install, if pnpm warns about ignored build scripts, prompt the user to run
 ### 3. Copy template files
 
 Read each asset from `~/.claude/skills/vite-ts-init/assets/` and write to the project.
-If a destination file already exists, ask before overwriting.
 
 | Asset                  | Destination         |
 |------------------------|---------------------|
@@ -61,7 +64,7 @@ If a destination file already exists, ask before overwriting.
 | assets/tsconfig.json   | tsconfig.json       |
 | assets/.prettierrc     | .prettierrc         |
 
-After copying `index.html`, replace the `<title>App</title>` placeholder with the project name (same value used in `package.json`).
+When reading `index.html`, replace the `<title>App</title>` placeholder with the project name (same value used in `package.json`).
 
 ### 4. .gitignore
 

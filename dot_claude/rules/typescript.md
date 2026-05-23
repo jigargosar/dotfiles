@@ -19,7 +19,6 @@ If the type system is fighting you, the types are wrong — fix them, don't esca
 
 1. Name the discriminant field `tag` — not `kind`, not `type`.
 2. Dispatch on `.tag` with `switch`; put `assertNever(x)` in the `default` branch.
-3. Following 1 and 2 makes exhaustiveness compile-checked: adding a variant becomes a compile error at every switch site.
 
 ```ts
 function assertNever(_: never): never {

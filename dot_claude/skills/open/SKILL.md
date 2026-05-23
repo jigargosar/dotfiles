@@ -6,8 +6,7 @@ argument-hint: "[path-or-uri...]"
 allowed-tools:
   - PowerShell(Start-Process *)
   - PowerShell(code *)
-model: sonnet
-effort: low
+model: inherit
 ---
 
 # open

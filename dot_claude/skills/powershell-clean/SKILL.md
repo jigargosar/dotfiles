@@ -2,7 +2,7 @@
 name: powershell-clean
 description: Use this skill whenever executing PowerShell or pwsh commands via Bash. This includes any Bash tool call containing pwsh, powershell, or running .ps1 scripts. Triggers on any PowerShell execution — even simple one-liners. Ensures clean output with no ANSI escape sequences, no encoding errors, no progress bar artifacts, and no popup windows.
 user-invocable: false
-disable-model-invocation: false
+disable-model-invocation: true
 model: haiku
 ---
 

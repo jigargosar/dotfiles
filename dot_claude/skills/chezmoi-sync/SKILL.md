@@ -1,9 +1,9 @@
 ---
 name: chezmoi-sync
 description: Sync chezmoi-managed target files back to source and push to remote. Use when user mentions chezmoi, pushing dotfiles, or after editing files like ~/.claude/CLAUDE.md
-disable-model-invocation: false
+disable-model-invocation: true
 user-invokable: true
-model: sonnet
+model: inherit
 ---
 
 Run Workflow: Sync, then Workflow: Re-add.

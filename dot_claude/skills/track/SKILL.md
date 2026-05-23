@@ -1,18 +1,12 @@
 ---
 name: track
 description: |
-  Creates tasks using TaskCreate tool and renumbers them
-  by prefixing a number to each task.
-disable-model-invocation: true
-model: haiku
+  Creates new tasks using TaskCreate tool. And also ensuring all existing task titles are numbered.
+disable-model-invocation: false
+user-invocable: true
+model: inherit
 ---
 
-# Instructions
-
-When invoked with `/track`, manage numbered tasks using the TaskCreate tool.
-
-## Creating Tasks
-
-1. Accept a list of tasks from the user's arguments or conversation context.
-2. Create each task using TaskCreate, prefixing its description with a sequential number.
-3. Format: `{number}. {description}` — e.g., `1. Set up component structure`
+1. Create a task or list from $ARGUMENTS
+2. Ensure all tasks are prefixed with numbers.
+3. Format: `{number}. {title}` — e.g., `1. Set up component structure`

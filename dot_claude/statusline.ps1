@@ -65,7 +65,7 @@ try {
     }
 
     # === Model + effort ===
-    $modelShort = $model -replace '^Claude ', ''
+    $modelShort = $model -replace '^Claude ', '' -replace '\s*context', ''
     $effortLevel = $data.effort.level
     $effortMap = @{
         'low'    = @{ label = 'low'; color = $dim }

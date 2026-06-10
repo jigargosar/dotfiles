@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "kitchen-sink",
+  "version": "0.1.0",
+  "description": "TODO: describe what this plugin provides",
+  "author": {
+    "name": "Jigar Gosar",
+    "email": "jigar.gosar@gmail.com"
+  },
+  "skills": [
+    "./"
+  ]
+}

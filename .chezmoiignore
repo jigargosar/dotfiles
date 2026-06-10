@@ -1,3 +1,5 @@
 README.md
 **/settings.local.json
 **/*.bak
+**/.remember
+**/.remember/**

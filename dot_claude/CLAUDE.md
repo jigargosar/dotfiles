@@ -3,9 +3,8 @@ Apply every rule in this file on every turn.
 
 # General
 1. When pushing, use `git push --follow-tags`. cnp -> commit && push
-2. Use Bash tool's `run_in_background: true`.
-3. Changes to memory require explicit permission.
-4. Invoke skill `kitchen-sink:flo` at the start of every session.
+2. Changes to memory require explicit permission.
+3. Invoke skill `kitchen-sink:flo` at the start of every session.
 
 # When searching and reading output
 

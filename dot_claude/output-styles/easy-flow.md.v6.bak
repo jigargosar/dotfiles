@@ -6,7 +6,7 @@ keep-coding-instructions: true
 
 When responding ALWAYS:
 
-1. Responses must be concise with short lines; avoid dense paragraphs.
+1. ALL Responses MUST be concise.
 2. Use numbered lists with escaped periods (`1\.`, `2\.`, `10\.`). Numbering must be serial and unique within a response. Indent nested items 4 spaces under their parent.
 3. Give recommendation, marked by ★. 
 4. Ensure only one question or option per line.
@@ -16,7 +16,7 @@ When responding ALWAYS:
 8. Use AskUserQuestion when the response ends with a binary question 
    1. do you want to do X?
    2. y/n?
-9.  Double check and remove each and every:
+9.  Remove each and every unsolicited:
    1. false claims
    2. commentary, 
    3. padding and inflation that makes answers feel complete or well-rounded.

@@ -26,6 +26,21 @@ $lightBlue = "`e[38;2;150;200;255m"
 $dim       = "`e[38;5;240m"
 $rst       = "`e[0m"
 
+# Used-% gradient: green (0%) -> orange (mid) -> red (100%)
+function Get-UsageColor([int]$p) {
+    if ($p -le 20) {
+        $t = $p / 20.0
+        $r = [int](60 + (230 - 60) * $t); $g = [int](220 + (165 - 220) * $t); $b = [int](90 + (60 - 90) * $t)
+    } elseif ($p -le 75) {
+        $t = ($p - 20) / 55.0
+        $r = [int](230 + (220 - 230) * $t); $g = [int](165 + (100 - 165) * $t); $b = [int](60 + (48 - 60) * $t)
+    } else {
+        $t = ($p - 75) / 25.0
+        $r = [int](220 + (205 - 220) * $t); $g = [int](100 + (35 - 100) * $t); $b = [int](48 + (35 - 48) * $t)
+    }
+    "`e[38;2;$r;$g;${b}m"
+}
+
 Push-Location $workspaceDir
 
 try {
@@ -90,10 +105,25 @@ try {
     # === Context usage ===
     $pct = $data.context_window.used_percentage
     if ($pct -ne $null) {
-        $pctColor = if ($pct -lt 50) { $sage } elseif ($pct -lt 75) { $yellow } else { $hotRed }
-        $parts += "${sage}Ctx: ${pctColor}${pct}%${rst}"
+        $pctColor = Get-UsageColor ([int]$pct)
+        $parts += "${pctColor}Ctx: ${pct}%${rst}"
     } else {
-        $parts += "${sage}Ctx: -${rst}"
+        $parts += "${dim}Ctx: -${rst}"
+    }
+
+    # === Weekly limit (usage + days remaining, gray, own line) ===
+    $wkLine = $null
+    $wkUsed = $data.rate_limits.seven_day.used_percentage
+    $wkReset = $data.rate_limits.seven_day.resets_at
+    if ($wkUsed -ne $null) {
+        $wkRemain = 100 - [int]$wkUsed
+        if ($wkReset -ne $null) {
+            $now = [int][double]::Parse((Get-Date -UFormat %s))
+            $days = [math]::Round(($wkReset - $now) / 86400.0, 1)
+            $wkLine = "${dim}{0:0.0}d ${wkRemain}%${rst}" -f $days
+        } else {
+            $wkLine = "${dim}${wkRemain}%${rst}"
+        }
     }
 
     # === Assemble ===
@@ -109,7 +139,11 @@ try {
         $cwd = "~"
     }
 
-    Write-Output "$line1`n${dim}${cwd}${rst}"
+    if ($wkLine) {
+        Write-Output "$line1`n$wkLine`n${dim}${cwd}${rst}"
+    } else {
+        Write-Output "$line1`n${dim}${cwd}${rst}"
+    }
 } finally {
     Pop-Location
 }

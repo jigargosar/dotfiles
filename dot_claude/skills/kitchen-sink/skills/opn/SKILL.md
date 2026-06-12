@@ -8,7 +8,6 @@ disable-model-invocation: false
 allowed-tools:
   - Bash(code *)
   - Bash(start *)
-model: haiku
 ---
 
 ## Non-negotiable rule

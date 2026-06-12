@@ -2,9 +2,9 @@ Apply every rule in this file on every turn.
 ============================================
 
 # General
-1. When pushing, use `git push --follow-tags`. cnp -> commit && push
+1. cnp -> `git add <file1> [<file2> ...] && git commit -m "<msg>" && git push --follow-tags` (never stage with git add -A or git add .)
 2. Changes to memory require explicit permission.
-3. Invoke skill `kitchen-sink:flo` at the start of every session.
+3. Invoke skill `kitchen-sink:flo-v2` at the start of every session.
 
 # When searching and reading output
 
@@ -22,6 +22,18 @@ Apply every rule in this file on every turn.
 5. Don't suggest perf optimizations.
 
 # Skills
+
+Skill frontmatter should at least include:
+
+```yaml
+---
+name: <skill-name>
+description: <what the skill does>
+when_to_use: <trigger phrases / when to invoke it>
+user-invocable: <true|false>
+disable-model-invocation: <true|false>
+---
+```
 
 Skills are either standalone or plugin-based.
 

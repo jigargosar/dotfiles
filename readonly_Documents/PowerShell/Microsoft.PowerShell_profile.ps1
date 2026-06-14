@@ -120,3 +120,4 @@ Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
         Write-Host -NoNewline "`e[6 q"  # steady bar    (insert mode)
     }
 }
+. 'C:\Users\jigar\AppData\Roaming\dystroy\broot\config\launcher\powershell\br.ps1'

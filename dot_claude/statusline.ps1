@@ -27,18 +27,43 @@ $dim       = "`e[38;5;240m"
 $rst       = "`e[0m"
 
 # Used-% gradient: green (0%) -> orange (mid) -> red (100%)
+# Standard curve: green 0-20% (82), orange-yellow 20-75% (214→208), red 75-100% (202→196)
 function Get-UsageColor([int]$p) {
-    if ($p -le 20) {
-        $t = $p / 20.0
-        $r = [int](60 + (230 - 60) * $t); $g = [int](220 + (165 - 220) * $t); $b = [int](90 + (60 - 90) * $t)
-    } elseif ($p -le 75) {
-        $t = ($p - 20) / 55.0
-        $r = [int](230 + (220 - 230) * $t); $g = [int](165 + (100 - 165) * $t); $b = [int](60 + (48 - 60) * $t)
-    } else {
-        $t = ($p - 75) / 25.0
-        $r = [int](220 + (205 - 220) * $t); $g = [int](100 + (35 - 100) * $t); $b = [int](48 + (35 - 48) * $t)
+    if ($p -le 20)      { "`e[38;5;82m"  }  # green
+    elseif ($p -le 50)  { "`e[38;5;214m" }  # orange
+    elseif ($p -le 75)  { "`e[38;5;208m" }  # dark orange
+    elseif ($p -le 90)  { "`e[38;5;202m" }  # orange-red
+    else                { "`e[38;5;196m" }  # hot red
+}
+
+# Opus curve: tight 0-20% window with distinct color stops (256-color ANSI)
+#   0–5%:  ANSI 82  (bright green)
+#   5–10%: ANSI 226 (yellow)
+#  10–15%: ANSI 214 (dark yellow / orange)
+#  15–20%: ANSI 202 (orange-red)
+#    20%+: ANSI 196 (hot red)
+function Get-UsageColorOpus([int]$p) {
+    if ($p -le 5)       { "`e[38;5;82m"  }  # bright green
+    elseif ($p -le 10)  { "`e[38;5;226m" }  # yellow
+    elseif ($p -le 15)  { "`e[38;5;214m" }  # dark yellow / orange
+    elseif ($p -le 20)  { "`e[38;5;202m" }  # orange-red
+    else                { "`e[38;5;196m" }  # hot red
+}
+
+# 10-block context bar — each block = 10% of context
+function Get-ContextBar([int]$p, [scriptblock]$ColorFn) {
+    $filled  = [math]::Min([math]::Floor($p / 10), 10)
+    $bar = ""
+    for ($i = 0; $i -lt 10; $i++) {
+        $blockPct = ($i + 1) * 10  # percent this block represents
+        $col = & $ColorFn $blockPct
+        if ($i -lt $filled) {
+            $bar += "${col}█${rst}"
+        } else {
+            $bar += "${dim}░${rst}"
+        }
     }
-    "`e[38;2;$r;$g;${b}m"
+    $bar
 }
 
 Push-Location $workspaceDir
@@ -104,14 +129,20 @@ try {
 
     # === Context usage ===
     $pct = $data.context_window.used_percentage
+    $isOpus = $model -match 'opus'
     if ($pct -ne $null) {
-        $pctColor = Get-UsageColor ([int]$pct)
-        $parts += "${pctColor}Ctx: ${pct}%${rst}"
+        $pctInt = [int]$pct
+        if ($isOpus) {
+            $pctColor = Get-UsageColorOpus $pctInt
+        } else {
+            $pctColor = Get-UsageColor $pctInt
+        }
+        $parts += "${pctColor}${pct}%${rst}"
     } else {
         $parts += "${dim}Ctx: -${rst}"
     }
 
-    # === Weekly limit (usage + days remaining, gray, own line) ===
+    # === Weekly limit (usage + days remaining + daily pending ratio) ===
     $wkLine = $null
     $wkUsed = $data.rate_limits.seven_day.used_percentage
     $wkReset = $data.rate_limits.seven_day.resets_at
@@ -120,7 +151,12 @@ try {
         if ($wkReset -ne $null) {
             $now = [int][double]::Parse((Get-Date -UFormat %s))
             $days = [math]::Round(($wkReset - $now) / 86400.0, 1)
-            $wkLine = "${dim}{0:0.0}d ${wkRemain}%${rst}" -f $days
+            if ($days -gt 0) {
+                $dailyPct = [math]::Round($wkRemain / $days, 0)
+                $wkLine = "${dim}{0:0.0}d ${wkRemain}% {1:0}%/d${rst}" -f $days, $dailyPct
+            } else {
+                $wkLine = "${dim}0.0d ${wkRemain}%${rst}"
+            }
         } else {
             $wkLine = "${dim}${wkRemain}%${rst}"
         }

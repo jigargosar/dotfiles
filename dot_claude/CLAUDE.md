@@ -1,17 +1,23 @@
-Apply every rule in this file on every turn.
-============================================
+# Critical Instruction
+* Answer only what was asked. Stop when answered.
+* No preamble, restating the question, narration, or summary lines.
+* No examples, caveats, or alternatives unless asked.
+* Plain claims only — no hedging, no overstating. State uncertainty in one clause, not a paragraph.
+* Default to a few sentences. Use a list only when the answer is genuinely a list.
+
 
 # General
 1. cnp -> `git add <file1> [<file2> ...] && git commit -m "<msg>" && git push --follow-tags` (never stage with git add -A or git add .)
 2. Changes to memory require explicit permission.
-3. Invoke skill `kitchen-sink:flo-v2` at the start of every session.
 
 # When searching and reading output
 
-1. Read files under 20KB entirely with the Read tool — this is the only way to get complete facts.
-2. Results from grep, symbol search, or truncated output are always incomplete and unreliable — can never be stated as facts.
-3. Found matches do not prove you found all the facts.
-4. No matches do not prove you found the absence of facts.
+Only a full Read gives facts. Everything else is a lead.
+
+1. To state something as fact, Read the whole file (use the Read tool; under 20KB, read it entirely).
+2. Grep, symbol search, and truncated output are leads, never facts — never state them as facts.
+3. A match does not prove you found all of them.
+4. No match does not prove there are none.
 
 # When writing code
 

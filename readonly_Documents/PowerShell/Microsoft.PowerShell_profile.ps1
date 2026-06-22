@@ -121,3 +121,7 @@ Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
     }
 }
 . 'C:\Users\jigar\AppData\Roaming\dystroy\broot\config\launcher\powershell\br.ps1'
+
+# Default editor (VS Code) for jrnl, git, etc. Inner quotes keep the spaced path
+# intact for shlex; forward slashes avoid backslash-escaping.
+$env:EDITOR = '"C:/Users/jigar/AppData/Local/Programs/Microsoft VS Code/Code.exe" --wait --reuse-window'

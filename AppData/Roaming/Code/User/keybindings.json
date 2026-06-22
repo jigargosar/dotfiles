@@ -1,0 +1,33 @@
+// Place your key bindings in this file to override the defaults
+//
+// alt+m = open + focus the Claude view (right secondary sidebar). Never hides.
+//
+// Why no hide: VSCode can't tell us whether focus is *inside* Claude. Claude is a
+// webview (sandboxed iframe); core focus contexts (auxiliaryBarFocus / focusedView)
+// don't reliably flip for it, and the negative guess (!editorFocus && !panelFocus)
+// leaks - it treats terminal/primary-sidebar/search focus as "Claude focused" and
+// would hide the bar by mistake. Only the extension itself could publish a real
+// focus context; it doesn't. So we dropped hide-on-press entirely.
+//
+// Road chosen: alt+m always ensures Claude is open and focused (idempotent, no read
+// needed). To HIDE, use the normal toggle (workbench.action.toggleAuxiliaryBar).
+//
+//   closed  -> open + focus Claude
+//   visible -> focus Claude (does NOT hide)
+[
+    // 1. Closed -> open the secondary sidebar AND put focus in Claude.
+    {
+        "key": "alt+m",
+        "command": "runCommands",
+        "args": {
+            "commands": ["workbench.action.focusAuxiliaryBar", "claude-vscode.focus"]
+        },
+        "when": "!claude-vscode.sideBarActive"
+    },
+    // 2. Already visible -> just move focus into Claude (never hide).
+    {
+        "key": "alt+m",
+        "command": "claude-vscode.focus",
+        "when": "claude-vscode.sideBarActive"
+    }
+]

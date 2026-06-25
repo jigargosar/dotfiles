@@ -15,19 +15,61 @@
 //   closed  -> open + focus Claude
 //   visible -> focus Claude (does NOT hide)
 [
-    // 1. Closed -> open the secondary sidebar AND put focus in Claude.
+    // alt+k alt+k = hide all UI (sidebar + panel + secondary sidebar).
+    // Native runCommands sequence; replaces the old multi-command macro.
     {
-        "key": "alt+m",
+        "key": "alt+k alt+k",
         "command": "runCommands",
         "args": {
-            "commands": ["workbench.action.focusAuxiliaryBar", "claude-vscode.focus"]
-        },
-        "when": "!claude-vscode.sideBarActive"
+            "commands": [
+                "workbench.action.closeSidebar",
+                "workbench.action.closePanel",
+                "workbench.action.closeAuxiliaryBar"
+            ]
+        }
     },
-    // 2. Already visible -> just move focus into Claude (never hide).
+    // alt+1 = Explorer. If Explorer is the focused view -> hide sidebar;
+    // otherwise -> show + focus Explorer (switching from another view if needed).
+    {
+        "key": "alt+1",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "sideBarFocus && activeViewlet == 'workbench.view.explorer'"
+    },
+    {
+        "key": "alt+1",
+        "command": "workbench.view.explorer",
+        "when": "!(sideBarFocus && activeViewlet == 'workbench.view.explorer')"
+    },
+    // alt+9 = Source Control. Same smart-toggle behavior.
+    {
+        "key": "alt+9",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+    },
+    {
+        "key": "alt+9",
+        "command": "workbench.view.scm",
+        "when": "!(sideBarFocus && activeViewlet == 'workbench.view.scm')"
+    },
+    // 1. Closed -> open the secondary sidebar AND put focus in Claude.
     {
         "key": "alt+m",
         "command": "claude-vscode.focus",
         "when": "claude-vscode.sideBarActive"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-claude-vscode.newConversation",
+        "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
+    },
+    {
+        "key": "ctrl+shift+escape",
+        "command": "-claude-vscode.editor.open",
+        "when": "!config.claudeCode.useTerminal"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "-claude-vscode.reopenClosedSession",
+        "when": "claude-vscode.lastClosedWasSession && config.claudeCode.enableReopenClosedSessionShortcut"
     }
 ]

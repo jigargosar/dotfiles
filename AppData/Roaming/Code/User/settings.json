@@ -4,16 +4,6 @@
     "git.autofetch": true,
     "continue.enableTabAutocomplete": false,
     "workbench.editor.limit.enabled": true,
-    "multiCommand.commands": [
-        {
-            "command": "multiCommand.hideAllUI",
-            "sequence": [
-                "workbench.action.closeSidebar",
-                "workbench.action.closePanel",
-                "workbench.action.closeAuxiliaryBar"
-            ]
-        }
-    ],
     "github.copilot.enable": {
         "markdown": true,
         "plaintext": true,
@@ -52,13 +42,12 @@
     "editor.wrappingStrategy": "advanced",
     "editor.lineNumbers": "relative",
     "diffEditor.hideUnchangedRegions.enabled": true,
-    "claudeCode.enableNewConversationShortcut": true,
     "window.menuBarVisibility": "compact",
     "workbench.layoutControl.enabled": false,
     "workbench.browser.showInTitleBar": false,
     "window.commandCenter": false,
     "chat.editor.wordWrap": "on",
-    "claudeCode.preferredLocation": "panel",
+    "claudeCode.preferredLocation": "sidebar",
     "notebook.output.wordWrap": true,
     "[markdown]": {
         "editor.wordWrap": "bounded"
@@ -110,4 +99,11 @@
     ],
     "files.autoSave": "afterDelay",
     "chat.titleBar.openInAgentsWindow.enabled": false,
+    "chat.viewSessions.orientation": "stacked",
+    "chat.disableAIFeatures": true,
+    "workbench.activityBar.compact": true,
+    "chat.editor.claude.preferAgentHost": true,
+    "claudeCode.enableReopenClosedSessionShortcut": false,
+    "chat.agents.claude.preferAgentHost": true,
+    "chat.useClaudeHooks": true,
 }

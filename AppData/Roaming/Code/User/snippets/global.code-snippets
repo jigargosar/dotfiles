@@ -1,0 +1,9 @@
+{
+  // Global snippets file. Add snippets here, e.g.:
+  // "Log": {
+  //   "scope": "javascript,typescript",
+  //   "prefix": "log",
+  //   "body": ["console.log('$1');"],
+  //   "description": "console.log"
+  // }
+}

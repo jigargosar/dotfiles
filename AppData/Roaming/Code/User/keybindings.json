@@ -1,24 +1,22 @@
-// Place your key bindings in this file to override the defaults
+// Custom keybindings. Override VSCode + Claude Code extension defaults.
 //
-// alt+m = open + focus the Claude view (right secondary sidebar). Never hides.
+// Layout:
+//   ctrl+f12         hide-all (sidebar + panel + secondary)
+//   alt+1 / alt+9    Explorer / Source Control smart-toggle
+//   alt+2            Claude secondary sidebar (show / focus / hide)
+//   then: disabled extension + core defaults
 //
-// Why no hide: VSCode can't tell us whether focus is *inside* Claude. Claude is a
-// webview (sandboxed iframe); core focus contexts (auxiliaryBarFocus / focusedView)
-// don't reliably flip for it, and the negative guess (!editorFocus && !panelFocus)
-// leaks - it treats terminal/primary-sidebar/search focus as "Claude focused" and
-// would hide the bar by mistake. Only the extension itself could publish a real
-// focus context; it doesn't. So we dropped hide-on-press entirely.
-//
-// Road chosen: alt+m always ensures Claude is open and focused (idempotent, no read
-// needed). To HIDE, use the normal toggle (workbench.action.toggleAuxiliaryBar).
-//
-//   closed  -> open + focus Claude
-//   visible -> focus Claude (does NOT hide)
+// Known limit (alt+2): VSCode publishes no "Claude input focused" context — Claude
+// is a sandboxed webview and its extension only sets claude-vscode.sideBarActive
+// (visibility). So we approximate focus via negatives (editor/panel/sidebar). When
+// focus is on a Claude NON-input element, none of those are true, so alt+2 hides
+// instead of focusing the input. Unfixable until a real focus context exists.
 [
-    // alt+k alt+k = hide all UI (sidebar + panel + secondary sidebar).
-    // Native runCommands sequence; replaces the old multi-command macro.
+    // ctrl+f12 = hide all UI (sidebar + panel + secondary sidebar).
+    // Moved off "alt+k alt+k" to free single alt+k for claude-vscode.insertAtMention
+    // and stop the chord-disambiguation delay. Temporary home; may refine later.
     {
-        "key": "alt+k alt+k",
+        "key": "ctrl+f12",
         "command": "runCommands",
         "args": {
             "commands": [
@@ -51,11 +49,25 @@
         "command": "workbench.view.scm",
         "when": "!(sideBarFocus && activeViewlet == 'workbench.view.scm')"
     },
-    // 1. Closed -> open the secondary sidebar AND put focus in Claude.
+    // alt+2 = Claude (secondary sidebar). 3-way, alt+1 style. See header for the
+    // focus-context limitation behind the third branch.
+    //   hidden                   -> open + focus Claude
+    //   visible, focus elsewhere -> focus Claude (do NOT hide)
+    //   visible, focus in Claude -> hide secondary sidebar
     {
-        "key": "alt+m",
+        "key": "alt+2",
+        "command": "claude-vscode.sidebar.open",
+        "when": "!claude-vscode.sideBarActive"
+    },
+    {
+        "key": "alt+2",
         "command": "claude-vscode.focus",
-        "when": "claude-vscode.sideBarActive"
+        "when": "claude-vscode.sideBarActive && (editorFocus || panelFocus || sideBarFocus)"
+    },
+    {
+        "key": "alt+2",
+        "command": "workbench.action.toggleAuxiliaryBar",
+        "when": "claude-vscode.sideBarActive && !editorFocus && !panelFocus && !sideBarFocus"
     },
     {
         "key": "ctrl+n",
@@ -71,5 +83,17 @@
         "key": "ctrl+shift+t",
         "command": "-claude-vscode.reopenClosedSession",
         "when": "claude-vscode.lastClosedWasSession && config.claudeCode.enableReopenClosedSessionShortcut"
+    },
+    // Free alt+k for personal use; @-mention unused. (ctrl+alt+k left as-is for now.)
+    {
+        "key": "alt+k",
+        "command": "-claude-vscode.insertAtMention",
+        "when": "editorTextFocus"
+    },
+    // Free alt+p (was native chat question-carousel "previous").
+    {
+        "key": "alt+p",
+        "command": "-workbench.action.chat.previousQuestion",
+        "when": "chatHasQuestionCarousel && inChat && inChatQuestionCarousel"
     }
 ]

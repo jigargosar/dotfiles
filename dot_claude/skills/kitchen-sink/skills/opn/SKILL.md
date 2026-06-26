@@ -8,6 +8,7 @@ disable-model-invocation: false
 allowed-tools:
   - Bash(code *)
   - Bash(start *)
+  - Bash(webstorm64 *)
 ---
 
 ## Non-negotiable rule
@@ -27,7 +28,9 @@ NEVER open anything without an AskUserQuestion (AUQ) confirmation — no excepti
 # 3. Open
 
 use `Bash` tool call with — `run_in_background: true`,
-- VSCode → `code`
+- VSCode → `code`   (default)
+- WebStorm → `webstorm64`   (only if mentioned, e.g. "webs")
+- Explorer → `start`   (only if mentioned, e.g. "exp")
 - URI → `start`
 
 # Paths

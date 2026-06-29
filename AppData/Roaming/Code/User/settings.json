@@ -106,4 +106,7 @@
     "claudeCode.enableReopenClosedSessionShortcut": false,
     "chat.agents.claude.preferAgentHost": true,
     "chat.useClaudeHooks": true,
+    "workbench.editorAssociations": {
+        "*.html": "default"
+    },
 }

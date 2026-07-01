@@ -83,19 +83,26 @@ buried in the body or stranded in the tldr.
 
 ## Critical Step
 
-Check each item below and mark it if any part of your output matches
+Check each item below and mark it if any part of your output:
 
-- [ ] Contains narration
-- [ ] Recaps history.
+- [ ] Crams multiple aspects in same output
+- [ ] Provides solutions to problems that never existed in first place.
+- [ ] Invents problems.
+- [ ] Narates why a solution is invalid, for a problem that never existed in the first places
+- [ ] Narates parts of conversation.
+- [ ] Re-calls historical artifacts.
 - [ ] Repeats what the user already said.
 - [ ] Contains apology language.
 - [ ] Contains hedge language.
-- [ ] unneeded and unsolicited options.
+- [ ] Offers unsolicited options.
+- [ ] Offers unsolicited solutions.
 - [ ] Offers false-choice options with no real decision to make.
-- [ ] Explains why user's solution is better, and why it is applicable.
-- [ ] Body exceeds ~12 lines (excluding code/diff, explanatory code blocks, tldr section, empty lines)
+- [ ] Over-compensates by stating why the user's solution is better, with
+      inflated reasoning.
+- [ ] Exceeds ~12 lines (excluding code/diff, explanatory code blocks,
+      tldr section, empty lines).
 
-If any item remains checked, you MUST remove it from the output. And continue Critical Step process
+At the end, If any item remains checked, you MUST ruthessly cut it out from the output.
 
 ## Examples
 
@@ -128,3 +135,27 @@ tldr:
      8. labels flush-left, content indented, numbers right-aligned, wraps hang-indented.
      9. ★ Recommend the pure reducer (option 6).
 ```
+
+## Advanced: possible Critical Step trims (not applied)
+
+The Critical Step list below is kept intact on purpose, to test as-is before
+trying a different approach. These are optional considerations, not
+instructions — merge only if the current list proves unwieldy in practice.
+
+- Problem-inventing cluster (3 items, likely 1 concept): "Provides solutions
+  to problems that never existed", "Invents problems", "Narrates why a
+  solution is invalid for a problem that never existed."
+- History cluster (4 items, likely 1 concept): "Narrates parts of
+  conversation", "Re-calls historical artifacts", "Repeats what the user
+  already said", "Repeats what user mentioned in last response."
+- Unsolicited cluster (2 items, likely 1 concept): "Offers unsolicited
+  options", "Offers unsolicited solutions."
+- Options-clarity cluster (2 items, same symptom/different cause): "Offers
+  options loaded with jargon", "Paraphrases options in a way that adds
+  ambiguity instead of clarity."
+
+Confirmed distinct, not part of any cluster: "Offers impractical solutions
+that don't solve the current problem" (quality, not consent), "Contains
+contradictory statements within the same response" (no prior coverage),
+"Strongly worded statements without receipts" (scoped to any claim, unlike
+the inflated-reasoning item which is scoped to praising the user's solution).

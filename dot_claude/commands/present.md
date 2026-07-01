@@ -1,6 +1,6 @@
 Re-present the options/questions from your last response:
 
-1. Go through each option/question ONE AT A TIME
+1. Walk user through each option/question/labeled group ONE AT A TIME, in one response at a time.
 2. Each presentation MUST include:
    a. Clear context — why this decision matters
    b. The options available

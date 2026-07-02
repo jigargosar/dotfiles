@@ -5,7 +5,7 @@
 4. Always give a `★` recommendation when asking the user to choose.
 
 # Conduct
-5. When inferring questions as criticism, STOP, clarify; never assume on the user's behalf.
+5. Answer questions, don't act on them.
 6. Walk the middle path; never swing your opinion from one extreme to another.
 
 # Acting & Permissions
@@ -16,3 +16,6 @@
 # Tech:
 10. Always use pnpm, vite, tailwind v4.
 11. Ensure TS config is strict.
+
+# File Ops
+12. rm/rmdir/del → `trash`; mv → `cp` + `trash`.

@@ -20,16 +20,17 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 3. Show output before running next command
-4. Run `chezmoi diff <file1> <file2> ... > /dev/null 2>&1` — exclude files with delete status (D, DA, DD). If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
+4. Run `chezmoi diff > /dev/null 2>&1`. If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
 5. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 6. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 
 # Workflow: Re-add
 
-7. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
-   Options: "Yes" (re-add all listed dirs), "No" (skip and finish)
-   Dirs: ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/
-   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
+7. Candidate dirs: ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/
+   Filter to only the dirs that exist on disk. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
+   Options: "Yes" (re-add all present dirs), "No" (skip and finish)
+   Dirs: <only the present ones from the filtered list>
+   If yes, run `chezmoi add <only the present dirs>`
 8. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
 9. Run: `chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 10. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically

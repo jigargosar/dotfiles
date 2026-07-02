@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_USE_POWERSHELL_TOOL": "0",
+    "DO_NOT_TRACK": "0"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(chezmoi status && echo \"==GIT==\" && chezmoi git -- status -s)",
+      "WebSearch",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm add:*)",
+      "Skill(frontend-design:frontend-design)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:firebase.google.com)",
+      "WebFetch(domain:harvtronix.com)",
+      "WebFetch(domain:docs.cloud.google.com)",
+      "Bash(pnpm seed:*)",
+      "Bash(pnpm tsx:*)",
+      "Bash(git stash push:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm tsc:*)",
+      "Skill(chezmoi-sync)",
+      "Bash(chezmoi source-path:*)",
+      "WebFetch(domain:docs.infinite.red)",
+      "WebFetch(domain:mobx-keystone.js.org)",
+      "Bash(pnpm exec tsx:*)",
+      "WebFetch(domain:mobx.js.org)",
+      "Bash(chezmoi managed:*)",
+      "Bash(chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git -C * log *)",
+      "Bash(git -C * status *)",
+      "Bash(git -C * diff *)",
+      "Bash(git status:*)",
+      "mcp__claude_ai_Context7__resolve-library-id",
+      "mcp__claude_ai_Context7__query-docs",
+      "Bash(pnpm supabase:*)",
+      "Read(~/.claude/rules/**)",
+      "Read(~/.claude/skills/**)",
+      "Read(~/.claude/agents/**)",
+      "Read(~/.claude/commands/**)",
+      "Read(~/.claude/settings.json)",
+      "Read(~/.claude/output-styles/**)",
+      "Read(~/.claude/statusline.ps1)",
+      "Bash(code:*)",
+      "WebFetch(domain:docs.claude.com)",
+      "Bash(start:*)",
+      "WebFetch(domain:zustand.docs.pmnd.rs)",
+      "WebFetch(domain:react-hooks-library.vercel.app)",
+      "Bash(pnpm test:e2e)",
+      "Bash(ls:*)",
+      "Bash(git init)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__close_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__drag",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__emulate",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__fill",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__fill_form",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__get_console_message",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__get_network_request",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__handle_dialog",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__hover",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__lighthouse_audit",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_network_requests",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_pages",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__new_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__performance_analyze_insight",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__performance_start_trace",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__performance_stop_trace",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__press_key",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__resize_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__select_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_memory_snapshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__type_text",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__upload_file",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__wait_for",
+      "mcp__plugin_context7_context7__query-docs",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "Bash(code \"C:\\\\Users\\\\jigar\\\\.claude\\\\skills\\\\refine-requirement\\\\SKILL.md\")",
+      "Bash(npx supabase gen types:*)",
+      "Bash(pnpm dev)",
+      "Bash(git diff-tree:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(pnpm lint *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:blog.noredink.com)",
+      "WebFetch(domain:package.elm-lang.org)",
+      "Skill(open)",
+      "Skill(kitchen-sink:opn)",
+      "WebFetch(domain:docs.dndkit.com)",
+      "WebFetch(domain:dndkit.com)",
+      "WebFetch(domain:regularhuman.dev)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "PowerShell(code *)",
+      "Skill(discuss)",
+      "Skill(debug)",
+      "Skill(language-typescript)",
+      "WebFetch(domain:unpkg.com)",
+      "Skill(track)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:www.w3.org)",
+      "Bash(claude mcp *)",
+      "Read(//c/Users/jigar/projects/mcp-time-server/**)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:api.npmjs.org)",
+      "Read(//c/Users/jigar/.claude/plugins/**)",
+      "Read(//c/Users/jigar/.claude/**)",
+      "WebFetch(domain:skills.sh)",
+      "Bash(chezmoi status*)",
+      "Bash(chezmoi diff*)",
+      "Bash(chezmoi cat*)",
+      "Bash(chezmoi git -- status*)",
+      "Bash(chezmoi git -- diff*)",
+      "Bash(chezmoi git -- log*)"
+    ],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(rd:*)",
+      "Bash(del:*)",
+      "Bash(mv:*)",
+      "Bash(chezmoi apply*)",
+      "Bash(chezmoi destroy*)"
+    ],
+    "ask": [
+      "Bash(git*commit*)",
+      "Bash(git*add*)",
+      "Bash(git*push*)",
+      "Bash(chezmoi git*add*)",
+      "Bash(chezmoi git*commit*)",
+      "Bash(chezmoi git*push*)",
+      "Bash(powershell*)",
+      "Bash(powershell.exe*)",
+      "Bash(pwsh*)",
+      "Bash(curl*)",
+      "Bash(gh*)",
+      "Bash(trash*)",
+      "Edit(~/.claude/settings.json)"
+    ],
+    "defaultMode": "default",
+    "additionalDirectories": []
+  },
+  "model": "claude-fable-5[1m]",
+  "worktree": {
+    "baseRef": "head"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "foldkit-skills@foldkit": true
+  },
+  "extraKnownMarketplaces": {
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    },
+    "daymade-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/daymade/claude-code-skills.git"
+      }
+    },
+    "dpt-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "Digital-Process-Tools/claude-marketplace"
+      }
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      },
+      "autoUpdate": false
+    },
+    "foldkit": {
+      "source": {
+        "source": "github",
+        "repo": "foldkit/foldkit"
+      }
+    }
+  },
+  "outputStyle": "default",
+  "syntaxHighlightingDisabled": false,
+  "effortLevel": "high",
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "tap"
+  },
+  "autoMemoryEnabled": true,
+  "autoDreamEnabled": false,
+  "showThinkingSummaries": true,
+  "skipDangerousModePermissionPrompt": false,
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark-daltonized",
+  "editorMode": "normal",
+  "verbose": true,
+  "preferredNotifChannel": "terminal_bell",
+  "autoCompactEnabled": false,
+  "switchModelsOnFlag": false,
+  "fileCheckpointingEnabled": true,
+  "inputNeededNotifEnabled": false,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
+}

@@ -4,6 +4,8 @@ description: Sync chezmoi-managed target files back to source and push to remote
 disable-model-invocation: true
 user-invokable: true
 model: inherit
+allowed-tools:
+  - Bash(mkdir -p ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/)
 ---
 
 Run Workflow: Sync, then Workflow: Re-add.
@@ -26,11 +28,10 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 # Workflow: Re-add
 
-7. Candidate dirs: ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/
-   Filter to only the dirs that exist on disk. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
-   Options: "Yes" (re-add all present dirs), "No" (skip and finish)
-   Dirs: <only the present ones from the filtered list>
-   If yes, run `chezmoi add <only the present dirs>`
+7. Run `mkdir -p ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
+   Use AskUserQuestion to ask: "Do you want to re-add these directories?"
+   Options: "Yes" (re-add all), "No" (skip and finish)
+   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
 8. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
 9. Run: `chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 10. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically

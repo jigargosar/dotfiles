@@ -125,3 +125,10 @@ Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
 # Default editor (VS Code) for jrnl, git, etc. Inner quotes keep the spaced path
 # intact for shlex; forward slashes avoid backslash-escaping.
 $env:EDITOR = '"C:/Users/jigar/AppData/Local/Programs/Microsoft VS Code/Code.exe" --wait --reuse-window'
+
+# --- simple-gtd-2 aliases ---
+function cc  { claude @args }
+function ccc { claude --continue @args }
+function ccr { claude --resume @args }
+function ll  { ls.exe -al @args }
+# --- end simple-gtd-2 aliases ---

@@ -4,7 +4,7 @@ description: >-
   Knowledge patch for SKILL.md frontmatter and skills-directory plugins.
 when_to_use: >-
   When creating or modifying a skill.
-user-invocable: false
+user-invocable: true
 disable-model-invocation: false
 paths: "**/SKILL.md"
 ---

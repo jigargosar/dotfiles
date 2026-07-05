@@ -123,14 +123,10 @@
       "Bash(chezmoi cat*)",
       "Bash(chezmoi git -- status*)",
       "Bash(chezmoi git -- diff*)",
-      "Bash(chezmoi git -- log*)"
+      "Bash(chezmoi git -- log*)",
+      "Bash(jq --version)"
     ],
     "deny": [
-      "Bash(rm:*)",
-      "Bash(rmdir:*)",
-      "Bash(rd:*)",
-      "Bash(del:*)",
-      "Bash(mv:*)",
       "Bash(chezmoi apply*)",
       "Bash(chezmoi destroy*)"
     ],
@@ -146,13 +142,28 @@
       "Bash(pwsh*)",
       "Bash(curl*)",
       "Bash(gh*)",
-      "Bash(trash*)",
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(rd:*)",
+      "Bash(del:*)",
+      "Bash(mv:*)",
       "Edit(~/.claude/settings.json)"
     ],
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "claude-fable-5[1m]",
+  "model": "sonnet",
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "date" } ] }
+    ],
+    "PreToolUse": [
+      { "hooks": [ { "type": "command", "command": "date" } ] }
+    ],
+    "PostToolUse": [
+      { "hooks": [ { "type": "command", "command": "date" } ] }
+    ]
+  },
   "worktree": {
     "baseRef": "head"
   },
@@ -161,9 +172,7 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
-    "foldkit-skills@foldkit": true
+    "frontend-design@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "chrome-devtools-plugins": {
@@ -200,7 +209,7 @@
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {

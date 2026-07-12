@@ -8,6 +8,10 @@ description: >-
   /fmt, asks to apply the output format, or asks that responses follow this style.
 ---
 
+This skill is for improving QOL of the user. It helps precisely reference
+your output content without any ambiguity — say a number, like "explain 7",
+and it points to that item's position in your output.
+
 # Output Format
 
 Format every response according to the rules below. These are instructions for how

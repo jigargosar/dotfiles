@@ -15,7 +15,6 @@
       "WebSearch",
       "Bash(pnpm build:*)",
       "Bash(pnpm add:*)",
-      "Skill(frontend-design:frontend-design)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:firebase.google.com)",
       "WebFetch(domain:harvtronix.com)",
@@ -128,7 +127,8 @@
     ],
     "deny": [
       "Bash(chezmoi apply*)",
-      "Bash(chezmoi destroy*)"
+      "Bash(chezmoi destroy*)",
+      "Bash(powershell*)"
     ],
     "ask": [
       "Bash(git*commit*)",
@@ -152,16 +152,36 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
-      { "hooks": [ { "type": "command", "command": "date" } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "date"
+          }
+        ]
+      }
     ],
     "PreToolUse": [
-      { "hooks": [ { "type": "command", "command": "date" } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "date"
+          }
+        ]
+      }
     ],
     "PostToolUse": [
-      { "hooks": [ { "type": "command", "command": "date" } ] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "date"
+          }
+        ]
+      }
     ]
   },
   "worktree": {
@@ -172,6 +192,7 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
+    "andrej-karpathy-skills@karpathy-skills": true,
     "frontend-design@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
@@ -181,29 +202,10 @@
         "repo": "ChromeDevTools/chrome-devtools-mcp"
       }
     },
-    "daymade-skills": {
-      "source": {
-        "source": "git",
-        "url": "https://github.com/daymade/claude-code-skills.git"
-      }
-    },
-    "dpt-plugins": {
+    "karpathy-skills": {
       "source": {
         "source": "github",
-        "repo": "Digital-Process-Tools/claude-marketplace"
-      }
-    },
-    "ui-ux-pro-max-skill": {
-      "source": {
-        "source": "github",
-        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
-      },
-      "autoUpdate": false
-    },
-    "foldkit": {
-      "source": {
-        "source": "github",
-        "repo": "foldkit/foldkit"
+        "repo": "forrestchang/andrej-karpathy-skills"
       }
     }
   },

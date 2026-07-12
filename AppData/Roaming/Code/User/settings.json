@@ -109,5 +109,7 @@
     "workbench.editorAssociations": {
         "*.html": "default"
     },
-    "editor.columnSelection": true,
+    "accessibility.voice.speechLanguage": "en-IN",
+    "editor.formatOnSave": true,
+    "vim.useSystemClipboard": true,
 }

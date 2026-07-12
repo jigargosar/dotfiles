@@ -132,3 +132,21 @@ function ccc { claude --continue @args }
 function ccr { claude --resume @args }
 function ll  { ls.exe -al @args }
 # --- end simple-gtd-2 aliases ---
+
+function zp { z ~/projects }
+
+function wd { webstorm64.exe . }
+
+# ── Recent dirs picker (zoxide-backed) ────────────────────────
+function gd {
+    $dirs = zoxide query -l | Select-Object -First 20
+    for ($i = 0; $i -lt $dirs.Count; $i++) {
+        Write-Host "$i`: $($dirs[$i])"
+    }
+    $sel = Read-Host "Enter number"
+    if ($sel -match '^\d+$' -and [int]$sel -lt $dirs.Count) {
+        Set-Location $dirs[[int]$sel]
+    } else {
+        Write-Host "Invalid selection"
+    }
+}

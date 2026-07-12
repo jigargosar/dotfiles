@@ -22,7 +22,7 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 3. Show output before running next command
-4. Run `chezmoi diff > /dev/null 2>&1`. If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
+4. Run `chezmoi diff > /dev/null 2>&1` with run_in_background: true. Then STOP. If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
 5. Run: `chezmoi add <files> && chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 6. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 

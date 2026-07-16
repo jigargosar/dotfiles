@@ -7,8 +7,10 @@ try {
 $inputText = $input | Out-String
 $data = $inputText | ConvertFrom-Json
 
-# Dump full stdin payload (pretty JSON) for inspection
-$data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
+# Dump full stdin payload (pretty JSON) for inspection.
+# Commented out by default now that debugging is done — uncomment this one line
+# any time you need to inspect the raw fields Claude Code sends on stdin.
+# $data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
 
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir
@@ -36,13 +38,13 @@ function Get-UsageColor([int]$p) {
     else                { "`e[38;5;196m" }  # hot red
 }
 
-# Opus curve: tight 0-20% window with distinct color stops (256-color ANSI)
+# Tight curve (Opus, Sonnet 5): tight 0-20% window with distinct color stops (256-color ANSI)
 #   0–5%:  ANSI 82  (bright green)
 #   5–10%: ANSI 226 (yellow)
 #  10–15%: ANSI 214 (dark yellow / orange)
 #  15–20%: ANSI 202 (orange-red)
 #    20%+: ANSI 196 (hot red)
-function Get-UsageColorOpus([int]$p) {
+function Get-UsageColorTight([int]$p) {
     if ($p -le 5)       { "`e[38;5;82m"  }  # bright green
     elseif ($p -le 10)  { "`e[38;5;226m" }  # yellow
     elseif ($p -le 15)  { "`e[38;5;214m" }  # dark yellow / orange
@@ -65,6 +67,10 @@ function Get-ContextBar([int]$p, [scriptblock]$ColorFn) {
     }
     $bar
 }
+
+# Context-threshold toast alert lives in its own module (hooks\ContextNotify.psm1)
+# so that logic can keep evolving without this file growing every time.
+Import-Module "$PSScriptRoot\hooks\ContextNotify.psm1" -Force
 
 Push-Location $workspaceDir
 
@@ -129,11 +135,12 @@ try {
 
     # === Context usage ===
     $pct = $data.context_window.used_percentage
-    $isOpus = $model -match 'opus'
+    $isTightModel = ($model -match 'opus') -or ($model -match 'Sonnet 5') -or ($data.model.id -match 'sonnet-5')
     if ($pct -ne $null) {
         $pctInt = [int]$pct
-        if ($isOpus) {
-            $pctColor = Get-UsageColorOpus $pctInt
+        Send-ContextThresholdAlert -PctInt $pctInt -SessionId $data.session_id -ContextLabel (Split-Path $workspaceDir -Leaf)
+        if ($isTightModel) {
+            $pctColor = Get-UsageColorTight $pctInt
         } else {
             $pctColor = Get-UsageColor $pctInt
         }

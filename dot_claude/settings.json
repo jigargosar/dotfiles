@@ -187,6 +187,7 @@
   "worktree": {
     "baseRef": "head"
   },
+  "enableWorkflows": false,
   "statusLine": {
     "type": "command",
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
@@ -211,7 +212,7 @@
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {
@@ -232,5 +233,6 @@
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "opus[1m]"
 }

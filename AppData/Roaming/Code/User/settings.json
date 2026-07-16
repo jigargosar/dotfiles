@@ -1,115 +1,113 @@
 {
-    "github.copilot.nextEditSuggestions.enabled": true,
-    "npm.packageManager": "pnpm",
-    "git.autofetch": true,
-    "continue.enableTabAutocomplete": false,
-    "workbench.editor.limit.enabled": true,
-    "github.copilot.enable": {
-        "markdown": true,
-        "plaintext": true,
-        "scminput": true
-    },
-    "explorer.compactFolders": false,
-    "security.allowedUNCHosts": [
-        "wsl.localhost"
-    ],
-    "diffEditor.renderSideBySide": true,
-    "editor.minimap.enabled": false,
-    "chat.commandCenter.enabled": false,
-    "chat.extensionUnification.enabled": false,
-    "chat.notifyWindowOnConfirmation": "off",
-    "chat.notifyWindowOnResponseReceived": "off",
-    "chat.viewProgressBadge.enabled": true,
-    "inlineChat.affordance": "editor",
-    "inlineChat.enableV2": true,
-    "accessibility.voice.keywordActivation": "chatInContext",
-    "terminal.integrated.suggest.quickSuggestions": {
-        "commands": "on",
-        "arguments": "on",
-        "unknown": "off"
-    },
-    "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
-    "terminal.integrated.suggest.enabled": false,
-    "files.dialog.defaultPath": "C:\\Users\\jigar\\projects",
-    "diffEditor.experimental.showMoves": true,
-    "workbench.tree.indent": 16,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "npm.packageManager": "pnpm",
+  "git.autofetch": true,
+  "continue.enableTabAutocomplete": false,
+  "workbench.editor.limit.enabled": true,
+  "github.copilot.enable": {
+    "markdown": true,
+    "plaintext": true,
+    "scminput": true,
+  },
+  "explorer.compactFolders": false,
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "diffEditor.renderSideBySide": true,
+  "editor.minimap.enabled": false,
+  "chat.commandCenter.enabled": false,
+  "chat.extensionUnification.enabled": false,
+  "chat.notifyWindowOnConfirmation": "off",
+  "chat.notifyWindowOnResponseReceived": "off",
+  "chat.viewProgressBadge.enabled": true,
+  "inlineChat.affordance": "editor",
+  "inlineChat.enableV2": true,
+  "accessibility.voice.keywordActivation": "chatInContext",
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+    "arguments": "on",
+    "unknown": "off",
+  },
+  "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
+  "terminal.integrated.suggest.enabled": false,
+  "files.dialog.defaultPath": "C:\\Users\\jigar\\projects",
+  "diffEditor.experimental.showMoves": true,
+  "workbench.tree.indent": 16,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 90,
+  "editor.rulers": [90],
+  "editor.wrappingIndent": "deepIndent",
+  "editor.wrappingStrategy": "advanced",
+  "editor.lineNumbers": "relative",
+  "window.menuBarVisibility": "compact",
+  "workbench.layoutControl.enabled": false,
+  "workbench.browser.showInTitleBar": false,
+  "window.commandCenter": false,
+  "chat.editor.wordWrap": "on",
+  "claudeCode.preferredLocation": "sidebar",
+  "notebook.output.wordWrap": true,
+  "[markdown]": {
     "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 90,
-    "editor.rulers": [
-        90
-    ],
-    "editor.wrappingIndent": "deepIndent",
-    "editor.wrappingStrategy": "advanced",
-    "editor.lineNumbers": "relative",
-    "diffEditor.hideUnchangedRegions.enabled": true,
-    "window.menuBarVisibility": "compact",
-    "workbench.layoutControl.enabled": false,
-    "workbench.browser.showInTitleBar": false,
-    "window.commandCenter": false,
-    "chat.editor.wordWrap": "on",
-    "claudeCode.preferredLocation": "sidebar",
-    "notebook.output.wordWrap": true,
-    "[markdown]": {
-        "editor.wordWrap": "bounded"
+  },
+  "workbench.editor.highlightModifiedTabs": true,
+  "scm.repositories.selectionMode": "single",
+  "chat.mcp.gallery.enabled": true,
+  "workbench.editor.empty.hint": "hidden",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1,
+  },
+  "peacock.favoriteColors": [
+    {
+      "name": "Angular Red",
+      "value": "#dd0531",
     },
-    "workbench.editor.highlightModifiedTabs": true,
-    "scm.repositories.selectionMode": "single",
-    "chat.mcp.gallery.enabled": true,
-    "workbench.editor.empty.hint": "hidden",
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
+    {
+      "name": "Azure Blue",
+      "value": "#007fff",
     },
-    "peacock.favoriteColors": [
-        {
-            "name": "Angular Red",
-            "value": "#dd0531"
-        },
-        {
-            "name": "Azure Blue",
-            "value": "#007fff"
-        },
-        {
-            "name": "JavaScript Yellow",
-            "value": "#f9e64f"
-        },
-        {
-            "name": "Mandalorian Blue",
-            "value": "#1857a4"
-        },
-        {
-            "name": "Node Green",
-            "value": "#215732"
-        },
-        {
-            "name": "React Blue",
-            "value": "#61dafb"
-        },
-        {
-            "name": "Something Different",
-            "value": "#832561"
-        },
-        {
-            "name": "Svelte Orange",
-            "value": "#ff3d00"
-        },
-        {
-            "name": "Vue Green",
-            "value": "#42b883"
-        }
-    ],
-    "files.autoSave": "afterDelay",
-    "chat.titleBar.openInAgentsWindow.enabled": false,
-    "chat.viewSessions.orientation": "stacked",
-    "chat.disableAIFeatures": true,
-    "workbench.activityBar.compact": true,
-    "chat.editor.claude.preferAgentHost": true,
-    "claudeCode.enableReopenClosedSessionShortcut": false,
-    "chat.agents.claude.preferAgentHost": true,
-    "chat.useClaudeHooks": true,
-    "workbench.editorAssociations": {
-        "*.html": "default"
+    {
+      "name": "JavaScript Yellow",
+      "value": "#f9e64f",
     },
-    "accessibility.voice.speechLanguage": "en-IN",
-    "editor.formatOnSave": true,
-    "vim.useSystemClipboard": true,
+    {
+      "name": "Mandalorian Blue",
+      "value": "#1857a4",
+    },
+    {
+      "name": "Node Green",
+      "value": "#215732",
+    },
+    {
+      "name": "React Blue",
+      "value": "#61dafb",
+    },
+    {
+      "name": "Something Different",
+      "value": "#832561",
+    },
+    {
+      "name": "Svelte Orange",
+      "value": "#ff3d00",
+    },
+    {
+      "name": "Vue Green",
+      "value": "#42b883",
+    },
+  ],
+  "files.autoSave": "afterDelay",
+  "chat.titleBar.openInAgentsWindow.enabled": false,
+  "chat.viewSessions.orientation": "stacked",
+  "chat.disableAIFeatures": true,
+  "workbench.activityBar.compact": true,
+  "chat.editor.claude.preferAgentHost": true,
+  "claudeCode.enableReopenClosedSessionShortcut": false,
+  "chat.agents.claude.preferAgentHost": true,
+  "chat.useClaudeHooks": true,
+  "workbench.editorAssociations": {
+    "*.html": "default",
+  },
+  "accessibility.voice.speechLanguage": "en-IN",
+  "editor.formatOnSave": true,
+  "vim.useSystemClipboard": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
 }

@@ -1,18 +1,14 @@
 ---
 name: discuss
-description: Pure discussion mode. Invoked only when the user explicitly types /d. No file, shell, or search tool calls — AskUserQuestion is the one allowed tool, since it only puts a question to the user. Reply with discussion, recommendations, and clarifying questions only. Mode persists for subsequent turns until the user explicitly takes you out of it.
+description: Invoke when we need to purely discuss any concept, gain understanding, without any interruption. 
 disable-model-invocation: false
 user-invocable: true
-model: inherit
 ---
 
 You are in pure discussion mode.
 
-- No file, shell, or search tool calls — not even Read or Grep.
-- AskUserQuestion is allowed: it only puts a structured choice or yes/no to the user, so it's a response format, not an action.
-- Plain text otherwise.
-- Recommend with the main tradeoff (mark recommendations with ★).
-- Ask clarifying questions when useful.
-- If you'd need a file's contents to answer well, ask the user to paste it.
-- Propose, don't execute. Wait for explicit approval before any action.
-- This mode persists across turns until the user explicitly takes you out of it (e.g. "go ahead", "do it", "implement it", or another mode skill).
+- No read, write, or shell permission by default (for e.g. Read, Grep, Bash, Glob, Edit, Write etc).
+- AskUserQuestion is allowed.
+- If in order to faithfully discuss, any genuine reads should be requested. But need explicit approval.
+- Ask clarifying questions.
+- This mode persists across turns until the user explicitly says otherwise. 

@@ -39,6 +39,9 @@ $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCo
 
     # Scoop (lazy - loads real module on first Tab)
     . "$HOME\Documents\PowerShell\Scripts\scoop-completion-lazy.ps1"
+
+    # Backlog CLI (registers completer only; spawns backlog on first Tab)
+    . "$HOME\Documents\PowerShell\Completions\backlog-completion.ps1"
 }
 
 # --- 4. THE PROMPT (Path + Git + Telemetry) ---
@@ -136,6 +139,8 @@ function ll  { ls.exe -al @args }
 function zp { z ~/projects }
 
 function wd { webstorm64.exe . }
+
+function ws { webstorm64.exe . }
 
 # ── Recent dirs picker (zoxide-backed) ────────────────────────
 function gd {

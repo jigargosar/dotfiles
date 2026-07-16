@@ -12,88 +12,92 @@
 // focus is on a Claude NON-input element, none of those are true, so alt+2 hides
 // instead of focusing the input. Unfixable until a real focus context exists.
 [
-    // ctrl+f12 = hide all UI (sidebar + panel + secondary sidebar).
-    // Moved off "alt+k alt+k" to free single alt+k for claude-vscode.insertAtMention
-    // and stop the chord-disambiguation delay. Temporary home; may refine later.
-    {
-        "key": "ctrl+f12",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "workbench.action.closeSidebar",
-                "workbench.action.closePanel",
-                "workbench.action.closeAuxiliaryBar"
-            ]
-        }
+  // ctrl+f12 = hide all UI (sidebar + panel + secondary sidebar).
+  // Moved off "alt+k alt+k" to free single alt+k for claude-vscode.insertAtMention
+  // and stop the chord-disambiguation delay. Temporary home; may refine later.
+  {
+    "key": "ctrl+f12",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.closeSidebar",
+        "workbench.action.closePanel",
+        "workbench.action.closeAuxiliaryBar",
+      ],
     },
-    // alt+1 = Explorer. If Explorer is the focused view -> hide sidebar;
-    // otherwise -> show + focus Explorer (switching from another view if needed).
-    {
-        "key": "alt+1",
-        "command": "workbench.action.toggleSidebarVisibility",
-        "when": "sideBarFocus && activeViewlet == 'workbench.view.explorer'"
-    },
-    {
-        "key": "alt+1",
-        "command": "workbench.view.explorer",
-        "when": "!(sideBarFocus && activeViewlet == 'workbench.view.explorer')"
-    },
-    // alt+9 = Source Control. Same smart-toggle behavior.
-    {
-        "key": "alt+9",
-        "command": "workbench.action.toggleSidebarVisibility",
-        "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
-    },
-    {
-        "key": "alt+9",
-        "command": "workbench.view.scm",
-        "when": "!(sideBarFocus && activeViewlet == 'workbench.view.scm')"
-    },
-    // alt+2 = Claude (secondary sidebar). 3-way, alt+1 style. See header for the
-    // focus-context limitation behind the third branch.
-    //   hidden                   -> open + focus Claude
-    //   visible, focus elsewhere -> focus Claude (do NOT hide)
-    //   visible, focus in Claude -> hide secondary sidebar
-    {
-        "key": "alt+2",
-        "command": "claude-vscode.sidebar.open",
-        "when": "!claude-vscode.sideBarActive"
-    },
-    {
-        "key": "alt+2",
-        "command": "claude-vscode.focus",
-        "when": "claude-vscode.sideBarActive && (editorFocus || panelFocus || sideBarFocus)"
-    },
-    {
-        "key": "alt+2",
-        "command": "workbench.action.toggleAuxiliaryBar",
-        "when": "claude-vscode.sideBarActive && !editorFocus && !panelFocus && !sideBarFocus"
-    },
-    {
-        "key": "ctrl+n",
-        "command": "-claude-vscode.newConversation",
-        "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
-    },
-    {
-        "key": "ctrl+shift+escape",
-        "command": "-claude-vscode.editor.open",
-        "when": "!config.claudeCode.useTerminal"
-    },
-    {
-        "key": "ctrl+shift+t",
-        "command": "-claude-vscode.reopenClosedSession",
-        "when": "claude-vscode.lastClosedWasSession && config.claudeCode.enableReopenClosedSessionShortcut"
-    },
-    // Free alt+k for personal use; @-mention unused. (ctrl+alt+k left as-is for now.)
-    {
-        "key": "alt+k",
-        "command": "-claude-vscode.insertAtMention",
-        "when": "editorTextFocus"
-    },
-    // Free alt+p (was native chat question-carousel "previous").
-    {
-        "key": "alt+p",
-        "command": "-workbench.action.chat.previousQuestion",
-        "when": "chatHasQuestionCarousel && inChat && inChatQuestionCarousel"
-    }
+  },
+  // alt+1 = Explorer. If Explorer is the focused view -> hide sidebar;
+  // otherwise -> show + focus Explorer (switching from another view if needed).
+  {
+    "key": "alt+1",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarFocus && activeViewlet == 'workbench.view.explorer'",
+  },
+  {
+    "key": "alt+1",
+    "command": "workbench.view.explorer",
+    "when": "!(sideBarFocus && activeViewlet == 'workbench.view.explorer')",
+  },
+  // alt+9 = Source Control. Same smart-toggle behavior.
+  {
+    "key": "alt+9",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'",
+  },
+  {
+    "key": "alt+9",
+    "command": "workbench.view.scm",
+    "when": "!(sideBarFocus && activeViewlet == 'workbench.view.scm')",
+  },
+  // alt+2 = Claude (secondary sidebar). 3-way, alt+1 style. See header for the
+  // focus-context limitation behind the third branch.
+  //   hidden                   -> open + focus Claude
+  //   visible, focus elsewhere -> focus Claude (do NOT hide)
+  //   visible, focus in Claude -> hide secondary sidebar
+  {
+    "key": "alt+2",
+    "command": "claude-vscode.sidebar.open",
+    "when": "!claude-vscode.sideBarActive",
+  },
+  {
+    "key": "alt+2",
+    "command": "claude-vscode.focus",
+    "when": "claude-vscode.sideBarActive && (editorFocus || panelFocus || sideBarFocus)",
+  },
+  {
+    "key": "alt+2",
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "when": "claude-vscode.sideBarActive && !editorFocus && !panelFocus && !sideBarFocus",
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-claude-vscode.newConversation",
+    "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus",
+  },
+  {
+    "key": "ctrl+shift+escape",
+    "command": "-claude-vscode.editor.open",
+    "when": "!config.claudeCode.useTerminal",
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "-claude-vscode.reopenClosedSession",
+    "when": "claude-vscode.lastClosedWasSession && config.claudeCode.enableReopenClosedSessionShortcut",
+  },
+  // Free alt+k for personal use; @-mention unused. (ctrl+alt+k left as-is for now.)
+  {
+    "key": "alt+k",
+    "command": "-claude-vscode.insertAtMention",
+    "when": "editorTextFocus",
+  },
+  // Free alt+p (was native chat question-carousel "previous").
+  {
+    "key": "alt+p",
+    "command": "-workbench.action.chat.previousQuestion",
+    "when": "chatHasQuestionCarousel && inChat && inChatQuestionCarousel",
+  },
+  {
+    "key": "alt+k alt+v",
+    "command": "toggleVim",
+  },
 ]

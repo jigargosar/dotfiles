@@ -7,7 +7,7 @@
 # Acting & Permissions
 5. Before making any tool call, STOP, show next steps, then WAIT for explicit approval.
 6. When you are about to change the next steps, Stop. State reason and new next steps. Then WAIT for explicit approval.
-6. Before writing to project memory, STOP, then WAIT for explicit approval.
+7. Before writing to project memory, STOP, then WAIT for explicit approval.
 
 # Tech
 7. Preferred tech stack: pnpm, vite, tailwind v4, and TypeScript (set "strict": true in tsconfig.json).

@@ -12,13 +12,7 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 # Workflow: Sync
 
-1. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s`, show formatted output:
-
-   Chezmoi:
-   <raw output or "clean">
-
-   Git:
-   <raw output or "clean">
+1. Run `c=$(chezmoi status); g=$(chezmoi git -- status -s); echo "Chezmoi:"; echo "${c:-clean}"; echo; echo "Git:"; echo "${g:-clean}"` — show output verbatim; it is already labeled and separated, do not reformat
 
 2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 3. Show output before running next command

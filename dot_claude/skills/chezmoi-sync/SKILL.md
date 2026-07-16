@@ -4,8 +4,6 @@ description: Sync chezmoi-managed target files back to source and push to remote
 disable-model-invocation: true
 user-invocable: true
 model: inherit
-allowed-tools:
-  - Bash(mkdir -p ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/)
 ---
 
 Run Workflow: Sync, then Workflow: Re-add.
@@ -23,8 +21,7 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 # Workflow: Re-add
 
-8. Run `mkdir -p ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
-   Use AskUserQuestion to ask: "Do you want to re-add these directories?"
+8. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
    Options: "Yes" (re-add all), "No" (skip and finish)
    If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
 9. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
@@ -42,4 +39,5 @@ Run Workflow: Sync, then Workflow: Re-add.
 - For deleted files (DA status): use `chezmoi forget --force <target-path>` to remove from source without interactive prompt
 - `chezmoi git` command options need double hyphen, otherwise chezmoi will pick it up and cause errors
 - **These commands must be run in Bash, not PowerShell** — PowerShell path handling differs and is not covered here.
+- Empty dirs: `chezmoi add` on an empty directory auto-creates a `.keep` in source. Git can't store empty dirs; chezmoi ignores dot-prefixed source entries. Nothing to create by hand.
 - Paths with spaces: use partial quoting — quote only the space-containing segment, leaving `~` unquoted: `~/AppData/Roaming/"Code - Insiders"/User/settings.json`. This applies to all chezmoi and `chezmoi git --` commands.

@@ -110,4 +110,5 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
+  "diffEditor.hideUnchangedRegions.enabled": true,
 }

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "modal-states",
+  "version": "0.1.0",
+  "description": "Defines named interaction modes (discuss, read-discuss, show-steps, run) that control how much Claude does before checking in.",
+  "author": {
+    "name": "Jigar Gosar",
+    "email": "hello@codehaus.ai"
+  },
+  "skills": [
+    "./"
+  ]
+}

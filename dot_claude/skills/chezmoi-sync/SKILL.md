@@ -6,6 +6,8 @@ user-invocable: true
 model: inherit
 ---
 
+Include every file from chezmoi status, not just ones related to the current task.
+
 Run Workflow: Sync, then Workflow: Re-add.
 
 # Workflow: Sync
@@ -15,7 +17,9 @@ Run Workflow: Sync, then Workflow: Re-add.
 2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 3. Show output before running next command
 4. Run `chezmoi diff > /dev/null 2>&1` with run_in_background: true. Then STOP. If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
-5. Run: `chezmoi add <files>`
+5. Split files by the status's first letter:
+   - First letter D → run `chezmoi forget --force <target-paths>`
+   - Anything else → run `chezmoi add <files>`
 6. Run: `chezmoi git -- add <source-files> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
 7. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 

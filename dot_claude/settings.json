@@ -131,8 +131,8 @@
       "Bash(powershell*)"
     ],
     "ask": [
-      "Bash(git*commit*)",
       "Bash(git*add*)",
+      "Bash(git*commit*)",
       "Bash(git*push*)",
       "Bash(chezmoi git*add*)",
       "Bash(chezmoi git*commit*)",
@@ -152,6 +152,7 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
+  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -194,7 +195,9 @@
   },
   "enabledPlugins": {
     "andrej-karpathy-skills@karpathy-skills": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "chrome-devtools-mcp@chrome-devtools-plugins": true,
+    "skill-creator@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "chrome-devtools-plugins": {
@@ -212,7 +215,7 @@
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {
@@ -233,6 +236,5 @@
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "model": "opus[1m]"
+  "voiceEnabled": true
 }

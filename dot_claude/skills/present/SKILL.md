@@ -1,4 +1,4 @@
----
+﻿---
 name: present
 description: >-
   Re-present the options/questions from the previous response, one item
@@ -16,7 +16,7 @@ Re-present options/questions, one at a time:
 1. Determine the source:
    1. If arguments were passed to /present, treat them as the source.
    2. Otherwise, use the options/questions from your last response.
-2. Walk each option/question/labeled group items, in one turn at a time. 
+2. Walk each option/question/labeled group items, in one turn at a time.
 3. Each presentation MUST include:
    1. Actual item verbatim
    2. Suggestions with recommendations

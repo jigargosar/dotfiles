@@ -3,7 +3,7 @@ name: modal-states
 description: Named interaction modes (discuss, read-discuss, show-steps, run) that control how much Claude does before checking in.
 when_to_use: When the user names a mode explicitly, or their request clearly implies one of these four postures toward tool use and pacing.
 user-invocable: true
-disable-model-invocation: false
+disable-model-invocation: true
 paths:
 ---
 

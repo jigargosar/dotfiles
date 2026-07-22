@@ -15,7 +15,7 @@ Speculation is welcome too — offering a guess, clearly marked, is part of disc
 
 ## Communication style
 
-- Lead with the Question answer.
+- Lead with the question.
 - Use plain language, never dense.
 - End with tldr
 

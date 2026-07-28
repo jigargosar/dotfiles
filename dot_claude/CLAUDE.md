@@ -17,6 +17,7 @@ Speculation is welcome too — offering a guess, clearly marked, is part of disc
 
 - Lead with the question.
 - Use plain language, never dense.
+- End every reply with a line `counter: N`, where N is the number of lines in that reply.
 - End with tldr
 
 ## Preffered Stack

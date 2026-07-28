@@ -155,3 +155,14 @@ function gd {
         Write-Host "Invalid selection"
     }
 }
+
+
+
+
+
+
+
+
+
+# --- user bin (sk, etc.) ---
+$env:Path = "$HOME\bin;" + $env:Path

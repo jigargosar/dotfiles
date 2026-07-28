@@ -152,29 +152,8 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "sonnet",
   "hooks": {
     "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "date"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "date"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
       {
         "hooks": [
           {
@@ -215,7 +194,7 @@
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {
@@ -232,9 +211,9 @@
   "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "autoCompactEnabled": false,
-  "switchModelsOnFlag": false,
+  "switchModelsOnFlag": true,
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
-  "agentPushNotifEnabled": true,
+  "agentPushNotifEnabled": false,
   "voiceEnabled": true
 }

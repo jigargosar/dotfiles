@@ -166,3 +166,11 @@ function gd {
 
 # --- user bin (sk, etc.) ---
 $env:Path = "$HOME\bin;" + $env:Path
+
+
+
+
+
+
+
+

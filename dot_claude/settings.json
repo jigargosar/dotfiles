@@ -152,6 +152,10 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
+  "model": "sonnet",
+  "skillOverrides": {
+    "claude-api": "off"
+  },
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -173,10 +177,18 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "andrej-karpathy-skills@karpathy-skills": true,
     "frontend-design@claude-plugins-official": true,
-    "chrome-devtools-mcp@chrome-devtools-plugins": true,
-    "skill-creator@claude-plugins-official": true
+    "chrome-devtools-mcp@chrome-devtools-plugins": false,
+    "skill-creator@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "modern-web-guidance@googlechrome": true
   },
   "extraKnownMarketplaces": {
     "chrome-devtools-plugins": {
@@ -190,11 +202,18 @@
         "source": "github",
         "repo": "forrestchang/andrej-karpathy-skills"
       }
+    },
+    "googlechrome": {
+      "source": {
+        "source": "github",
+        "repo": "GoogleChrome/modern-web-guidance"
+      }
     }
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "high",
+  "advisorModel": "opus",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {

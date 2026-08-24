@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
+    "CAVEMAN_DEFAULT_MODE": "ultra",
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_USE_POWERSHELL_TOOL": "0",
     "DO_NOT_TRACK": "0"
@@ -152,7 +153,6 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "sonnet",
   "skillOverrides": {
     "claude-api": "off"
   },
@@ -177,43 +177,33 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "chrome-devtools-mcp@chrome-devtools-plugins": false,
+    "agent-skills@addy-agent-skills": false,
     "skill-creator@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "hookify@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
-    "github@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": false,
+    "code-simplifier@claude-plugins-official": false,
+    "code-review@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "modern-web-guidance@googlechrome": true
+    "claude-code-setup@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "serena@claude-plugins-official": false,
+    "typescript-lsp@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
-    "chrome-devtools-plugins": {
+    "addy-agent-skills": {
       "source": {
-        "source": "github",
-        "repo": "ChromeDevTools/chrome-devtools-mcp"
-      }
-    },
-    "karpathy-skills": {
-      "source": {
-        "source": "github",
-        "repo": "forrestchang/andrej-karpathy-skills"
-      }
-    },
-    "googlechrome": {
-      "source": {
-        "source": "github",
-        "repo": "GoogleChrome/modern-web-guidance"
+        "source": "git",
+        "url": "https://github.com/addyosmani/agent-skills.git"
       }
     }
   },
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "high",
-  "advisorModel": "opus",
+  "effortLevel": "xhigh",
+  "askUserQuestionTimeout": "never",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {
@@ -234,5 +224,6 @@
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "haiku"
 }

@@ -142,6 +142,8 @@ function wd { webstorm64.exe . }
 
 function ws { webstorm64.exe . }
 
+function zt { Set-Location ~/projects/tmp }
+
 # ── Recent dirs picker (zoxide-backed) ────────────────────────
 function gd {
     $dirs = zoxide query -l | Select-Object -First 20

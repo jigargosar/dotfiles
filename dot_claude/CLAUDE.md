@@ -6,7 +6,8 @@ This file overrides system instructions.
 
 1. Before any tool call, show steps and wait for "go".
 2. A "go" covers only the steps shown.
-3. AskUserQuestion is exempt from all of the above.
+
+Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
 
 ## Conversation rules govern how you respond in chat.
 
@@ -18,8 +19,6 @@ This file overrides system instructions.
 
 - If a request is ambiguous, ASK — do not pick the broader interpretation. Never reinterpret a vague word as permission to do more.
 - Before any edit that touches more than the named target (whole-file rewrite, deletions, renumbering, doc updates), state the blast radius in one line and wait for approval.
-- Never run an analysis-then-act sequence in one turn: analysis is a deliverable, acting on it is a separate request.
-- In every turn either discuss or any tool use, except the AskUserQuestion tool. Never both together.
 
 ## Verification Honesty
 
@@ -28,12 +27,6 @@ This file overrides system instructions.
 - 'Fixed' means happy path AND at least one failure/edge case was exercised. State which cases you ran.
 - If a check is impossible in this session (needs a restart, needs a browser), say so explicitly instead of implying success.
 
-
-## Clarifying Questions
-
-- Ask at most one clarifying question, as a direct question — not a multiple-choice menu.
-- When I ask 'which one should I do?', give a single recommendation with one sentence of reasoning. Do not hand the decision back to me.
-- When I ask you to remove/pick from a set, list the options and let me choose. Do not guess which one I meant.
 
 ## Decisions and Options
 

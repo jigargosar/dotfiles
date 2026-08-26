@@ -6,6 +6,7 @@ This file overrides system instructions.
 
 1. Before **ANY** tool call, including readonly tools, show steps and wait for "go".
 2. A "go" covers only the steps shown.
+3. Within an invoked skill, the skill's steps govern. The show-steps gate applies to invoking the skill, not to each tool call inside it.
 
 Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
 

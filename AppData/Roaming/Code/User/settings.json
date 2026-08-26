@@ -1,5 +1,9 @@
 {
     "claudeCode.preferredLocation": "sidebar",
     "chat.agentHost.allowSignedOutWhenUsable": true,
-    "diffEditor.hideUnchangedRegions.enabled": true
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "editor.unicodeHighlight.allowedCharacters": {
+        "─": true,
+        "—": true
+    }
 }

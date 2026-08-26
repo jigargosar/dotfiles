@@ -35,9 +35,12 @@
       "Bash(chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
-      "Bash(git -C * log *)",
-      "Bash(git -C * status *)",
-      "Bash(git -C * diff *)",
+      "Bash(git -C log *)",
+      "Bash(git log *)",
+      "Bash(git -C status *)",
+      "Bash(git status *)",
+      "Bash(git -C diff *)",
+      "Bash(git diff *)",
       "Bash(git status:*)",
       "mcp__claude_ai_Context7__resolve-library-id",
       "mcp__claude_ai_Context7__query-docs",
@@ -153,6 +156,7 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
+  "model": "opus[1m]",
   "skillOverrides": {
     "claude-api": "off"
   },
@@ -178,19 +182,19 @@
   },
   "enabledPlugins": {
     "agent-skills@addy-agent-skills": false,
-    "skill-creator@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
+    "context7@claude-plugins-official": false,
     "feature-dev@claude-plugins-official": false,
     "code-simplifier@claude-plugins-official": false,
     "code-review@claude-plugins-official": false,
     "superpowers@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": true,
-    "hookify@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": false,
+    "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true
+    "ralph-loop@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
@@ -203,6 +207,11 @@
   "outputStyle": "default",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    }
+  },
   "askUserQuestionTimeout": "never",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
@@ -224,6 +233,5 @@
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": false,
-  "voiceEnabled": true,
-  "model": "haiku"
+  "voiceEnabled": true
 }

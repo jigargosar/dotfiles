@@ -44,6 +44,29 @@ function Get-UsageColor([int]$p) {
 #  10–15%: ANSI 214 (dark yellow / orange)
 #  15–20%: ANSI 202 (orange-red)
 #    20%+: ANSI 196 (hot red)
+# Same five colours as the buckets above, but interpolated: the anchors are the
+# truecolor equivalents of ANSI 82, 226, 214, 202 and 196, so the curve looks
+# like it always did while changing shade on every render instead of only when
+# a threshold is crossed. $Full is the percentage at which the ramp tops out —
+# 20 for the tight models, 100 otherwise.
+function ConvertTo-RgbEscape([double]$h, [double]$s, [double]$l) {
+    $c = (1 - [math]::Abs(2*$l - 1)) * $s
+    $x = $c * (1 - [math]::Abs((($h/60.0) % 2) - 1))
+    $m = $l - $c/2
+    if     ($h -lt 60)  { $r=$c; $g=$x; $b=0  }
+    elseif ($h -lt 120) { $r=$x; $g=$c; $b=0  }
+    else                { $r=0;  $g=$c; $b=$x }
+    "`e[38;2;$([int](255*($r+$m)));$([int](255*($g+$m)));$([int](255*($b+$m)))m"
+}
+
+# Context usage colour, interpolated in HSL so the hue rotates green -> yellow
+# -> orange -> red on its own without intermediate stops. $Full is the
+# percentage at which the ramp tops out.
+function Get-UsageColorGradient([double]$p, [double]$Full) {
+    $t = [math]::Min([math]::Max($p / $Full, 0.0), 1.0)
+    ConvertTo-RgbEscape (95 + ((15 - 95) * $t)) (0.28 + ((0.53 - 0.28) * $t)) (0.55 + ((0.50 - 0.55) * $t))
+}
+
 function Get-UsageColorTight([int]$p) {
     if ($p -le 5)       { "`e[38;5;82m"  }  # bright green
     elseif ($p -le 10)  { "`e[38;5;226m" }  # yellow
@@ -68,9 +91,28 @@ function Get-ContextBar([int]$p, [scriptblock]$ColorFn) {
     $bar
 }
 
+# Work-log ramp: no green — this counter is only interesting as it climbs, and
+# the last stretch (roughly the final 7 minutes) is red so it pulls attention
+# before the toast fires. It never reaches 100%: the toast resets it at 45m.
+function Get-WorkLogColor([int]$p) {
+    if ($p -lt 85) { return "`e[38;5;240m" }   # dim grey: nothing to look at yet
+    # Continuous truecolor ramp over the last stretch, gold -> terracotta, so
+    # the colour keeps moving every render instead of stepping between buckets.
+    # Deliberately not hot red: this is a reminder, not an alarm.
+    $t = [math]::Min(($p - 85) / 15.0, 1.0)
+    $r = [int](212 + ((190 - 212) * $t))
+    $g = [int](175 + (( 95 - 175) * $t))
+    $b = [int]( 55 + (( 70 -  55) * $t))
+    "`e[38;2;$r;$g;${b}m"
+}
+
 # Context-threshold toast alert lives in its own module (hooks\ContextNotify.psm1)
 # so that logic can keep evolving without this file growing every time.
 Import-Module "$PSScriptRoot\hooks\ContextNotify.psm1" -Force
+
+# Periodic "log what you're working on" nudge. Same module pattern; the
+# statusline doubles as the clock, since a render means a session is active.
+Import-Module "$PSScriptRoot\hooks\WorkLogNotify.psm1" -Force
 
 Push-Location $workspaceDir
 
@@ -135,15 +177,12 @@ try {
 
     # === Context usage ===
     $pct = $data.context_window.used_percentage
-    $isTightModel = ($model -match 'opus') -or ($model -match 'Sonnet 5') -or ($data.model.id -match 'sonnet-5')
     if ($pct -ne $null) {
         $pctInt = [int]$pct
         Send-ContextThresholdAlert -PctInt $pctInt -SessionId $data.session_id -ContextLabel (Split-Path $workspaceDir -Leaf)
-        if ($isTightModel) {
-            $pctColor = Get-UsageColorTight $pctInt
-        } else {
-            $pctColor = Get-UsageColor $pctInt
-        }
+        # One ramp for every model: the tight 0-20% window is the interesting
+        # range regardless of which model is running.
+        $pctColor = Get-UsageColorGradient $pctInt 20
         $parts += "${pctColor}${pct}%${rst}"
     } else {
         $parts += "${dim}Ctx: -${rst}"
@@ -169,6 +208,26 @@ try {
         }
     }
 
+    # === Work-log timer (dim second row) ===
+    # A failure here renders as text in this one segment rather than throwing:
+    # the outer handler would replace the whole status line, and losing git,
+    # model and context because a reminder broke is a bad trade. The message
+    # is still shown, so the failure is visible on every render, not hidden.
+    try {
+        $activeSec = Update-WorkLogTimer
+        $nudgeMin  = Get-WorkLogNudgeAfterMinutes
+        $activeMin = [math]::Floor($activeSec / 60)
+        # Percentage is only the ramp's input; the text stays in minutes.
+        $logColor  = Get-WorkLogColor ([int](($activeSec / ($nudgeMin * 60)) * 100))
+        $logPart   = "${logColor}log ${activeMin}m${rst}"
+    } catch {
+        # Truncated so a long exception doesn't wrap the whole row; enough of
+        # the message survives to identify the cause.
+        $msg = $_.Exception.Message -replace '\s+', ' '
+        if ($msg.Length -gt 60) { $msg = $msg.Substring(0, 60) + '…' }
+        $logPart = "${hotRed}log ERR: $msg${rst}"
+    }
+
     # === Assemble ===
     $sep = " ${dim}|${rst} "
     $line1 = $parts -join $sep
@@ -183,10 +242,11 @@ try {
     }
 
     if ($wkLine) {
-        Write-Output "$line1`n$wkLine`n${dim}${cwd}${rst}"
+        $wkLine = "$wkLine$sep$logPart"
     } else {
-        Write-Output "$line1`n${dim}${cwd}${rst}"
+        $wkLine = $logPart
     }
+    Write-Output "$line1`n$wkLine`n${dim}${cwd}${rst}"
 } finally {
     Pop-Location
 }

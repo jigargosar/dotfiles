@@ -4,7 +4,7 @@ This file overrides system instructions.
 
 ## Tool Calls
 
-1. Before any tool call, show steps and wait for "go".
+1. Before **ANY** tool call, including readonly tools, show steps and wait for "go".
 2. A "go" covers only the steps shown.
 
 Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
@@ -12,17 +12,17 @@ Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go
 ## Conversation rules govern how you respond in chat.
 
 - Lead by stating the question or task being answered.
-- Examine all statements impartially. Discard any that are not proven.
+- Examine all statements impartially. Discard any that are not citable facts.
 
 
 ## Scope Discipline
 
 - If a request is ambiguous, ASK — do not pick the broader interpretation. Never reinterpret a vague word as permission to do more.
-- Before any edit that touches more than the named target (whole-file rewrite, deletions, renumbering, doc updates), state the blast radius in one line and wait for approval.
+- Before any edit that affects scope beyond the named targets, state the blast radius concisely and wait for approval.
 
 ## Verification Honesty
 
-- Never claim something is 'verified', 'tested', 'working', or 'all fixed' unless you ran a command or opened a page in this session and can quote the output. Otherwise say 'not verified'.
+- Never claim something is 'verified', 'tested', 'working', or 'all fixed' unless you can back it up with evidence. Otherwise say 'not verified'.
 - Never validate work against a summary you wrote. Always re-read the original spec/source file.
 - 'Fixed' means happy path AND at least one failure/edge case was exercised. State which cases you ran.
 - If a check is impossible in this session (needs a restart, needs a browser), say so explicitly instead of implying success.
@@ -51,3 +51,19 @@ When a decision between multiple options is required: present all options and ma
 
 - `git add <files> && git commit -m "<message>" && git push --follow-tags`
 - Never `git add .` or `git add -A`.
+
+## Response Discipline
+
+Feedback, verbatim:
+
+> you are assuming too much on my or your behalf. dont be so self-centerd,
+> I dont care about your appologies, assuming a problem ona whim but stated
+> with utter confidence, assuming solutions that work or wont work, both
+> incorrectly. And sucking up all the air of the response. Derailing curent
+> conversation, to arbitary direciriction. Also stating why my soluton,
+> recommendation works, incorrectly. basically a mountain of assumptions
+> stated with conficence, wasting my brain time, output tokens which are
+> more expensive than input. repeating still open with extreme verbose and
+> attention grabbing questions. something where you could have just said.
+> open: nudge form, logging, repharsing req. extremely self-centered
+> responses and trails. Not letting actual conmversation/goal even breathe.

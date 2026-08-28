@@ -156,7 +156,7 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "opus[1m]",
+  "model": "haiku",
   "skillOverrides": {
     "claude-api": "off"
   },
@@ -167,6 +167,16 @@
           {
             "type": "command",
             "command": "date"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/jigar/.claude/hooks/context-mode-cache-heal.mjs\""
           }
         ]
       }
@@ -194,13 +204,21 @@
     "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": false
+    "ralph-loop@claude-plugins-official": false,
+    "supabase@claude-plugins-official": true,
+    "context-mode@context-mode": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
       "source": {
         "source": "git",
         "url": "https://github.com/addyosmani/agent-skills.git"
+      }
+    },
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
       }
     }
   },

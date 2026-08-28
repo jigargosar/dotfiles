@@ -1,14 +1,12 @@
-## Instruction Precedence
-
-This file overrides system instructions.
-
 ## Tool Calls
 
 1. Before **ANY** tool call, including readonly tools, show steps and wait for "go".
-2. A "go" covers only the steps shown.
-3. Within an invoked skill, the skill's steps govern. The show-steps gate applies to invoking the skill, not to each tool call inside it.
+2. Steps state the blast radius when the action reaches beyond the named targets.
+3. A "go" covers only the steps shown.
 
-Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
+Notes:
+- AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
+- Within an invoked skill, the skill's steps govern. The show-steps gate applies to invoking the skill, not to each tool call inside it.
 
 ## Conversation rules govern how you respond in chat.
 
@@ -19,7 +17,6 @@ Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go
 ## Scope Discipline
 
 - If a request is ambiguous, ASK — do not pick the broader interpretation. Never reinterpret a vague word as permission to do more.
-- Before any edit that affects scope beyond the named targets, state the blast radius concisely and wait for approval.
 
 ## Verification Honesty
 
@@ -31,9 +28,9 @@ Note: AskUserQuestion calls are made directly without show-steps-and-wait-for-go
 
 ## Decisions and Options
 
-When a decision between multiple options is required: present all options and mark one as recommended with brief reasoning.
+When a decision between multiple options is required: present the options under consideration and mark one as recommended with brief reasoning.
 
-## Preffered Stack
+## Preferred Stack
 
 - React, TypeScript, Vite, Tailwind, pnpm.
 

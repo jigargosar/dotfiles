@@ -228,6 +228,25 @@ try {
         $logPart = "${hotRed}log ERR: $msg${rst}"
     }
 
+    # === context-mode status (external plugin) ===
+    # ⚠️ Heavy: ~130ms per render. Script path is version-specific (1.0.169).
+    # Update the path below if plugin updates to a new version.
+    # Feeds the same stdin JSON payload to the context-mode plugin's own
+    # statusline.mjs script and appends its output as an extra line. A failure
+    # here (binary missing, non-zero exit, etc.) is shown inline — truncated,
+    # dim — rather than dropped silently, matching the work-log block above.
+    try {
+        $statuslineScript = "C:\Users\jigar\.claude\plugins\cache\context-mode\context-mode\1.0.169\bin\statusline.mjs"
+        if (Test-Path $statuslineScript) {
+            $contextModeLine = ($inputText | & node.exe $statuslineScript 2>&1 | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0 -or -not $contextModeLine) { $contextModeLine = $null }
+        }
+    } catch {
+        $msg = $_.Exception.Message -replace '\s+', ' '
+        if ($msg.Length -gt 60) { $msg = $msg.Substring(0, 60) + '…' }
+        $contextModeLine = "${dim}context-mode ERR: $msg${rst}"
+    }
+
     # === Assemble ===
     $sep = " ${dim}|${rst} "
     $line1 = $parts -join $sep
@@ -246,7 +265,9 @@ try {
     } else {
         $wkLine = $logPart
     }
-    Write-Output "$line1`n$wkLine`n${dim}${cwd}${rst}"
+    $outputLines = @($line1, $wkLine, "${dim}${cwd}${rst}")
+    if ($contextModeLine) { $outputLines += $contextModeLine }
+    Write-Output ($outputLines -join "`n")
 } finally {
     Pop-Location
 }

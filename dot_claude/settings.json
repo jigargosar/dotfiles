@@ -170,16 +170,6 @@
           }
         ]
       }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/jigar/.claude/hooks/context-mode-cache-heal.mjs\""
-          }
-        ]
-      }
     ]
   },
   "worktree": {
@@ -205,20 +195,13 @@
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": false,
-    "supabase@claude-plugins-official": true,
-    "context-mode@context-mode": true
+    "supabase@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "addy-agent-skills": {
       "source": {
         "source": "git",
         "url": "https://github.com/addyosmani/agent-skills.git"
-      }
-    },
-    "context-mode": {
-      "source": {
-        "source": "github",
-        "repo": "mksglu/context-mode"
       }
     }
   },

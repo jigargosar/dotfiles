@@ -2,4 +2,4 @@ README.md
 **/settings.local.json
 **/*.bak
 **/.remember
-**/.remember/**
+**/.remember/**.claude/hooks/context-mode-cache-heal.mjs

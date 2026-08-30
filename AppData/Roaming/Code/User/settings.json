@@ -5,5 +5,7 @@
     "editor.unicodeHighlight.allowedCharacters": {
         "─": true,
         "—": true
-    }
+    },
+    "vim.useSystemClipboard": true,
+    "explorer.excludeGitIgnore": true
 }

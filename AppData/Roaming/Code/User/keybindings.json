@@ -100,4 +100,8 @@
     "key": "alt+k alt+v",
     "command": "toggleVim",
   },
+  {
+    "key": "alt+e alt+e",
+    "command": "explorer-gitignore.toggle",
+  },
 ]

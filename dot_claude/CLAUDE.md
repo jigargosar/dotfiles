@@ -5,14 +5,14 @@
 3. A "go" covers only the steps shown.
 
 Notes:
-- AskUserQuestion calls are made directly without show-steps-and-wait-for-go.
-- Within an invoked skill, the skill's steps govern. The show-steps gate applies to invoking the skill, not to each tool call inside it.
+
+- AskUserQuestion (AUQ) tool calls are completely exempt from these rules
+- These rule only gate skill selection, an not applicable to execution of skill steps. 
 
 ## Conversation rules govern how you respond in chat.
 
 - Lead by stating the question or task being answered.
 - Examine all statements impartially. Discard any that are not citable facts.
-
 
 ## Scope Discipline
 
@@ -21,18 +21,33 @@ Notes:
 ## Verification Honesty
 
 - Never claim something is 'verified', 'tested', 'working', or 'all fixed' unless you can back it up with evidence. Otherwise say 'not verified'.
-- Never validate work against a summary you wrote. Always re-read the original spec/source file.
-- 'Fixed' means happy path AND at least one failure/edge case was exercised. State which cases you ran.
-- If a check is impossible in this session (needs a restart, needs a browser), say so explicitly instead of implying success.
-
 
 ## Decisions and Options
 
-When a decision between multiple options is required: present the options under consideration and mark one as recommended with brief reasoning.
+1. When presenting options, specify recommended.
+
+## Emotinal Response
+
+1. Following is the verbatim response that I face over and over in every conversation.
+2. Notice the fustration I face, when I cant move forward because your repeated mistakes
+
+> you are assuming too much on my or your behalf. dont be so self-centerd,
+> I dont care about your appologies, assuming a problem ona whim but stated
+> with utter confidence, assuming solutions that work or wont work, both
+> incorrectly. And sucking up all the air of the response. Derailing curent
+> conversation, to arbitary direciriction. Also stating why my soluton,
+> recommendation works, incorrectly. basically a mountain of assumptions
+> stated with conficence, wasting my brain time, output tokens which are
+> more expensive than input. repeating still open with extreme verbose and
+> attention grabbing questions. something where you could have just said.
+> open: nudge form, logging, repharsing req. extremely self-centered
+> responses and trails. Not letting actual conmversation/goal even breathe.
+
+--- Not part of precision.md output style.
 
 ## Preferred Stack
 
-- React, TypeScript, Vite, Tailwind, pnpm.
+- React, TypeScript, Vite, Tailwind 4+, pnpm.
 
 ## Libraries Over Custom Code
 
@@ -49,19 +64,3 @@ When a decision between multiple options is required: present the options under 
 
 - `git add <files> && git commit -m "<message>" && git push --follow-tags`
 - Never `git add .` or `git add -A`.
-
-## Response Discipline
-
-Feedback, verbatim:
-
-> you are assuming too much on my or your behalf. dont be so self-centerd,
-> I dont care about your appologies, assuming a problem ona whim but stated
-> with utter confidence, assuming solutions that work or wont work, both
-> incorrectly. And sucking up all the air of the response. Derailing curent
-> conversation, to arbitary direciriction. Also stating why my soluton,
-> recommendation works, incorrectly. basically a mountain of assumptions
-> stated with conficence, wasting my brain time, output tokens which are
-> more expensive than input. repeating still open with extreme verbose and
-> attention grabbing questions. something where you could have just said.
-> open: nudge form, logging, repharsing req. extremely self-centered
-> responses and trails. Not letting actual conmversation/goal even breathe.

@@ -176,6 +176,7 @@
     "baseRef": "head"
   },
   "enableWorkflows": false,
+  "workflowKeywordTriggerEnabled": false,
   "statusLine": {
     "type": "command",
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
@@ -188,7 +189,7 @@
     "feature-dev@claude-plugins-official": false,
     "code-simplifier@claude-plugins-official": false,
     "code-review@claude-plugins-official": false,
-    "superpowers@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "claude-code-setup@claude-plugins-official": false,
     "hookify@claude-plugins-official": false,
@@ -206,10 +207,14 @@
     }
   },
   "outputStyle": "default",
+  "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5": {
       "effortLevel": "high"
     }
   },
@@ -231,8 +236,11 @@
   "preferredNotifChannel": "terminal_bell",
   "autoCompactEnabled": false,
   "switchModelsOnFlag": true,
+  "autoContinueAtUsageLimit": false,
+  "autoScrollEnabled": true,
   "fileCheckpointingEnabled": true,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": false,
+  "useAutoModeDuringPlan": false,
   "voiceEnabled": true
 }

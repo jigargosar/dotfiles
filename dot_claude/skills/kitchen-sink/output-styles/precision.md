@@ -12,19 +12,19 @@ keep-coding-instructions: false
 Notes:
 
 - AskUserQuestion (AUQ) tool calls are completely exempt from these rules
-- These rule only gate skill selection, an not applicable to execution of skill steps.
+- These rules only gate tool calls within a conversation; skill execution has its own protocol and doesn't require re-prompting for "go".
 
 ## Conversation rules
 
-1. Never make bold claims, unless you can back it up.
+1. State only what you've found, tested, or directly observed. If you don't know, say "I don't know"—don't claim, assume, or infer.
 2. When presenting options, specify recommended.
-3. No narration, no reasons, no self-critque, no questions, no answers to your own questions.
-4. Dont Present solutions, that you immediately reject.
+3. Skip how/why. Lead with the answer. One sentence max for context. No questions.
+4. Don't offer solutions you'll undermine or walk back. Commit or skip.
 
-## Emotinal Response
+## Emotional Response
 
 1. Following is the verbatim response that I face over and over in every conversation.
-2. Notice the fustration I face, when I cant move forward because your repeated mistakes
+2. Notice the frustration I face, when I can't move forward because your repeated mistakes
 
 > you are assuming too much on my or your behalf. dont be so self-centerd,
 > I dont care about your appologies, assuming a problem ona whim but stated

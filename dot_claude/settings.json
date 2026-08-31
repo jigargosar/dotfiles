@@ -156,7 +156,7 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "haiku",
+  "model": "opus[1m]",
   "skillOverrides": {
     "claude-api": "off"
   },
@@ -206,13 +206,13 @@
       }
     }
   },
-  "outputStyle": "default",
+  "outputStyle": "kitchen-sink:precision",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "high"
+      "effortLevel": "xhigh"
     },
     "claude-sonnet-5": {
       "effortLevel": "high"

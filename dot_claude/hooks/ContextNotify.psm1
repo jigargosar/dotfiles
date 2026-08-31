@@ -26,9 +26,19 @@ function Send-ContextThresholdAlert {
 
     $thresholds = @(15, 20, 50, 80)   # edit these to change alert levels
 
+    # Default covers first run as well as a missing/empty/malformed state
+    # file -- corruption falls back to this instead of throwing, since a
+    # thrown exception here would replace the whole status line (git, model,
+    # context) over one small JSON file getting truncated.
     $state = [PSCustomObject]@{ lastThreshold = 0 }
     if (Test-Path $stateFile) {
-        try { $state = Get-Content $stateFile -Raw | ConvertFrom-Json } catch {}
+        $raw = Get-Content $stateFile -Raw
+        if (-not [string]::IsNullOrWhiteSpace($raw)) {
+            $parsed = $raw | ConvertFrom-Json
+            if ($null -ne $parsed -and $null -ne $parsed.lastThreshold) {
+                $state = $parsed
+            }
+        }
     }
 
     # Whenever pct drops below the last-alerted threshold (compaction, summarization, /clear

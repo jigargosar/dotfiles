@@ -6,6 +6,5 @@
         "─": true,
         "—": true
     },
-    "vim.useSystemClipboard": true,
-    "explorer.excludeGitIgnore": true
+    "vim.useSystemClipboard": true
 }

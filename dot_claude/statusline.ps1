@@ -179,11 +179,18 @@ try {
     $pct = $data.context_window.used_percentage
     if ($pct -ne $null) {
         $pctInt = [int]$pct
-        Send-ContextThresholdAlert -PctInt $pctInt -SessionId $data.session_id -ContextLabel (Split-Path $workspaceDir -Leaf)
-        # One ramp for every model: the tight 0-20% window is the interesting
-        # range regardless of which model is running.
+        # Send-ContextThresholdAlert -PctInt $pctInt -SessionId $data.session_id -ContextLabel (Split-Path $workspaceDir -Leaf)
+
+        # Bar uses same hue as pct but with reduced saturation (less visual weight)
+        $GetContextBarColor = {
+            param([int]$blockPct)
+            $t = [math]::Min([math]::Max($pctInt / 20, 0.0), 1.0)
+            ConvertTo-RgbEscape (95 + ((15 - 95) * $t)) (0.20 + ((0.38 - 0.20) * $t)) (0.55 + ((0.50 - 0.55) * $t))
+        }
+
         $pctColor = Get-UsageColorGradient $pctInt 20
-        $parts += "${pctColor}${pct}%${rst}"
+        $bar = Get-ContextBar $pctInt $GetContextBarColor
+        $parts += "${pctColor}${pct}%${rst} $bar"
     } else {
         $parts += "${dim}Ctx: -${rst}"
     }

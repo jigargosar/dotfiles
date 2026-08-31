@@ -20,18 +20,31 @@ $script:BreakThresholdMinutes = 20   # gap above this counts as a break
 $script:StateFile = "$env:TEMP\claude-worklog\state.json"
 
 function Get-WorkLogState {
-    if (-not (Test-Path $script:StateFile)) {
-        # First run: start the clock now rather than assuming prior work,
-        # so the first nudge is one that was actually earned.
-        return [PSCustomObject]@{
-            lastRender    = [int64](Get-Date -UFormat %s)
-            activeSeconds = 0
-        }
+    # First run (or a fresh clock, see below): start now rather than assuming
+    # prior work, so the first nudge is one that was actually earned.
+    $fresh = [PSCustomObject]@{
+        lastRender    = [int64](Get-Date -UFormat %s)
+        activeSeconds = 0
     }
-    # A corrupt state file is left to throw: statusline.ps1's top-level
-    # handler surfaces it in the status line, where it is visible and
-    # fixable. Swallowing it would silently stop the nudges forever.
-    Get-Content $script:StateFile -Raw | ConvertFrom-Json
+
+    if (-not (Test-Path $script:StateFile)) {
+        return $fresh
+    }
+
+    # An empty/whitespace state file (crash mid-write, disk full, a 0-byte
+    # file left by an interrupted Set-Content, etc.) falls back to a fresh
+    # clock instead of throwing. Losing the current tally is harmless -- the
+    # nudge just restarts its countdown. Genuinely malformed JSON (non-empty
+    # but unparseable) still throws so corruption is visible and fixable.
+    $raw = Get-Content $script:StateFile -Raw
+    if ([string]::IsNullOrWhiteSpace($raw)) {
+        return $fresh
+    }
+    $state = $raw | ConvertFrom-Json
+    if ($null -eq $state -or $null -eq $state.lastRender -or $null -eq $state.activeSeconds) {
+        return $fresh
+    }
+    $state
 }
 
 function Send-WorkLogToast {

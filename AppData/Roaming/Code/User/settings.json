@@ -1,10 +1,10 @@
 {
     "claudeCode.preferredLocation": "sidebar",
     "chat.agentHost.allowSignedOutWhenUsable": true,
-    "diffEditor.hideUnchangedRegions.enabled": true,
     "editor.unicodeHighlight.allowedCharacters": {
         "─": true,
         "—": true
     },
-    "vim.useSystemClipboard": true
+    "vim.useSystemClipboard": true,
+    "diffEditor.hideUnchangedRegions.enabled": true
 }

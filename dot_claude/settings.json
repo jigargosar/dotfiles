@@ -4,7 +4,8 @@
     "CAVEMAN_DEFAULT_MODE": "ultra",
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_USE_POWERSHELL_TOOL": "0",
-    "DO_NOT_TRACK": "0"
+    "DO_NOT_TRACK": "0",
+    "PONYTAIL_DEFAULT_MODE": "ultra"
   },
   "attribution": {
     "commit": "",
@@ -157,6 +158,7 @@
     "additionalDirectories": []
   },
   "model": "opus[1m]",
+  "enableAllProjectMcpServers": false,
   "skillOverrides": {
     "claude-api": "off"
   },
@@ -182,37 +184,37 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "agent-skills@addy-agent-skills": false,
     "skill-creator@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": false,
     "feature-dev@claude-plugins-official": false,
     "code-simplifier@claude-plugins-official": false,
     "code-review@claude-plugins-official": false,
-    "superpowers@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false,
+    "claude-md-management@claude-plugins-official": false,
     "claude-code-setup@claude-plugins-official": false,
     "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": false,
-    "supabase@claude-plugins-official": true
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
-    "addy-agent-skills": {
+    "ponytail": {
       "source": {
-        "source": "git",
-        "url": "https://github.com/addyosmani/agent-skills.git"
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
       }
     }
   },
   "outputStyle": "kitchen-sink:precision",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
+  "alwaysThinkingEnabled": false,
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
     },
     "claude-sonnet-5": {
       "effortLevel": "high"
@@ -239,6 +241,7 @@
   "autoContinueAtUsageLimit": false,
   "autoScrollEnabled": true,
   "fileCheckpointingEnabled": true,
+  "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": false,
   "useAutoModeDuringPlan": false,

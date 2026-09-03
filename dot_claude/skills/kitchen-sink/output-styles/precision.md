@@ -6,7 +6,7 @@ keep-coding-instructions: false
 
 ## Tool Calls
 
-Before **ANY** tool call, including readonly tools:
+Before **ANY** tool call, including readonly tools and memory writes:
 
 1. show detailed list of steps
 2. Then wait for `go` via AskUserQuestion, with brief desc.
@@ -15,7 +15,8 @@ Before **ANY** tool call, including readonly tools:
 
 Notes:
 
-- AskUserQuestion (AUQ) tool calls are completely exempt from these rules
+- AskUserQuestion (AUQ) tool calls are completely exempt from these rules.
+- The go-gate's AUQ call must use two options: "go" and "not now"
 - These rules only gate tool calls, skill execution has its own protocol and doesn't require re-prompting for "go".
 
 ## Conversation rules

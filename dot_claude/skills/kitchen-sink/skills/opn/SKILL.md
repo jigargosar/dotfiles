@@ -3,7 +3,7 @@ name: opn
 description: Opens files, folders, and URIs in an IDE or browser. Gathers candidates from arguments and recent conversation context.
 when_to_use: user says open or opn
 argument-hint: "[path-or-uri...]"
-user-invocable: true
+user-invocable: false
 disable-model-invocation: false
 allowed-tools:
   - Bash(code *)
@@ -11,9 +11,9 @@ allowed-tools:
   - Bash(webstorm64 *)
 ---
 
-## Non-negotiable rule
+# Non-negotiable rule
 
-NEVER open anything without an AskUserQuestion (AUQ) confirmation — no exceptions. User should always get to see the command you are about to execute.
+ALWAYS use AskUserQuestion tool, to present candidates, no exceptions. User gets to choose via AskUserQuestion every single time.
 
 # 1. Gather candidates
 
@@ -21,17 +21,13 @@ NEVER open anything without an AskUserQuestion (AUQ) confirmation — no excepti
 - current conversation context
 - guess
 
-# 2. Confirm src and destination 
 
-- AUQ
+# 2. Offer candidates via AskUserQuestion
 
-# 3. Open
-
-use `Bash` tool call with — `run_in_background: true`,
-- VSCode → `code`   (default)
-- WebStorm → `webstorm64`   (only if mentioned, e.g. "webs")
-- Explorer → `start`   (only if mentioned, e.g. "exp")
-- URI → `start`
+use `Bash` tool call with — `run_in_background: true`.
+- code -> VSCode (default)
+- ex or uri → `start` 
+- ws → `webstorm64` (only if mentioned explictly)
 
 # Paths
 

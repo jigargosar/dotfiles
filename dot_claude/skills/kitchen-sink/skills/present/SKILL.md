@@ -1,12 +1,7 @@
 ﻿---
 name: present
 description: >-
-  Re-present the options/questions from the previous response, one item
-  at a time.
-when_to_use: >-
-  When the user explicitly types /present, optionally with arguments
-  naming the source; otherwise re-presents the last response's
-  options/questions.
+  walk
 user-invocable: true
 disable-model-invocation: true
 ---

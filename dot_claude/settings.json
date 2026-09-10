@@ -133,7 +133,11 @@
     "deny": [
       "Bash(chezmoi apply*)",
       "Bash(chezmoi destroy*)",
-      "Bash(powershell*)"
+      "Bash(powershell*)",
+      "Agent",
+      "Bash(git add .)",
+      "Bash(git add -A*)",
+      "Bash(git add .:*)"
     ],
     "ask": [
       "Bash(git*add*)",
@@ -157,10 +161,12 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "opus[1m]",
+  "model": "sonnet",
   "enableAllProjectMcpServers": false,
   "skillOverrides": {
-    "claude-api": "off"
+    "claude-api": "off",
+    "run": "off",
+    "update-config": "off"
   },
   "hooks": {
     "UserPromptSubmit": [
@@ -195,29 +201,24 @@
     "claude-code-setup@claude-plugins-official": false,
     "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
-    "typescript-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": false,
     "ralph-loop@claude-plugins-official": false,
-    "ponytail@ponytail": true
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "mattpocock-skills@claude-plugins-official": true,
+    "ui-theme-designer@claude-plugins-official": false
   },
-  "extraKnownMarketplaces": {
-    "ponytail": {
-      "source": {
-        "source": "github",
-        "repo": "DietrichGebert/ponytail"
-      }
-    }
-  },
-  "outputStyle": "kitchen-sink:precision",
+  "extraKnownMarketplaces": {},
+  "outputStyle": "Concise",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
-  "alwaysThinkingEnabled": false,
-  "effortLevel": "xhigh",
+  "effortLevel": "low",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "high"
+      "effortLevel": "xhigh"
     },
     "claude-sonnet-5": {
-      "effortLevel": "high"
+      "effortLevel": "low"
     }
   },
   "askUserQuestionTimeout": "never",
@@ -234,7 +235,7 @@
   "skipWorkflowUsageWarning": true,
   "theme": "dark-daltonized",
   "editorMode": "normal",
-  "verbose": true,
+  "verbose": false,
   "preferredNotifChannel": "terminal_bell",
   "autoCompactEnabled": false,
   "switchModelsOnFlag": true,

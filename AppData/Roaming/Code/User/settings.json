@@ -6,5 +6,13 @@
         "—": true
     },
     "vim.useSystemClipboard": true,
-    "diffEditor.hideUnchangedRegions.enabled": true
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "chat.titleBar.openInAgentsWindow.enabled": false,
+    "workbench.browser.showInTitleBar": true,
+    "chat.disableAIFeatures": true,
+    "claudeCode.hideOnboarding": true
 }

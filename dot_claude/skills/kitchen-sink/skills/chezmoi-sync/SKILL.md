@@ -16,7 +16,7 @@ Run Workflow: Sync, then Workflow: Re-add.
 
 2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
 3. Show output before running next command
-4. Run `chezmoi diff > /dev/null 2>&1` with run_in_background: true. Then STOP. If exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
+4. Run `chezmoi diff > /dev/null 2>&1` with run_in_background: true. Then STOP and wait for the background task's completion notification — do not re-run the command or poll for it. If the reported exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
 5. Split files from `chezmoi status` by first letter:
    - First letter D → run `chezmoi forget --force <target-paths>`
    - Anything else → run `chezmoi add <files>`
@@ -38,6 +38,7 @@ Run Workflow: Sync, then Workflow: Re-add.
 - Run commands EXACTLY as written — do not split chained (&&) commands into separate calls
 - Always show output before running next command
 - Use explicit file names from status output, never use `-A` or `.`
+- Target paths passed to `chezmoi add`/`chezmoi forget` must be absolute or `~`-prefixed, never bare-relative — the agent's shell cwd may not be `$HOME`, and a bare relative path resolves against cwd, not `$HOME`.
 - Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)
 - For deleted files (first letter D): use `chezmoi forget --force <target-path>` to remove from source without interactive prompt
 - `chezmoi git` command options need double hyphen, otherwise chezmoi will pick it up and cause errors

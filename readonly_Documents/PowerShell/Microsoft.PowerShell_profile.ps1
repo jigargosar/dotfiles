@@ -138,7 +138,11 @@ function ll  { ls.exe -al @args }
 
 function zp { z ~/projects }
 
-function wd { webstorm64.exe . }
+function rp { . $PROFILE }
+
+function ep { code $PROFILE }
+
+function ex { explorer . }
 
 function ws { webstorm64.exe . }
 

@@ -33,7 +33,7 @@ if ($host.Name -eq 'ConsoleHost' -and [Environment]::UserInteractive -and !([Con
 $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCount 1 -Action {
     # Zoxide
     Import-Cached "zoxide" "zoxide init powershell"
-    
+
     # Chezmoi
     Import-Cached "chezmoi" "chezmoi completion powershell"
 
@@ -49,7 +49,7 @@ function prompt {
     $realPath = $ExecutionContext.SessionState.Path.CurrentLocation.ProviderPath
     $displayPath = $realPath.Replace('\', '/').Replace($HOME.Replace('\', '/'), "~")
     if (!$displayPath.EndsWith('/')) { $displayPath += '/' }
-    
+
     if ($env:WT_SESSION) {
         Write-Host "$([char]27)]9;9;`"$realPath`"$([char]27)\" -NoNewline
     }
@@ -74,12 +74,12 @@ function prompt {
         $totalMs = [math]::Round(([datetime]::UtcNow - $global:StartTime).TotalMilliseconds)
         $teleColor = if ($totalMs -gt 250) { "Red" } else { "DarkGray" }
         Write-Host "Profile loaded in $($totalMs)ms" -ForegroundColor $teleColor
-        $global:StartTime = $null 
+        $global:StartTime = $null
     }
 
     Write-Host "$displayPath" -ForegroundColor Cyan -NoNewline
     if ($gitBlock) { Write-Host $gitBlock -ForegroundColor $statusColor -NoNewline }
-    
+
     return "`n> "
 }
 
@@ -95,8 +95,6 @@ Get-ChildItem "C:\Program Files\Git\usr\bin" -Filter *.exe |
         }
     }
 
-# Prepend Git usr\bin to PATH
-$env:Path = "C:\Program Files\Git\usr\bin;" + $env:Path
 # --- END: Remove conflicting aliases for Git usr\bin ---
 
 # Vim Mode Toggle
@@ -128,55 +126,35 @@ Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler {
 # Default editor (VS Code) for jrnl, git, etc. Inner quotes keep the spaced path
 # intact for shlex; forward slashes avoid backslash-escaping.
 $env:EDITOR = '"C:/Users/jigar/AppData/Local/Programs/Microsoft VS Code/Code.exe" --wait --reuse-window'
+$env:SHELL = 'C:/Users/jigar/AppData/Local/Microsoft/WindowsApps/pwsh.exe'
+Set-PSReadLineKeyHandler -Key "Ctrl+d" -Function DeleteCharOrExit
 
-# --- simple-gtd-2 aliases ---
 function cc  { claude @args }
 function ccc { claude --continue @args }
 function ccr { claude --resume @args }
 function ll  { ls.exe -al @args }
-# --- end simple-gtd-2 aliases ---
-
 function zp { z ~/projects }
-
-function rp { . $PROFILE }
-
+function lp { . $PROFILE }
 function ep { code $PROFILE }
-
 function ex { explorer . }
-
 function ws { webstorm64.exe . }
-
 function zt { Set-Location ~/projects/tmp }
 
-# ── Recent dirs picker (zoxide-backed) ────────────────────────
-function gd {
-    $dirs = zoxide query -l | Select-Object -First 20
-    for ($i = 0; $i -lt $dirs.Count; $i++) {
-        Write-Host "$i`: $($dirs[$i])"
-    }
-    $sel = Read-Host "Enter number"
-    if ($sel -match '^\d+$' -and [int]$sel -lt $dirs.Count) {
-        Set-Location $dirs[[int]$sel]
-    } else {
-        Write-Host "Invalid selection"
-    }
-}
 
 
 
+# =========================================================
+# 1. MY PREFERRED TOOLS ORDER (Top wins conflicts)
+# =========================================================
+$PriorityPaths = @(
+    "C:\Users\jigar\scoop\shims"
+    "$HOME\bin"
+    "C:\Program Files\Git\usr\bin"
+)
 
-
-
-
-
-
-# --- user bin (sk, etc.) ---
-$env:Path = "$HOME\bin;" + $env:Path
-
-
-
-
-
-
-
+# =========================================================
+# 2. AUTOMATIC PATH CLEANER (Do not change)
+# =========================================================
+$AllPaths = $PriorityPaths + $env:Path.Split(';')
+$env:Path = ($AllPaths | Select-Object -Unique) -join ';'
 

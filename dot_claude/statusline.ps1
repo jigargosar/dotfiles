@@ -1,4 +1,12 @@
 # Git-aware statusLine script for Claude Code
+#
+# KNOWN ISSUE: Concurrent writes to state files (WorkLogNotify, ContextNotify) can cause
+# multiple JSON objects to append instead of truncate. Manifests as "Conversion from JSON
+# failed with error: Additional text encountered" on parse. Root cause: Set-Content without
+# -Force under concurrent file access. PERMANENT FIX: Implement atomic write pattern
+# (write to .tmp file, then rename) in WorkLogNotify.psm1:89 and ContextNotify.psm1:68.
+# This is the production-standard solution used by Git, databases, etc.
+#
 param()
 
 try {
@@ -10,7 +18,7 @@ $data = $inputText | ConvertFrom-Json
 # Dump full stdin payload (pretty JSON) for inspection.
 # Commented out by default now that debugging is done — uncomment this one line
 # any time you need to inspect the raw fields Claude Code sends on stdin.
-# $data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
+$data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
 
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir

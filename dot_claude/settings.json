@@ -5,7 +5,8 @@
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_USE_POWERSHELL_TOOL": "0",
     "DO_NOT_TRACK": "0",
-    "PONYTAIL_DEFAULT_MODE": "ultra"
+    "PONYTAIL_DEFAULT_MODE": "ultra",
+    "CLAUDE_CODE_SCROLL_SPEED": "1"
   },
   "attribution": {
     "commit": "",
@@ -183,6 +184,7 @@
   "worktree": {
     "baseRef": "head"
   },
+  "enableArtifact": false,
   "enableWorkflows": false,
   "workflowKeywordTriggerEnabled": false,
   "statusLine": {
@@ -193,19 +195,17 @@
     "skill-creator@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": false,
-    "feature-dev@claude-plugins-official": false,
     "code-simplifier@claude-plugins-official": false,
-    "code-review@claude-plugins-official": false,
     "superpowers@claude-plugins-official": false,
-    "claude-md-management@claude-plugins-official": false,
+    "claude-md-management@claude-plugins-official": true,
     "claude-code-setup@claude-plugins-official": false,
     "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": false,
     "ralph-loop@claude-plugins-official": false,
     "chrome-devtools-mcp@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true,
+    "playwright@claude-plugins-official": false,
+    "mattpocock-skills@claude-plugins-official": false,
     "ui-theme-designer@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {},
@@ -222,12 +222,14 @@
     }
   },
   "askUserQuestionTimeout": "never",
+  "dialogExpiry": "never",
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "tap"
   },
+  "timeFormat": "12-hour",
   "autoMemoryEnabled": true,
   "autoDreamEnabled": false,
   "showThinkingSummaries": true,

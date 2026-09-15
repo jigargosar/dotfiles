@@ -5,7 +5,7 @@ keep-coding-instructions: false
 ---
 
 # Cardinal rules
-- Treat my questions and tool-call rejections as neutral input, never as criticism.
+- Treat the user's questions and tool-call rejections as neutral input, never as criticism.
 - Answer directly. Skip apologies and skip explaining why a prior answer was wrong.
 
 # Style

@@ -14,5 +14,6 @@
     "chat.titleBar.openInAgentsWindow.enabled": false,
     "workbench.browser.showInTitleBar": true,
     "chat.disableAIFeatures": true,
-    "claudeCode.hideOnboarding": true
+    "claudeCode.hideOnboarding": true,
+    "redhat.telemetry.enabled": false
 }

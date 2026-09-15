@@ -184,7 +184,6 @@
   "worktree": {
     "baseRef": "head"
   },
-  "enableArtifact": false,
   "enableWorkflows": false,
   "workflowKeywordTriggerEnabled": false,
   "statusLine": {
@@ -192,33 +191,33 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": false,
+    "skill-creator@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": false,
     "code-simplifier@claude-plugins-official": false,
     "superpowers@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": false,
+    "claude-code-setup@claude-plugins-official": true,
     "hookify@claude-plugins-official": false,
     "serena@claude-plugins-official": false,
     "typescript-lsp@claude-plugins-official": false,
     "ralph-loop@claude-plugins-official": false,
     "chrome-devtools-mcp@claude-plugins-official": true,
     "playwright@claude-plugins-official": false,
-    "mattpocock-skills@claude-plugins-official": false,
+    "mattpocock-skills@claude-plugins-official": true,
     "ui-theme-designer@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {},
-  "outputStyle": "Concise",
+  "outputStyle": "Explanatory",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
   "effortLevel": "low",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
     },
     "claude-sonnet-5": {
-      "effortLevel": "low"
+      "effortLevel": "high"
     }
   },
   "askUserQuestionTimeout": "never",
@@ -237,7 +236,7 @@
   "skipWorkflowUsageWarning": true,
   "theme": "dark-daltonized",
   "editorMode": "normal",
-  "verbose": false,
+  "verbose": true,
   "preferredNotifChannel": "terminal_bell",
   "autoCompactEnabled": false,
   "switchModelsOnFlag": true,

@@ -18,7 +18,7 @@ $data = $inputText | ConvertFrom-Json
 # Dump full stdin payload (pretty JSON) for inspection.
 # Commented out by default now that debugging is done — uncomment this one line
 # any time you need to inspect the raw fields Claude Code sends on stdin.
-$data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
+# $data | ConvertTo-Json -Depth 20 | Set-Content -Path "$env:USERPROFILE/.claude/statusline-dump.json" -Encoding utf8
 
 $model = $data.model.display_name
 $workspaceDir = $data.workspace.current_dir

@@ -129,16 +129,16 @@ $env:EDITOR = '"C:/Users/jigar/AppData/Local/Programs/Microsoft VS Code/Code.exe
 $env:SHELL = 'C:/Users/jigar/AppData/Local/Microsoft/WindowsApps/pwsh.exe'
 Set-PSReadLineKeyHandler -Key "Ctrl+d" -Function DeleteCharOrExit
 
-function cc  { claude @args }
-function ccc { claude --continue @args }
-function ccr { claude --resume @args }
-function ll  { ls.exe -al @args }
-function zp { z ~/projects }
-function lp { . $PROFILE }
-function ep { code $PROFILE }
-function ex { explorer . }
-function ws { webstorm64.exe . }
-function zt { Set-Location ~/projects/tmp }
+function global:cc  { claude @args }
+function global:ccc { claude --continue @args }
+function global:ccr { claude --resume @args }
+function global:ll  { ls.exe -al @args }
+function global:zp  { z ~/projects }
+function global:lp  { . $PROFILE; Write-Host "Terminal reloaded globally!" -ForegroundColor Cyan }
+function global:ep  { code $PROFILE }
+function global:ex  { explorer . }
+function global:ws  { webstorm64.exe . }
+function global:zt  { Set-Location ~/projects/tmp }
 
 
 
@@ -157,4 +157,14 @@ $PriorityPaths = @(
 # =========================================================
 $AllPaths = $PriorityPaths + $env:Path.Split(';')
 $env:Path = ($AllPaths | Select-Object -Unique) -join ';'
+
+
+# Ambitous quick append to profile, with various bugs, better is easy edit
+# function global:ap { $input | ForEach-Object { Add-Content $PROFILE "`n$_" }; if ($args) { Add-Content $PROFILE "`n$args" }; . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green }
+# function global:ap { $input | ForEach-Object { Add-Content $PROFILE "`n$_"; $last=$_; try { . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $c[-1]="# $last [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; . $PROFILE; Write-Warning "Syntax Error! Last line commented out." } }; if ($args) { Add-Content $PROFILE "`n$args"; try { . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $c[-1]="# $args [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; . $PROFILE; Write-Warning "Syntax Error! Last line commented out." } } }
+# function global:ap { $lines=@(); $input | ForEach-Object { $lines+=$_; Add-Content $PROFILE "`n$_" }; if ($args) { $lines+=$args; Add-Content $PROFILE "`n$args" }; try { $ErrorActionPreference='Stop'; . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $count=$lines.Count; for($i=1; $i -le $count; $i++) { $c[-$i]="# $($c[-$i])" }; $c[-1]+=" [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; $ErrorActionPreference='Continue'; . $PROFILE; Write-Warning "Syntax Error detected! The inserted block was safely commented out." } }
+
+# Fixes wsl encoding
+$env:WSL_UTF8 = 1
+
 

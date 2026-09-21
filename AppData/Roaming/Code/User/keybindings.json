@@ -49,48 +49,16 @@
     "command": "workbench.view.scm",
     "when": "!(sideBarFocus && activeViewlet == 'workbench.view.scm')",
   },
-  // alt+2 = Claude (secondary sidebar). 3-way, alt+1 style. See header for the
-  // focus-context limitation behind the third branch.
-  //   hidden                   -> open + focus Claude
-  //   visible, focus elsewhere -> focus Claude (do NOT hide)
-  //   visible, focus in Claude -> hide secondary sidebar
-  {
-    "key": "alt+2",
-    "command": "claude-vscode.sidebar.open",
-    "when": "!claude-vscode.sideBarActive",
-  },
-  {
-    "key": "alt+2",
-    "command": "claude-vscode.focus",
-    "when": "claude-vscode.sideBarActive && (editorFocus || panelFocus || sideBarFocus)",
-  },
-  {
-    "key": "alt+2",
-    "command": "workbench.action.toggleAuxiliaryBar",
-    "when": "claude-vscode.sideBarActive && !editorFocus && !panelFocus && !sideBarFocus",
-  },
-  {
-    "key": "ctrl+n",
-    "command": "-claude-vscode.newConversation",
-    "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus",
-  },
-  {
-    "key": "ctrl+shift+escape",
-    "command": "-claude-vscode.editor.open",
-    "when": "!config.claudeCode.useTerminal",
-  },
+  // alt+2 = Claude (secondary sidebar). Toggle with auto-focus on open.
+  //   hidden                        -> open Claude (auto-focuses input)
+  //   visible, focused in Claude    -> hide secondary sidebar
+  //   visible, focus elsewhere      -> show Claude (auto-refocuses input)
   {
     "key": "ctrl+shift+t",
     "command": "-claude-vscode.reopenClosedSession",
     "when": "claude-vscode.lastClosedWasSession && config.claudeCode.enableReopenClosedSessionShortcut",
   },
   // Free alt+k for personal use; @-mention unused. (ctrl+alt+k left as-is for now.)
-  {
-    "key": "alt+k",
-    "command": "-claude-vscode.insertAtMention",
-    "when": "editorTextFocus",
-  },
-  // Free alt+p (was native chat question-carousel "previous").
   {
     "key": "alt+p",
     "command": "-workbench.action.chat.previousQuestion",
@@ -108,4 +76,19 @@
     "key": "alt+k alt+k",
     "command": "toggleVim"
   },
+  {
+    "key": "alt+2",
+    "command": "-workbench.action.openEditorAtIndex2"
+  },
+  // alt+2 = Claude (secondary sidebar). Simple toggle based on visibility.
+  {
+    "key": "alt+2",
+    "command": "workbench.view.extension.claude-sidebar-secondary",
+    "when": "!auxiliaryBarVisible"
+  },
+  {
+    "key": "alt+2",
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "when": "auxiliaryBarVisible"
+  }
 ]

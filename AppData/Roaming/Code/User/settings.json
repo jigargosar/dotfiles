@@ -13,7 +13,55 @@
     "editor.unicodeHighlight.nonBasicASCII": false,
     "chat.titleBar.openInAgentsWindow.enabled": false,
     "workbench.browser.showInTitleBar": true,
-    "chat.disableAIFeatures": true,
     "claudeCode.hideOnboarding": true,
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "window.density.layout": "compact",
+    "github.copilot.chat.copilotDebugCommand.enabled": false,
+    "github.copilot.chat.tools.viewImage.enabled": false,
+    "github.copilot.chat.backgroundAgent.enabled": false,
+    "github.copilot.chat.cloudAgent.enabled": false,
+    "github.copilot.chat.codeGeneration.useInstructionFiles": false,
+    "github.copilot.chat.customInstructionsInSystemMessage": false,
+    "github.copilot.chat.imageUpload.enabled": false,
+    "github.copilot.chat.localIndex.enabled": false,
+    "github.copilot.chat.reviewAgent.enabled": false,
+    "github.copilot.chat.rateLimitAutoSwitchToAuto": true,
+    "github.copilot.chat.reviewSelection.enabled": false,
+    "github.copilot.chat.useProjectTemplates": false,
+    "github.copilot.editor.enableCodeActions": false,
+    "github.copilot.enable": {
+        "*": false
+    },
+    "github.copilot.nextEditSuggestions.allowWhitespaceOnlyChanges": false,
+    "agents.voice.enabled": true,
+    "agents.voice.liveTranscript": true,
+    "agents.voice.showTranscript": true,
+    "workbench.editor.splitOnDragAndDrop": false,
+    "workbench.editor.wrapTabs": true,
+    "window.density.editorTabHeight": "compact",
+    "vim.highlightedyank.enable": true,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-s>": false,
+        "<C-z>": false
+    },
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "p"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        }
+    ],
+    "vim.showMarksInGutter": true,
+    "vim.smartRelativeLine": true,
+    "vim.targets.enable": true,
+    "claudeCode.focusView": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }

@@ -162,7 +162,6 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "sonnet",
   "enableAllProjectMcpServers": false,
   "skillOverrides": {
     "claude-api": "off",
@@ -176,6 +175,16 @@
           {
             "type": "command",
             "command": "date"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/jigar/.claude/hooks/context-mode-cache-heal.mjs\""
           }
         ]
       }
@@ -205,16 +214,24 @@
     "chrome-devtools-mcp@claude-plugins-official": true,
     "playwright@claude-plugins-official": false,
     "mattpocock-skills@claude-plugins-official": true,
-    "ui-theme-designer@claude-plugins-official": false
+    "ui-theme-designer@claude-plugins-official": false,
+    "context-mode@context-mode": true
   },
-  "extraKnownMarketplaces": {},
+  "extraKnownMarketplaces": {
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    }
+  },
   "outputStyle": "Explanatory",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
-  "effortLevel": "low",
+  "effortLevel": "medium",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     },
     "claude-sonnet-5": {
       "effortLevel": "high"

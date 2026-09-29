@@ -44,8 +44,42 @@ $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCo
     . "$HOME\Documents\PowerShell\Completions\backlog-completion.ps1"
 }
 
+# --- RECENT DIRECTORIES (recency only, shared across tabs/sessions) ---
+$global:DirHistoryFile = "$cacheDir\dirhist.txt"
+
+function Update-DirHistory {
+    $loc = $ExecutionContext.SessionState.Path.CurrentLocation
+    if ($loc.Provider.Name -ne 'FileSystem') { return }
+    $path = $loc.ProviderPath
+    if ($path -eq $global:DirHistoryLast) { return }
+    $global:DirHistoryLast = $path
+    $old = if (Test-Path $global:DirHistoryFile) { @(Get-Content $global:DirHistoryFile) } else { @() }
+    @($path) + @($old | Where-Object { $_ -ne $path }) |
+        Select-Object -First 50 |
+        Set-Content $global:DirHistoryFile
+}
+
+# cdh: list the 5 most recently visited dirs (excluding current), pick by number
+function global:cdh {
+    $cur = $ExecutionContext.SessionState.Path.CurrentLocation.ProviderPath
+    $dirs = @(Get-Content $global:DirHistoryFile |
+        Where-Object { $_ -ne $cur -and (Test-Path -LiteralPath $_) } |
+        Select-Object -First 5)
+    if (-not $dirs) { Write-Host "No recent directories."; return }
+    for ($i = 0; $i -lt $dirs.Count; $i++) { Write-Host ("{0}  {1}" -f ($i + 1), $dirs[$i]) }
+    Write-Host "Pick 1-$($dirs.Count), Esc to cancel"
+    while ($true) {
+        $key = [Console]::ReadKey($true)
+        if ($key.Key -eq 'Escape') { return }
+        $n = [int]$key.KeyChar - [int][char]'0'
+        if ($n -ge 1 -and $n -le $dirs.Count) { break }
+    }
+    Set-Location -LiteralPath $dirs[$n - 1]
+}
+
 # --- 4. THE PROMPT (Path + Git + Telemetry) ---
 function prompt {
+    Update-DirHistory
     $realPath = $ExecutionContext.SessionState.Path.CurrentLocation.ProviderPath
     $displayPath = $realPath.Replace('\', '/').Replace($HOME.Replace('\', '/'), "~")
     if (!$displayPath.EndsWith('/')) { $displayPath += '/' }

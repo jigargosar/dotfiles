@@ -3,4 +3,13 @@ README.md
 **/*.bak
 **/.remember
 **/.idea/
-.claude/skills/synced/
+**/.trash/
+**/node_modules/
+**/vendor/
+**/build/
+**/dist/
+**/target/
+**/.gradle/
+**/venv/
+**/env/
+**/.venv/

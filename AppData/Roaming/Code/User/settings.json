@@ -89,7 +89,7 @@
   "vim.showMarksInGutter": true,
   "vim.smartRelativeLine": true,
   "vim.targets.enable": true,
-  "claudeCode.focusView": false,
+  "claudeCode.focusView": true,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features",
 },
@@ -103,4 +103,11 @@
 "prettier.singleQuote": true,
 "prettier.tabWidth": 4,
 "diffEditor.hideUnchangedRegions.enabled": true,
+"[yaml]": {
+  "editor.defaultFormatter": "redhat.vscode-yaml"
+},
+"workbench.editorAssociations": {
+  "*.copilotmd": "vscode.markdown.preview.editor",
+  "*.md": "vscode.markdown.preview.editor"
+},
 }

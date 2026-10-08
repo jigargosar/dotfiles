@@ -111,11 +111,13 @@ function prompt {
         $global:StartTime = $null
     }
 
-    Write-Host "$displayPath" -ForegroundColor Cyan -NoNewline
+    Write-Host "$([char]0x250C) $displayPath" -ForegroundColor Cyan -NoNewline
     if ($gitBlock) { Write-Host $gitBlock -ForegroundColor $statusColor -NoNewline }
 
-    return "`n> "
+    return "`n$([char]0x2514) $([char]0x03BB) "
 }
+
+Set-PSReadLineOption -ContinuationPrompt "  $([char]0x2502) "
 
 
 # --- BEGIN: Remove conflicting aliases for Git usr\bin ---
@@ -173,6 +175,22 @@ function global:ep  { code $PROFILE }
 function global:ex  { explorer . }
 function global:ws  { webstorm64.exe . }
 function global:zt  { Set-Location ~/projects/tmp }
+
+# pst: overwrite a file (relative or absolute path) with the clipboard contents
+function global:pst {
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Path
+    )
+
+    $target = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)
+    $content = Get-Clipboard -Raw
+
+    if ($null -eq $content) { throw "Clipboard is empty" }
+
+    Set-Content -LiteralPath $target -Value $content -NoNewline -Encoding utf8NoBOM
+}
 
 
 

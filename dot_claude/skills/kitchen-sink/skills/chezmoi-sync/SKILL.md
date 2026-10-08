@@ -6,42 +6,51 @@ user-invocable: true
 model: inherit
 ---
 
-Include every file from chezmoi status, not just ones related to the current task.
+# Rules
 
-Run Workflow: Sync, then Workflow: Re-add.
+- Run in Bash, not PowerShell. Run commands exactly as written (don't split `&&` chains) and show each output verbatim before the next.
+- Never run `chezmoi apply` — it overwrites target files with source state, causing data loss.
+- STOP means: stop and ask the user how to proceed. Never continue automatically.
 
-# Workflow: Sync
+# Commands
 
-1. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — show output verbatim, do not reformat. Empty section means clean.
+Status check:
 
-2. If git status is not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
-3. Show output before running next command
-4. Run `chezmoi diff > /dev/null 2>&1` with run_in_background: true. Then STOP and wait for the background task's completion notification — do not re-run the command or poll for it. If the reported exit code is not 0, STOP immediately, ask user how to proceed — NEVER proceed automatically
-5. Split files from `chezmoi status` by first letter:
-   - First letter D → run `chezmoi forget --force <target-paths>`
-   - Anything else → run `chezmoi add <files>`
-6. Run: `chezmoi git -- add <all-source-files...> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
-7. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
+```bash
+chezmoi status && echo "==GIT==" && chezmoi git -- status -sb
+```
 
-# Workflow: Re-add
+Empty chezmoi section and no file lines in git section means clean.
 
-8. Use AskUserQuestion to ask: "Do you want to re-add these directories?"
-   Options: "Yes" (re-add all), "No" (skip and finish)
-   If yes, run `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/`
-9. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if both clean, done
-10. Run: `chezmoi git -- add <all-source-files...> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags`
-11. Run `chezmoi status && echo "==GIT==" && chezmoi git -- status -s` — if not clean, STOP immediately, ask user how to proceed — NEVER proceed automatically
+Commit & push:
 
-# Notes
+```bash
+chezmoi git -- add <source-files...> && chezmoi git -- commit -m "<concise message from context>" && chezmoi git -- push --follow-tags
+```
 
-- NEVER use `chezmoi apply` — it overwrites target files with source state, causing complete data loss.
-- Run commands EXACTLY as written — do not split chained (&&) commands into separate calls
-- Always show output before running next command
-- Use explicit file names from status output, never use `-A` or `.`
-- Target paths passed to `chezmoi add`/`chezmoi forget` must be absolute or `~`-prefixed, never bare-relative — the agent's shell cwd may not be `$HOME`, and a bare relative path resolves against cwd, not `$HOME`.
-- Source files use chezmoi naming (e.g., `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`)
-- For deleted files (first letter D): use `chezmoi forget --force <target-path>` to remove from source without interactive prompt
-- `chezmoi git` command options need double hyphen, otherwise chezmoi will pick it up and cause errors
-- **These commands must be run in Bash, not PowerShell** — PowerShell path handling differs and is not covered here.
-- Empty dirs: `chezmoi add` on an empty directory auto-creates a `.keep` in source. Git can't store empty dirs; chezmoi ignores dot-prefixed source entries. Nothing to create by hand.
-- Paths with spaces: use partial quoting — quote only the space-containing segment, leaving `~` unquoted: `~/AppData/Roaming/"Code - Insiders"/User/settings.json`. This applies to all chezmoi and `chezmoi git --` commands.
+- List source files explicitly by chezmoi name (e.g. `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`); never `-A` or `.`.
+- `chezmoi git` needs `--` before git options, otherwise chezmoi parses them and errors.
+
+# Workflow
+
+1. Run Status check and STOP if:
+   1. git section has file lines, or branch line shows `[ahead N]` / `[behind N]`
+   2. chezmoi section lists more than 20 files
+2. Run `chezmoi diff > /dev/null 2>&1` with `run_in_background: true` and STOP if:
+   1. exit code is not 0 (wait for the completion notification; don't re-run or poll)
+3. For every file in chezmoi section (not just ones related to the current task):
+   1. Use absolute or `~`-prefixed paths; shell cwd may not be `$HOME`.
+   2. Quote only the segment with spaces: `~/AppData/Roaming/"Code - Insiders"/User/settings.json`
+   3. First letter `D` → `chezmoi forget --force <path>`
+   4. Anything else → `chezmoi add <path>`
+4. Run Commit & push.
+5. Run Status check and STOP if:
+   1. not clean
+6. AskUserQuestion: "Do you want to re-add these directories?" with options "Yes" / "No".
+   1. No → done.
+   2. Yes → `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/` (empty dirs get a `.keep` automatically)
+7. Run Status check.
+   1. Clean → done.
+8. Run Commit & push.
+9. Run Status check and STOP if:
+   1. not clean

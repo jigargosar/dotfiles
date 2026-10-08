@@ -159,7 +159,7 @@
     "defaultMode": "default",
     "additionalDirectories": []
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "enableAllProjectMcpServers": false,
   "skillOverrides": {
     "claude-api": "off",
@@ -176,16 +176,6 @@
           }
         ]
       }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/jigar/.claude/hooks/context-mode-cache-heal.mjs\""
-          }
-        ]
-      }
     ]
   },
   "worktree": {
@@ -198,25 +188,30 @@
     "command": "pwsh.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/jigar/.claude/statusline.ps1"
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": false,
-    "frontend-design@claude-plugins-official": false,
-    "context7@claude-plugins-official": false,
-    "code-simplifier@claude-plugins-official": false,
-    "superpowers@claude-plugins-official": false,
-    "claude-md-management@claude-plugins-official": false,
-    "claude-code-setup@claude-plugins-official": false,
-    "hookify@claude-plugins-official": false,
-    "serena@claude-plugins-official": false,
-    "typescript-lsp@claude-plugins-official": false,
-    "ralph-loop@claude-plugins-official": false,
-    "chrome-devtools-mcp@claude-plugins-official": false,
-    "playwright@claude-plugins-official": false,
-    "mattpocock-skills@claude-plugins-official": false,
-    "ui-theme-designer@claude-plugins-official": false,
-    "agents-md@builtin": false,
-    "telemetry@builtin": false
+    "telemetry@builtin": false,
+    "frontend-design@anthropic-plugin-directory": true,
+    "skill-creator@anthropic-plugin-directory": false,
+    "cc-plugin-agents-md@builtin": false,
+    "cc-plugin-you-should-know@builtin": false,
+    "cc-plugin-diff@builtin": false,
+    "cc-plugin-plugin-authoring@builtin": false,
+    "impeccable@impeccable": true,
+    "foldkit-skills@foldkit": true
   },
-  "extraKnownMarketplaces": {},
+  "extraKnownMarketplaces": {
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
+    },
+    "foldkit": {
+      "source": {
+        "source": "github",
+        "repo": "foldkit/foldkit"
+      }
+    }
+  },
   "outputStyle": "Concise",
   "feedbackDrafts": "notify",
   "syntaxHighlightingDisabled": false,
@@ -242,7 +237,7 @@
     "mode": "tap"
   },
   "timeFormat": "12-hour",
-  "autoMemoryEnabled": true,
+  "autoMemoryEnabled": false,
   "autoDreamEnabled": false,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": false,

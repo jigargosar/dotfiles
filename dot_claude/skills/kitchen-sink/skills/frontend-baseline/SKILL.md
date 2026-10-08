@@ -1,5 +1,6 @@
 ---
 name: frontend-baseline
+disable-model-invocation: true
 description: >
   Visual baseline for UI work — contrast, color,
   typography, hierarchy, target sizes, overflow,

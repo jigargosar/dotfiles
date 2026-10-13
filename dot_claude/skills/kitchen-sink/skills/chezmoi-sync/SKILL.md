@@ -46,7 +46,7 @@ chezmoi git -- add <source-files...> && chezmoi git -- commit -m "<concise messa
 4. Run Commit & push.
 5. Run Status check and STOP if:
    1. not clean
-6. AskUserQuestion: "Do you want to re-add these directories?" with options "Yes" / "No".
+6. AskUserQuestion: "Do you want to re-add these directories?" with options "Yes (Recommended)" / "No".
    1. No → done.
    2. Yes → `chezmoi add ~/.claude/skills/ ~/.claude/commands/ ~/.claude/agents/ ~/.claude/rules/ ~/.claude/output-styles/` (empty dirs get a `.keep` automatically)
 7. Run Status check.

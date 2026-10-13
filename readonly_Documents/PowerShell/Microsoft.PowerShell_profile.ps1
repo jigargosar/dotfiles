@@ -59,12 +59,12 @@ function Update-DirHistory {
         Set-Content $global:DirHistoryFile
 }
 
-# cdh: list the 5 most recently visited dirs (excluding current), pick by number
+# cdh: list the 9 most recently visited dirs (excluding current), pick by number
 function global:cdh {
     $cur = $ExecutionContext.SessionState.Path.CurrentLocation.ProviderPath
     $dirs = @(Get-Content $global:DirHistoryFile |
         Where-Object { $_ -ne $cur -and (Test-Path -LiteralPath $_) } |
-        Select-Object -First 5)
+        Select-Object -First 9)
     if (-not $dirs) { Write-Host "No recent directories."; return }
     for ($i = 0; $i -lt $dirs.Count; $i++) { Write-Host ("{0}  {1}" -f ($i + 1), $dirs[$i]) }
     Write-Host "Pick 1-$($dirs.Count), Esc to cancel"

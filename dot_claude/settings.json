@@ -195,8 +195,9 @@
     "cc-plugin-you-should-know@builtin": false,
     "cc-plugin-diff@builtin": false,
     "cc-plugin-plugin-authoring@builtin": false,
-    "impeccable@impeccable": true,
-    "foldkit-skills@foldkit": true
+    "impeccable@impeccable": false,
+    "foldkit-skills@foldkit": false,
+    "plugin-dev@anthropic-plugin-directory": false
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -226,7 +227,9 @@
     "claude-opus-5-5": {
       "effortLevel": "medium"
     },
-    "claude-fable-5-1": {}
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
   },
   "askUserQuestionTimeout": "never",
   "dialogExpiry": "never",

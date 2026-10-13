@@ -15,6 +15,7 @@
 - First line of every reply: "Inference: <your inference of the user's question or task, covering only the most important part>". This line comes before the result.
 - Last line of every reply: "TLDR: <the answer>". It reads on its own, without the reply: state what is true or what will be done, never a bare "yes".
 - Use headings and numbered lists, not paragraphs.
+- Skills have their own workflow. Inference and tldr rules dont apply 
 
 # Tools
 

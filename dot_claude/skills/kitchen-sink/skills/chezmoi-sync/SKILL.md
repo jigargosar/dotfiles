@@ -42,7 +42,7 @@ chezmoi git -- add <source-files...> && chezmoi git -- commit -m "<concise messa
    1. Use absolute or `~`-prefixed paths; shell cwd may not be `$HOME`.
    2. Quote only the segment with spaces: `~/AppData/Roaming/"Code - Insiders"/User/settings.json`
    3. First letter `D` → `chezmoi forget --force <path>`
-   4. Anything else → `chezmoi add <path>`
+   4. Anything else → `chezmoi add <paths ...>`
 4. Run Commit & push.
 5. Run Status check and STOP if:
    1. not clean

@@ -110,4 +110,8 @@
   "*.copilotmd": "vscode.markdown.preview.editor",
   "*.md": "vscode.markdown.preview.editor"
 },
+"markdown.preview.doubleClickToSwitchToEditor": true,
+"markdown.preview.markEditorSelection": true,
+"diffEditor.experimental.showMoves": true,
+"diffEditor.experimental.useTrueInlineView": true,
 }

@@ -1,6 +1,8 @@
 # ==============================================================================
 # FULL POWERSHELL PROFILE (Global Lazy Loading)
 # ==============================================================================
+# NOTE: Import-Cached writes each cache file once and never refreshes it.
+# After upgrading zoxide or chezmoi, delete the matching file in $HOME\.cache\pwsh to regenerate it.
 
 $global:StartTime = [datetime]::UtcNow
 
@@ -11,6 +13,7 @@ if (!(Test-Path $cacheDir)) { New-Item -ItemType Directory -Path $cacheDir -Forc
 function Import-Cached {
     param($Name, $Command)
     $cacheFile = "$cacheDir\$Name.ps1"
+    # Cache is written once. Delete the file to regenerate after an upgrade.
     if (!(Test-Path $cacheFile)) { Invoke-Expression $Command | Out-File $cacheFile }
     . $cacheFile
 }
@@ -133,7 +136,6 @@ Get-ChildItem "C:\Program Files\Git\usr\bin" -Filter *.exe |
 
 # --- END: Remove conflicting aliases for Git usr\bin ---
 
-# Vim Mode Toggle
 # ── Vi Mode Toggle ───────────────────────────────────────────
 function Toggle-VimMode {
     $current = (Get-PSReadLineOption).EditMode
@@ -175,6 +177,7 @@ function global:ep  { code $PROFILE }
 function global:ex  { explorer . }
 function global:ws  { webstorm64.exe . }
 function global:zt  { Set-Location ~/projects/tmp }
+function global:mkcd { param([Parameter(Mandatory)][string] $Path); if (Test-Path -LiteralPath $Path -PathType Leaf) { throw "'$Path' is a file" }; New-Item -ItemType Directory -Path $Path -Force | Out-Null; Set-Location -LiteralPath $Path }
 
 # pst: overwrite a file (relative or absolute path) with the clipboard contents
 function global:pst {
@@ -209,12 +212,6 @@ $PriorityPaths = @(
 # =========================================================
 $AllPaths = $PriorityPaths + $env:Path.Split(';')
 $env:Path = ($AllPaths | Select-Object -Unique) -join ';'
-
-
-# Ambitous quick append to profile, with various bugs, better is easy edit
-# function global:ap { $input | ForEach-Object { Add-Content $PROFILE "`n$_" }; if ($args) { Add-Content $PROFILE "`n$args" }; . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green }
-# function global:ap { $input | ForEach-Object { Add-Content $PROFILE "`n$_"; $last=$_; try { . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $c[-1]="# $last [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; . $PROFILE; Write-Warning "Syntax Error! Last line commented out." } }; if ($args) { Add-Content $PROFILE "`n$args"; try { . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $c[-1]="# $args [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; . $PROFILE; Write-Warning "Syntax Error! Last line commented out." } } }
-# function global:ap { $lines=@(); $input | ForEach-Object { $lines+=$_; Add-Content $PROFILE "`n$_" }; if ($args) { $lines+=$args; Add-Content $PROFILE "`n$args" }; try { $ErrorActionPreference='Stop'; . $PROFILE; Write-Host "Added & Reloaded!" -ForegroundColor Green } catch { $c=(Get-Content $PROFILE); $count=$lines.Count; for($i=1; $i -le $count; $i++) { $c[-$i]="# $($c[-$i])" }; $c[-1]+=" [FAILED: $($_.Exception.Message)]"; $c | Out-File $PROFILE; $ErrorActionPreference='Continue'; . $PROFILE; Write-Warning "Syntax Error detected! The inserted block was safely commented out." } }
 
 # Fixes wsl encoding
 $env:WSL_UTF8 = 1

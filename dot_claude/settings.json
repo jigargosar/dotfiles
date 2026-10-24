@@ -195,9 +195,10 @@
     "cc-plugin-you-should-know@builtin": false,
     "cc-plugin-diff@builtin": false,
     "cc-plugin-plugin-authoring@builtin": false,
-    "impeccable@impeccable": false,
     "foldkit-skills@foldkit": false,
-    "plugin-dev@anthropic-plugin-directory": false
+    "plugin-dev@anthropic-plugin-directory": false,
+    "context7@anthropic-plugin-directory": true,
+    "i-have-adhd@i-have-adhd": false
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -210,6 +211,12 @@
       "source": {
         "source": "github",
         "repo": "foldkit/foldkit"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
       }
     }
   },
@@ -228,6 +235,9 @@
       "effortLevel": "high"
     },
     "claude-fable-5-1": {
+      "effortLevel": "xhigh"
+    },
+    "claude-fable-5": {
       "effortLevel": "xhigh"
     }
   },
@@ -255,6 +265,7 @@
   "autoScrollEnabled": true,
   "fileCheckpointingEnabled": true,
   "remoteControlAtStartup": false,
+  "crossSessionInbound": "accept",
   "inputNeededNotifEnabled": false,
   "agentPushNotifEnabled": false,
   "useAutoModeDuringPlan": false,

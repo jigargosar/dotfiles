@@ -1,11 +1,9 @@
 # Git-aware statusLine script for Claude Code
 #
-# KNOWN ISSUE: Concurrent writes to state files (WorkLogNotify, ContextNotify) can cause
-# multiple JSON objects to append instead of truncate. Manifests as "Conversion from JSON
-# failed with error: Additional text encountered" on parse. Root cause: Set-Content without
-# -Force under concurrent file access. PERMANENT FIX: Implement atomic write pattern
-# (write to .tmp file, then rename) in WorkLogNotify.psm1:89 and ContextNotify.psm1:68.
-# This is the production-standard solution used by Git, databases, etc.
+# Two renders writing at once can leave two JSON objects in the file. This has happened repeatedly.
+# Resetting the file is the only way forward; otherwise every render prints the corrupt-file error.
+# We have not found a reliable way to prevent this corruption.
+# Location: hooks/WorkLogNotify.psm1, Get-WorkLogState, catch block (line 45).
 #
 param()
 

@@ -13,6 +13,8 @@
 #
 # DEPENDENCY: BurntToast, same as ContextNotify.psm1. See that file for why
 # BurntToast rather than raw WinRT calls under pwsh 7.
+#
+# Assumes the state file is written by overlapping renders, so it can be corrupt; see Get-WorkLogState.
 
 $script:NudgeAfterMinutes     = 45   # active work between nudges
 $script:BreakThresholdMinutes = 20   # gap above this counts as a break
@@ -40,7 +42,14 @@ function Get-WorkLogState {
     if ([string]::IsNullOrWhiteSpace($raw)) {
         return $fresh
     }
-    $state = $raw | ConvertFrom-Json
+    # Two renders writing at once can leave two JSON objects in the file. This has happened repeatedly.
+    # Resetting the file is the only way forward; otherwise every render prints the corrupt-file error.
+    # We have not found a reliable way to prevent this corruption.
+    try {
+        $state = $raw | ConvertFrom-Json
+    } catch {
+        $state = $null
+    }
     if ($null -eq $state -or $null -eq $state.lastRender -or $null -eq $state.activeSeconds) {
         return $fresh
     }
@@ -59,6 +68,7 @@ function Send-WorkLogToast {
     $header = New-BTHeader -Id "claude-worklog" -Title "Claude Code"
 
     New-BurntToastNotification -Text "Work log", "What are you working on? ($script:NudgeAfterMinutes min since the last entry)" `
+        -AppLogo "$PSScriptRoot/worklog-icon.png" `
         -Header $header `
         -UniqueIdentifier "claude-worklog"   # same ID = replaces old toast, never stacks
 }

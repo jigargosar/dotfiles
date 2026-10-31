@@ -177,6 +177,7 @@ function global:ep  { code $PROFILE }
 function global:ex  { explorer . }
 function global:ws  { webstorm64.exe . }
 function global:zt  { Set-Location ~/projects/tmp }
+function global:pk { param([Parameter(Mandatory)][int]$port) $id = (Get-NetTCPConnection -LocalPort $port -EA 0).OwningProcess | ? {$_ -gt 0} | Select -First 1; if (-not $id) { "Not found."; return }; $p = Get-Process -Id $id; $p.Kill($true); if ($p.WaitForExit(5000)) { "Hard killed." } else { throw "Kill failed." } }
 function global:mkcd { param([Parameter(Mandatory)][string] $Path); if (Test-Path -LiteralPath $Path -PathType Leaf) { throw "'$Path' is a file" }; New-Item -ItemType Directory -Path $Path -Force | Out-Null; Set-Location -LiteralPath $Path }
 
 # pst: overwrite a file (relative or absolute path) with the clipboard contents

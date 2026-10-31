@@ -136,7 +136,6 @@
     "deny": [
       "Bash(chezmoi apply*)",
       "Bash(chezmoi destroy*)",
-      "Bash(powershell*)",
       "Agent",
       "Bash(git add .)",
       "Bash(git add -A*)",
@@ -241,6 +240,7 @@
       "effortLevel": "xhigh"
     }
   },
+  "promptSuggestionEnabled": false,
   "askUserQuestionTimeout": "never",
   "dialogExpiry": "never",
   "autoUpdatesChannel": "latest",
@@ -263,7 +263,7 @@
   "switchModelsOnFlag": true,
   "autoContinueAtUsageLimit": false,
   "autoScrollEnabled": true,
-  "fileCheckpointingEnabled": true,
+  "fileCheckpointingEnabled": false,
   "remoteControlAtStartup": false,
   "crossSessionInbound": "accept",
   "inputNeededNotifEnabled": false,
@@ -277,5 +277,6 @@
       "curl: allowed, only when its output etc. never enter our context. and are redirected to a file."
     ]
   },
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "enableArtifact": false
 }

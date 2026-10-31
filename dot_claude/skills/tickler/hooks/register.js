@@ -1,7 +1,7 @@
-import { addHours, differenceInCalendarDays, format, isAfter, isWithinInterval, set, subDays } from './vendor/date-fns-4.1.0.js'
+import { addHours, differenceInCalendarDays, differenceInMinutes, format, isAfter, isWithinInterval, set, subDays } from './vendor/date-fns-4.1.0.js'
 
 // A reminder shows for this long after its start time
-const EXPIRE_HOURS = 6
+const EXPIRE_HOURS = 12
 
 // Every tool that changes a reminder asks the user first
 const CONFIRM = 'First ask the user to confirm with AskUserQuestion, and call only after they do.'
@@ -48,6 +48,30 @@ function describe(reminder) {
   return `${reminder.emoji} "${todaysQuestion(reminder)}" daily at ${startTime(reminder)}`
 }
 
+// How the model writes the reminder at the start of its reply. It sits in the system prompt, so it is sent once and cached,
+// and each prompt carries only the short "Tickler:" line.
+const GUIDANCE = `# Tickler reminders
+
+When a prompt carries a "Tickler:" line, open your reply with a reminder for that task, then answer the prompt. The user reads the top of each reply, so the reminder is the break that gets the task done.
+
+- Make each one look different from the last. A reminder that looks the same fades after the second time.
+- Usually write prose: a tiny story, an odd fact, a quote or a specific tip, tied to the task and the time of day. Weave in emojis that mean something, at the start, the end and in between.
+- Now and then go grand: ASCII art or an emoji picture that fills half the screen, with a line of prose inside if it fits. Put art in a code block so it stays monospace. A reminder of one or two words must look grand.
+- Suggest, never command, as in "perhaps" or "would you like to". Carrot, not stick. No clichés.
+- Give the time since the start plainly, as in "1 h 40 m". Never say it has been waiting.
+- Outside code blocks, separate lines with a blank line, since markdown joins single lines. Skip emoji boxes with a right edge, since emoji widths don't line up.`
+
+function elapsed(reminder) {
+  const minutes = differenceInMinutes(new Date(), lastStart(reminder.time, new Date()))
+  return minutes < 60 ? `${minutes} m` : `${Math.floor(minutes / 60)} h ${minutes % 60} m`
+}
+
+// More reminders per encounter get less response, so only the oldest pending one
+function replyContext(showing) {
+  const [oldest] = showing.toSorted((a, b) => lastStart(a.time, new Date()) - lastStart(b.time, new Date()))
+  return `Tickler: ${oldest.emoji} "${todaysQuestion(oldest)}" pending ${elapsed(oldest)}.`
+}
+
 // Accepts HH:MM from Claude and stores HH:MM:SS
 function fullTime(time) {
   return time.length === 5 ? time + ':00' : time
@@ -74,6 +98,10 @@ const TIME = { type: 'string', pattern: '^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$
 const TEXT = { type: 'string', minLength: 1 }
 const VARIANTS = { type: 'array', items: { type: 'string' }, minItems: 3, maxItems: 3, description: '3 other phrasings of the question, shown in rotation one per day' }
 const ID = { type: 'string', description: 'The reminder id, from the list tool' }
+
+// When a prompt last carried a reminder. Kept per session, and a reload starts it over.
+const REMINDER_GAP_MS = 15 * 60 * 1000
+let lastReminderAt = 0
 
 // Set when session start fails, so the band can say why the tools are missing
 let startError = null
@@ -190,6 +218,27 @@ export function register(on) {
     $.ui.invalidate('ui.render')
     return { result: `Archived ${describe(reminder)}` }
   }).catch(answerWithError)
+
+  on('prompt.compose', async ($, e, next) => {
+    const { sections } = await next(e)
+    return { sections: [...sections, { id: 'tickler:reminders', text: GUIDANCE, scope: 'session' }] }
+  }).catch(async ($, e, next) => {
+    // The system prompt goes without the guidance. The band still shows the reminder.
+    return next(e)
+  })
+
+  // At most once every 15 minutes, so the reminder stays a surprise and not a fixture
+  on('prompt.submit', async ($, e, next) => {
+    if (Date.now() - lastReminderAt < REMINDER_GAP_MS) return next(e)
+    const showing = (await loadReminders($)).filter(isShowing)
+    if (showing.length === 0) return next(e)
+    lastReminderAt = Date.now()
+    return next({ ...e, context: [...(e.context ?? []), replyContext(showing)] })
+  }).catch(async ($, e, next) => {
+    // The prompt still goes, and the model learns why the reminder is missing
+    if (next.called) return next(e)
+    return next({ ...e, context: [...(e.context ?? []), `Tickler failed to load reminders: ${next.error.message}`] })
+  })
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     if (startError) return warning($, e, startError)

@@ -180,6 +180,7 @@
   "worktree": {
     "baseRef": "head"
   },
+  "enableArtifact": false,
   "enableWorkflows": false,
   "workflowKeywordTriggerEnabled": false,
   "statusLine": {
@@ -188,16 +189,13 @@
   },
   "enabledPlugins": {
     "telemetry@builtin": false,
-    "frontend-design@anthropic-plugin-directory": true,
-    "skill-creator@anthropic-plugin-directory": false,
     "cc-plugin-agents-md@builtin": false,
     "cc-plugin-you-should-know@builtin": false,
     "cc-plugin-diff@builtin": false,
     "cc-plugin-plugin-authoring@builtin": false,
-    "foldkit-skills@foldkit": false,
-    "plugin-dev@anthropic-plugin-directory": false,
     "context7@anthropic-plugin-directory": true,
-    "i-have-adhd@i-have-adhd": false
+    "i-have-adhd@i-have-adhd": true,
+    "modern-web-guidance@googlechrome": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -206,16 +204,16 @@
         "repo": "pbakaus/impeccable"
       }
     },
-    "foldkit": {
-      "source": {
-        "source": "github",
-        "repo": "foldkit/foldkit"
-      }
-    },
     "i-have-adhd": {
       "source": {
         "source": "github",
         "repo": "ayghri/i-have-adhd"
+      }
+    },
+    "googlechrome": {
+      "source": {
+        "source": "github",
+        "repo": "GoogleChrome/modern-web-guidance"
       }
     }
   },
@@ -275,8 +273,38 @@
       "Github private repositories: allow git add for less than 10 files. commit and push --follow-tags",
       "gh tool: allow readonly operations",
       "curl: allowed, only when its output etc. never enter our context. and are redirected to a file."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(rclone:purge*) in this repo or home directory — mass-delete via rclone is destructive and rclone appears routinely (7×) in usage",
+      "Bash(taskkill:*//F*) against processes not started by the current test session — frequent (5×) but risks killing unrelated work per CLAUDE.md's own 'kill only what this session started' caveat"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: PUBLIC — jigargosar/claude-cli-browser-terminal (confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: main (default); no rulesets or branch protection listed via gh",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: The trusted repo (jigargosar/claude-cli-browser-terminal) and its origin remote only",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (browser-based terminal wrapper for Claude Code; DX tooling)",
+      "**Trusted repo**: C:\\Users\\jigar\\projects\\claude-cli-browser-terminal (origin: https://github.com/jigargosar/claude-cli-browser-terminal.git) — PUBLIC, so only this repo's own work belongs here; secrets and sensitive data are never cleared in regardless of visibility",
+      "**Org-specific CLIs**: None configured — project uses pnpm, chezmoi, rclone, scoop, and platform tools (powershell/pwsh/cmd/netstat/taskkill/tasklist/netsh/reg) routinely per shell history and in-project usage"
     ]
   },
-  "voiceEnabled": true,
-  "enableArtifact": false
+  "voiceEnabled": true
 }

@@ -54,6 +54,8 @@ const GUIDANCE = `# Tickler reminders
 
 When a prompt carries a "Tickler:" line, open your reply with a reminder for that task, then answer the prompt. The user reads the top of each reply, so the reminder is the break that gets the task done.
 
+- When the line lists several reminders, combine them into one header. You have full creative freedom in how.
+
 - Make each one look different from the last. A reminder that looks the same fades after the second time.
 - Usually write prose: a tiny story, an odd fact, a quote or a specific tip, tied to the task and the time of day. Weave in emojis that mean something, at the start, the end and in between.
 - Now and then go grand: ASCII art or an emoji picture that fills half the screen, with a line of prose inside if it fits. Put art in a code block so it stays monospace. A reminder of one or two words must look grand.
@@ -66,10 +68,16 @@ function elapsed(reminder) {
   return minutes < 60 ? `${minutes} m` : `${Math.floor(minutes / 60)} h ${minutes % 60} m`
 }
 
-// More reminders per encounter get less response, so only the oldest pending one
+// The band's compact form, as in "6h 32m"
+function shortElapsed(reminder) {
+  const minutes = differenceInMinutes(new Date(), lastStart(reminder.time, new Date()))
+  return minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`
+}
+
+// Every pending reminder, oldest first, so Claude can combine them in one header
 function replyContext(showing) {
-  const [oldest] = showing.toSorted((a, b) => lastStart(a.time, new Date()) - lastStart(b.time, new Date()))
-  return `Tickler: ${oldest.emoji} "${todaysQuestion(oldest)}" pending ${elapsed(oldest)}.`
+  const oldestFirst = showing.toSorted((a, b) => lastStart(a.time, new Date()) - lastStart(b.time, new Date()))
+  return `Tickler: ${oldestFirst.map((r) => `${r.emoji} "${todaysQuestion(r)}" pending ${elapsed(r)}`).join('; ')}.`
 }
 
 // Accepts HH:MM from Claude and stores HH:MM:SS
@@ -86,6 +94,12 @@ async function store($, ...args) {
 
 async function loadReminders($) {
   return JSON.parse(await store($, 'list'))
+}
+
+// Shared by the done tool and the band's Done button
+async function markDone($, reminder) {
+  await store($, 'done', reminder.id, startDay(reminder))
+  $.ui.invalidate('ui.render')
 }
 
 // Claude Code skips a hook that throws, so its error never reaches Claude or the band. A .catch answers with it instead.
@@ -187,8 +201,7 @@ export function register(on) {
   on('tool.call', { tool: 'mcp__tickler__done' }, async ($, e) => {
     const reminder = (await loadReminders($)).find((r) => r.id === e.id && isShowing(r))
     if (!reminder) return { result: `No reminder with id "${e.id}" is showing now.` }
-    await store($, 'done', reminder.id, startDay(reminder))
-    $.ui.invalidate('ui.render')
+    await markDone($, reminder)
     return { result: `Done ${reminder.emoji} ${startTime(reminder)}` }
   }).catch(answerWithError)
 
@@ -244,7 +257,7 @@ export function register(on) {
     if (startError) return warning($, e, startError)
     const showing = (await loadReminders($)).filter(isShowing)
     if (showing.length === 0) return next(e)
-    const { Box, Text } = $.ui.resolve(e)
+    const { Box, Text, Button } = $.ui.resolve(e)
     return Box({
       flexDirection: 'column',
       children: showing.map((r) =>
@@ -253,8 +266,25 @@ export function register(on) {
           flexDirection: 'row',
           justifyContent: 'space-between',
           children: [
-            Text({ children: [`${r.emoji}  ${todaysQuestion(r)}`] }),
-            Text({ dimColor: true, children: [startTime(r)] }),
+            // Fixed-width time since first, so every question starts at the same column
+            Box({
+              flexDirection: 'row',
+              gap: 3,
+              children: [
+                Text({ dimColor: true, children: [shortElapsed(r).padStart(7)] }),
+                Text({ children: [`${r.emoji}  ${todaysQuestion(r)}`] }),
+              ],
+            }),
+            // Fixed-width start time beside Done, so the right side lines up too
+            Box({
+              flexDirection: 'row',
+              gap: 2,
+              children: [
+                Text({ dimColor: true, children: [startTime(r).padStart(8)] }),
+                // The user's own press, so it needs no confirmation. No digit hotkey: a "1" typed as a reply would mark it done.
+                Button({ key: `done-${r.id}`, label: 'Done', onPress: () => markDone($, r) }),
+              ],
+            }),
           ],
         }),
       ),

@@ -16,5 +16,7 @@
         "noFallthroughCasesInSwitch": true,
         "preserveWatchOutput": true
     },
-    "include": ["src"]
+    "include": [
+      "src"
+    ]
 }

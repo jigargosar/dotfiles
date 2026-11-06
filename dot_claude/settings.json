@@ -195,7 +195,9 @@
     "cc-plugin-plugin-authoring@builtin": false,
     "context7@anthropic-plugin-directory": true,
     "i-have-adhd@i-have-adhd": true,
-    "modern-web-guidance@googlechrome": true
+    "modern-web-guidance@googlechrome": true,
+    "active-memory@anthropic-plugin-directory": true,
+    "frontend-design@anthropic-plugin-directory": true
   },
   "extraKnownMarketplaces": {
     "impeccable": {
@@ -241,6 +243,10 @@
   "promptSuggestionEnabled": false,
   "askUserQuestionTimeout": "never",
   "dialogExpiry": "never",
+  "pluginConfigs": {},
+  "remote": {
+    "defaultEnvironmentId": "env_0142R48EuB5Qc1KWnVKyVEU7"
+  },
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "voice": {

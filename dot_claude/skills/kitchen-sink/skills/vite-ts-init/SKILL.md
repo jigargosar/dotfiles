@@ -5,6 +5,7 @@ user-invocable: true
 model: inherit
 allowed-tools: AskUserQuestion, Skill(git-init)
 disable-model-invocation: false
+version: 0.0.1
 ---
 
 ## Approach

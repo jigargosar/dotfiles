@@ -4,6 +4,7 @@ description: Sync chezmoi-managed target files back to source and push to remote
 disable-model-invocation: true
 user-invocable: true
 model: inherit
+version: 0.0.1
 ---
 
 # Rules
@@ -31,12 +32,20 @@ chezmoi git -- add <source-files...> && chezmoi git -- commit -m "<concise messa
 - List source files explicitly by chezmoi name (e.g. `dot_claude/CLAUDE.md` for `~/.claude/CLAUDE.md`); never `-A` or `.`.
 - `chezmoi git` needs `--` before git options, otherwise chezmoi parses them and errors.
 
+Diff:
+
+```bash
+chezmoi diff > /dev/null 2>&1
+```
+
+- Observation: `diff.command` is `code` in `~/.config/chezmoi/chezmoi.toml`. The diff opens in VS Code. No diff text comes back to the shell.
+
 # Workflow
 
 1. Run Status check and STOP if:
    1. git section has file lines, or branch line shows `[ahead N]` / `[behind N]`
    2. chezmoi section lists more than 20 files
-2. Run `chezmoi diff > /dev/null 2>&1` with `run_in_background: true` and STOP if:
+2. Run Diff with `run_in_background: true` and STOP if:
    1. exit code is not 0 (wait for the completion notification; don't re-run or poll)
 3. For every file in chezmoi section (not just ones related to the current task):
    1. Use absolute or `~`-prefixed paths; shell cwd may not be `$HOME`.

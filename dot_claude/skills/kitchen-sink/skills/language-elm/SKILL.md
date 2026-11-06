@@ -6,6 +6,7 @@ user-invocable: false
 disable-model-invocation: false
 paths: ["**/*.elm"]
 model: haiku
+version: 0.0.1
 ---
 
 ## Packages

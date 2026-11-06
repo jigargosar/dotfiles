@@ -62,22 +62,52 @@ function Update-DirHistory {
         Set-Content $global:DirHistoryFile
 }
 
-# cdh: list the 9 most recently visited dirs (excluding current), pick by number
+# cdh: recent dirs in recency order (current dir excluded, max 18), 9 per view, 0 toggles view
 function global:cdh {
     $cur = $ExecutionContext.SessionState.Path.CurrentLocation.ProviderPath
     $dirs = @(Get-Content $global:DirHistoryFile |
         Where-Object { $_ -ne $cur -and (Test-Path -LiteralPath $_) } |
-        Select-Object -First 9)
+        Select-Object -First 18)
     if (-not $dirs) { Write-Host "No recent directories."; return }
-    for ($i = 0; $i -lt $dirs.Count; $i++) { Write-Host ("{0}  {1}" -f ($i + 1), $dirs[$i]) }
-    Write-Host "Pick 1-$($dirs.Count), Esc to cancel"
+    $canToggle = $dirs.Count -gt 9
+    $width = [Math]::Max(1, [Console]::WindowWidth - 1)
+    $offset = 0
+    $drawn = $false
+    $top = 0
     while ($true) {
+        $view = @($dirs | Select-Object -Skip $offset -First 9)
+        $hint = if ($canToggle) { "0 toggle, " } else { "" }
+        $lines = @()
+        for ($i = 0; $i -lt 9; $i++) {
+            $lines += if ($i -lt $view.Count) {
+                $p = $view[$i]
+                $homeDir = $HOME.TrimEnd('\').Replace('\', '/')
+                $p = $p.Replace('\', '/')
+                if ($p -eq $homeDir -or $p.StartsWith("$homeDir/", [StringComparison]::OrdinalIgnoreCase)) { $p = "~" + $p.Substring($homeDir.Length) }
+                $room = [Math]::Max(0, $width - 4)
+                if ($p.Length -gt $room) { $p = $p.Substring(0, $room) }
+                "{0}  {1}" -f ($i + 1), $p
+            } else { "" }
+        }
+        $lines += "Pick 1-{0}, {1}Esc to cancel" -f $view.Count, $hint
+        if ($drawn) { [Console]::SetCursorPosition(0, $top) }
+        foreach ($line in $lines) {
+            $fit = $line.Substring(0, [Math]::Min($line.Length, $width))
+            Write-Host ($fit.PadRight($width))
+        }
+        if (-not $drawn) {
+            $top = [Console]::CursorTop - $lines.Count
+            $drawn = $true
+        }
         $key = [Console]::ReadKey($true)
         if ($key.Key -eq 'Escape') { return }
+        if ($key.KeyChar -eq '0') {
+            if ($canToggle) { $offset = 9 - $offset }
+            continue
+        }
         $n = [int]$key.KeyChar - [int][char]'0'
-        if ($n -ge 1 -and $n -le $dirs.Count) { break }
+        if ($n -ge 1 -and $n -le $view.Count) { Set-Location -LiteralPath $view[$n - 1]; return }
     }
-    Set-Location -LiteralPath $dirs[$n - 1]
 }
 
 # --- 4. THE PROMPT (Path + Git + Telemetry) ---

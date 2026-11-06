@@ -1,6 +1,8 @@
 {
   "name": "tickler",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "Shows daily reminders above the prompt",
-  "author": { "name": "Jigar Gosar" }
+  "author": {
+    "name": "Jigar Gosar"
+  }
 }

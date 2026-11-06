@@ -6,6 +6,7 @@ user-invocable: false
 disable-model-invocation: false
 paths: ["**/*.ts", "**/*.tsx"]
 model: haiku
+version: 0.0.1
 ---
 
 # Trust the compiler — it is the single source of truth. Don't lie to it, don't second-guess it.

@@ -5,6 +5,7 @@ user-invocable: true
 model: inherit
 allowed-tools: Glob, Read, Write(.gitignore), AskUserQuestion, Bash(git init), Bash(git status -s), Bash(git add *), Bash(git commit -m "Initial commit"), Bash(gh api user --jq .login), Bash(gh repo create *), Bash(git push --follow-tags)
 disable-model-invocation: false
+version: 0.0.1
 ---
 
 # Git Init

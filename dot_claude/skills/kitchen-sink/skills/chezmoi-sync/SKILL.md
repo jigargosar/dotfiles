@@ -38,7 +38,7 @@ Diff:
 chezmoi diff > /dev/null 2>&1
 ```
 
-- Observation: `diff.command` is `code` in `~/.config/chezmoi/chezmoi.toml`. The diff opens in VS Code. No diff text comes back to the shell.
+- Observation: `diff.command` is `code` in `~/.config/chezmoi/chezmoi.toml`, so the diff opens in VS Code and blocks until the user finishes reviewing, then the shell gets only exit code 0, no diff text.
 
 # Workflow
 
